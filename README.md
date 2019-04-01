@@ -146,7 +146,7 @@
 
 ### View
 * WebView优化（包括加载加速）
-* View事件传递
+* View事件传递   [link](./Android/其他//Android中的事件传递.md)
 * 封装view的时候怎么知道view的大小
 * 计算一个view的嵌套层级
 * 微信上消息小红点的原理
