@@ -18,31 +18,37 @@
 
 ### Java
 
+* Java中对象的生命周期
+* 抽象类和接口的区别
+* transient关键字				[link](./Java/transient关键字.md)
+* java注解
+* 内部类和静态内部类和匿名内部类，以及项目中的应用
+* 集合的接口和具体实现类，介绍
+* String buffer 与string builder 的区别？
+* String 为什么要设计成不可变的？
+* object类的equal 和hashcode 方法重写，为什么？
+
 * JVM
 * 谈谈ClassLoader
 * 线程间操作List
 * GC回收策略
 * GC算法
 * 类加载过程
-* transient关键字				[link](./Java/transient关键字.md)
+
 * 依赖注入和控制反转				[link](./Java/依赖注入和控制反转.md)
-* Java中对象的生命周期
-* 抽象类和接口的区别
+
 * 垃圾收集机制 对象创建，新生代与老年代
-* java注解
-* 内部类和静态内部类和匿名内部类，以及项目中的应用
-* 集合的接口和具体实现类，介绍
+
+
 * Oom 是否可以try catch ？
 * 内存泄露如何产生？
 * 垃圾回收机制与调用System.gc()区别
-* String buffer 与string builder 的区别？
-* java四中引用
+
+* java四种引用
 * 强引用置为null，会不会被回收？
 * NIO
-* String 为什么要设计成不可变的？
-* object类的equal 和hashcode 方法重写，为什么？
-* 性能优化如何分析systrace？
-* 点击事件被拦截，但是相传到下面的view，如何操作？
+
+
 
 ### 开源库
 
@@ -66,6 +72,12 @@
 用到的一些开源框架，介绍一个看过源码的，内部实现过程。
 
 ### Android
+* UI
+    * SurfaceView VS TextureView	[link](./Android/UI/UI.md)
+    * ConstraintLayout				[link](./Android/UI/UI.md)
+    * 常用Drawable
+    * Drawable VS Bitmap
+    * CoordinateLayout.Behavior
 
 ### 性能优化
 
@@ -92,15 +104,7 @@
 * 安全、加固
 * 如何保持应用的稳定性
 * App启动流程，从点击桌面开始
-
-
-### UI
-
-* SurfaceView VS TextureView	[link](./Android/UI/UI.md)
-* ConstraintLayout				[link](./Android/UI/UI.md)
-* 常用Drawable
-* Drawable VS Bitmap
-* CoordinateLayout.Behavior
+* 性能优化如何分析systrace？
 
 
 ### 图片相关
