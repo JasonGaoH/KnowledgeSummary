@@ -17,11 +17,11 @@
 
 ### Java
 * Java基础知识
-  * Java中对象的生命周期
-  * 抽象类和接口的区别
-  * final关键字
-  * transient关键字				[link](./Java/transient关键字.md)
-  * 内部类和静态内部类和匿名内部类
+  * [Java对象的生命周期](./Java/Java对象的生命周期.md)
+  * [抽象类和接口的区别](./Java/抽象类和接口的区别.md)
+  * [final关键字](./Java/final关键字.md)
+  * [transient关键字](./Java/transient关键字.md)
+  * [Java内部类详解](./Java/Java内部类详解.md)
   * 集合的接口和具体实现类，介绍
     * LinkedHashMap					[link](./DataStructrue/LinkedHashMap.md)
     * SparseArray					[link](./DataStructrue/SparseArray.md)
