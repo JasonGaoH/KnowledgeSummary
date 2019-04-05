@@ -17,16 +17,16 @@
 
 ### Java
 * Java基础知识
-  * [Java对象的生命周期](./Java/Java对象的生命周期.md)
-  * [抽象类和接口的区别](./Java/抽象类和接口的区别.md)
-  * [final关键字](./Java/final关键字.md)
-  * [transient关键字](./Java/transient关键字.md)
-  * [Java内部类详解](./Java/Java内部类详解.md)
+  * [Java对象的生命周期](./Docs/Java/Java对象的生命周期.md)
+  * [抽象类和接口的区别](./Docs/Java/抽象类和接口的区别.md)
+  * [final关键字](./DocsJava/final关键字.md)
+  * [transient关键字](./Docs/Java/transient关键字.md)
+  * [Java内部类详解](./Docs/Java/Java内部类详解.md)
   * 集合的接口和具体实现类，介绍
-    * LinkedHashMap					[link](./DataStructrue/LinkedHashMap.md)
-    * SparseArray					[link](./DataStructrue/SparseArray.md)
+    * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
+    * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
     * TreeMap (支持红黑树排序)
-    * ConcurrentHashMap				[link](./DataStructrue/ConcurrentHashMap.md)
+    * ConcurrentHashMap				[link](./Docs/DataStructrue/ConcurrentHashMap.md)
     * HashTable
     * HashMap源码,SpareArray原理
   * String buffer 与string builder 的区别？
@@ -40,7 +40,7 @@
   * GC回收策略
   * GC算法
   * 类加载过程
-  * 依赖注入和控制反转				[link](./Java/依赖注入和控制反转.md)
+  * 依赖注入和控制反转				[link](./Docs/Java/依赖注入和控制反转.md)
   * 垃圾收集机制 对象创建，新生代与老年代
   * Oom 是否可以try catch ？
   * 内存泄漏场景
@@ -56,8 +56,8 @@
 
 ### Android
 * UI
-    * SurfaceView VS TextureView	[link](./Android/UI/UI.md)
-    * ConstraintLayout				[link](./Android/UI/UI.md)
+    * SurfaceView VS TextureView	[link](./Docs/Android/UI/UI.md)
+    * ConstraintLayout				[link](./Docs/Android/UI/UI.md)
     * 常用Drawable
     * Drawable VS Bitmap
     * CoordinateLayout.Behavior
@@ -66,8 +66,8 @@
   * Activity栈
   * 简述Activity启动全部过程
   * Activity的启动模式
-  * launchMode					[link](./Android/其他/launchMode.md)
-  * Activity调用方式(显式&隐式)		[link](./Android/其他/Activity调用方式.md)
+  * launchMode					[link](./Docs/Android/其他/launchMode.md)
+  * Activity调用方式(显式&隐式)		[link](./Docs/Android/其他/Activity调用方式.md)
   * Activity 上有 Dialog 的时候按 home 键时的生命周期
   * 横竖屏切换的时候，Activity 各种情况下的生命周期
   * AlertDialog,popupWindow,Activity区别
@@ -96,7 +96,7 @@
 
 * View
   * WebView优化（包括加载加速）
-  * View事件传递   [link](./Android/其他//Android中的事件传递.md)
+  * View事件传递   [link](./Docs/Android/其他//Android中的事件传递.md)
   * 封装view的时候怎么知道view的大小
   * 计算一个view的嵌套层级
   * 微信上消息小红点的原理
@@ -115,21 +115,21 @@
 
 ### 开源库
 
-* Fresco						[link](./Android/开源库/Fresco.md)
-* Tinker						[link](./Android/开源库/tinker.md)
-* ActivityRouter				[link](./Android/开源库/ActivityRouter.md)
-* ARouter						[link](./Android/开源库/ARouter.md)
+* Fresco						[link](./Docs/Android/开源库/Fresco.md)
+* Tinker						[link](./Docs/Android/开源库/tinker.md)
+* ActivityRouter				[link](./Docs/Android/开源库/ActivityRouter.md)
+* ARouter						[link](./Docs/Android/开源库/ARouter.md)
 * ButterKnife
-* EventBus						[link](./Android/开源库/EventBus.md)
-* RxJava						[link](./Android/开源库/RxJava.md)
+* EventBus						[link](./Docs/Android/开源库/EventBus.md)
+* RxJava						[link](./Docs/Android/开源库/RxJava.md)
   *  RxJava
   * RxJava的功能与原理实现
   * RxJava简介及其源码解读？
   * RxJava的作用，优缺点
-* Retrofit						[link](./Android/开源库/Retrofit.md)
-* OKHTTP						[link](./Android/开源库/OKHTTP.md)
-* LeakCanary					[link](./Android/开源库/LeakCanary.md)
-* Atlas							[link](./Android/开源库/atlast.md)
+* Retrofit						[link](./Docs/Android/开源库/Retrofit.md)
+* OKHTTP						[link](./Docs/Android/开源库/OKHTTP.md)
+* LeakCanary					[link](./Docs/Android/开源库/LeakCanary.md)
+* Atlas							[link](./Docs/Android/开源库/atlast.md)
 * Glide		
 	* glide 使用什么缓存
 	* Glide 内存缓存如何控制大小
@@ -139,25 +139,25 @@
 
 ### 性能优化
 
-* 总览篇							[link](./Android/APP性能优化/总览篇.md)
-* 性能优化1/5 -- 绘制优化			[link](./Android/APP性能优化/绘制优化.md)
+* 总览篇							[link](./Docs/Android/APP性能优化/总览篇.md)
+* 性能优化1/5 -- 绘制优化			[link](./Docs/Android/APP性能优化/绘制优化.md)
 	* Android系统显示原理
 	* 布局优化					   
 	* 避免过度绘制
-	* 启动优化 						[link](./Android/APP性能优化/启动优化.md)
+	* 启动优化 						[link](./Docs/Android/APP性能优化/启动优化.md)
 	* 合理刷新机制
 	* 提升动画性能
 	* 滑动卡顿
 	* 工具篇	
-* 性能优化2/5 -- 内存优化			[link](./Android/APP性能优化/内存优化.md)
+* 性能优化2/5 -- 内存优化			[link](./Docs/Android/APP性能优化/内存优化.md)
 	* 内存占用分析工具
 	* 内存泄漏分析工具(LeakCanary)	
-* 性能优化3/5 -- 稳定性优化		[link](./Android/APP性能优化/稳定性优化.md)
+* 性能优化3/5 -- 稳定性优化		[link](./Docs/Android/APP性能优化/稳定性优化.md)
 	* Java层Crash监控
 	* Native层Crash监控
 	* ANR 分析
-* 性能优化4/5 -- 耗电优化			[link](./Android/APP性能优化/耗电优化.md)
-* 性能优化5/5 -- 安装包优化		[link](./Android/APP性能优化/安装包优化.md)
+* 性能优化4/5 -- 耗电优化			[link](./Docs/Android/APP性能优化/耗电优化.md)
+* 性能优化5/5 -- 安装包优化		[link](./Docs/Android/APP性能优化/安装包优化.md)
 * OOM定位及解决方案
 * 安全、加固
 * 如何保持应用的稳定性
@@ -167,35 +167,35 @@
 
 ### 图片相关
 
-* LRUCache						[link](./Android/图片相关/LruCache.md)
-* DiskLruCache					[link](./Android/图片相关/DiskLruCache.md)
+* LRUCache						[link](./Docs/Android/图片相关/LruCache.md)
+* DiskLruCache					[link](./Docs/Android/图片相关/DiskLruCache.md)
 * 图片加载原理
 * 图片裁剪、压缩、旋转、滤镜
 * 如何做图片缓存
 * 如何防止加载大图OOM
 * WebP
-* 图像显示原理					[link](./Android/图片相关/图像显示原理.md)
-* Bitmap vs Drawable			[link](./Android/图片相关/bitmap_vs_drawable.md)
-* 图片加载优化					[link](./Android/图片相关/图片加载优化.md)
+* 图像显示原理					[link](./Docs/Android/图片相关/图像显示原理.md)
+* Bitmap vs Drawable			[link](./Docs/Android/图片相关/bitmap_vs_drawable.md)
+* 图片加载优化					[link](./Docs/Android/图片相关/图片加载优化.md)
 * Bitmap 使用时候注意什么
 * bitmap recycler 相关
 * 图片加载库相关，bitmap如何处理大图，如一张30M的大图，如何预防OOM
 
 ### Android其他
 
-* [Art和Dalvik区别]				(./Android/其他/Art和Dalvik区别.md)
-* 详解注解处理器APT技术			[link](./Android/其他/详解APT.md)
+* [Art和Dalvik区别]				(./Docs/Android/其他/Art和Dalvik区别.md)
+* 详解注解处理器APT技术			[link](./Docs/Android/其他/详解APT.md)
 * gradle
 * 四大组件
 * ANR 如何产生
 * ANR 怎么分析
-* APK打包及安装过程				[link](./Android/其他/APK打包及安装过程.md)
+* APK打包及安装过程				[link](./Docs/Android/其他/APK打包及安装过程.md)
 * ActicityThread相关
 * 应用安装过程
-* IntentFilter匹配规则			[link](./Android/其他/IntentFilter匹配规则.md)
-* 插件化							[link](./Android/其他/插件化.md)
-* 组件化							[link](./Android/其他/组件化.md)
-* 热修复方案对比					[link](./Android/其他/热修复.md)
+* IntentFilter匹配规则			[link](./Docs/Android/其他/IntentFilter匹配规则.md)
+* 插件化							[link](./Docs/Android/其他/插件化.md)
+* 组件化							[link](./Docs/Android/其他/组件化.md)
+* 热修复方案对比					[link](./Docs/Android/其他/热修复.md)
 * 埋点框架
 * 画出 Android 的大体架构图
 * 描述清点击 Android Studio 的 build 按钮后发生了什么
@@ -221,17 +221,17 @@
 
 ### 多线程相关
 
-* 死锁							[link](./MultiThread/死锁.md)
+* 死锁							[link](./Docs/MultiThread/死锁.md)
 * AIDL	
-* Android多进程					[link](./MultiThread/Android多进程.md)
-* Android进程间通信--Binder		[link](./MultiThread/Android进程间通信--Binder.md)
-* 多线程间通信					[link](./MultiThread/多线程间通信.md)
-* 线程安全						[link](./MultiThread/线程安全.md)
+* Android多进程					[link](./Docs/MultiThread/Android多进程.md)
+* Android进程间通信--Binder		[link](./Docs/MultiThread/Android进程间通信--Binder.md)
+* 多线程间通信					[link](./Docs/MultiThread/多线程间通信.md)
+* 线程安全						[link](./Docs/MultiThread/线程安全.md)
 * Java线程池
 * 多线程池的优化（OKHTTP里面有）
-* ThreadLocal					[link](./MultiThread/ThreadLocal.md)
-* ReentrantLock					[link](./MultiThread/ReentrantLock.md)
-* 同步相关知识					[link](./MultiThread/同步相关知识.md)
+* ThreadLocal					[link](./Docs/MultiThread/ThreadLocal.md)
+* ReentrantLock					[link](./Docs/MultiThread/ReentrantLock.md)
+* 同步相关知识					[link](./Docs/MultiThread/同步相关知识.md)
 * 线程间 操作 List（多线程）
 * synchronized与Lock的区别
 * volatile
@@ -257,7 +257,7 @@
 ### 网络
 * TCP/UDP的区别
 * 数字证书包含的内容
-* HTTPS							[link](./Network/HTTPS.md)
+* HTTPS							[link](./Docs/Network/HTTPS.md)
 * Https请求慢的解决办法，DNS，携带数据，直接访问IP
 * 网络请求缓存处理，okhttp如何处理网络缓存的
 * https相关，如何验证证书的合法性，https中哪里用了对称加密，哪里用了非对称加密，对加密算法（如RSA）等是否有了解
@@ -266,7 +266,7 @@
 
 
 ### 设计模式
-* 代理，动态代理（Retrofit）					[link](./DesignPattern/代理.md)
+* 代理，动态代理（Retrofit）					[link](./Docs/DesignPattern/代理.md)
 * 责任链（OKHTTP、Android事件分发）
 * 观察者（RxJava）
 * 装饰者（Java I/O Stream）
@@ -295,7 +295,7 @@
 ### 算法
 * 快速排序
 * 两个栈组成一个队列
-* [二叉树相关]					(./Algorithm/二叉树相关.md)
+* [二叉树相关]					(./Docs/Algorithm/二叉树相关.md)
 * 一个无序，不重复数组，输出N个元素，使得N个元素的和相加为M，给出时间复杂度、空间复杂度。手写算法
 * 合并多个单有序链表（假设都是递增的）
 * 上一问扩展，海量数据，内存中放不下，怎么求出。
@@ -310,7 +310,7 @@
 * 为什么要有线程，而不是仅仅用进程？
 
 
-### 优秀网站					[link](./Android/优秀网站.md)
+### 优秀网站					[link](./Docs/Android/优秀网站.md)
 
 * 插桩（打点等会用到）
 * 模块化实现（好处，原因）
