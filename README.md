@@ -22,14 +22,14 @@
   * [final关键字](./DocsJava/final关键字.md)
   * [transient关键字](./Docs/Java/transient关键字.md)
   * [Java内部类详解](./Docs/Java/Java内部类详解.md)
-  * 集合的接口和具体实现类，介绍
+  * [Java集合框架之Collections接口及实现类](./Docs/Java/Java集合框架之Collections接口及实现类.md)
     * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
     * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
     * TreeMap (支持红黑树排序)
     * ConcurrentHashMap				[link](./Docs/DataStructrue/ConcurrentHashMap.md)
     * HashTable
     * HashMap源码,SpareArray原理
-  * String buffer 与string builder 的区别？
+  * [StringBuffer与StringBuilder的区别，及实现原理](./Docs/Java/StringBuffer与StringBuilder的区别，及实现原理.md)
   * String 为什么要设计成不可变的？
   * Object类的equal 和hashcode 方法重写，为什么？
 
@@ -42,14 +42,15 @@
   * 类加载过程
   * 依赖注入和控制反转				[link](./Docs/Java/依赖注入和控制反转.md)
   * 垃圾收集机制 对象创建，新生代与老年代
-  * Oom 是否可以try catch ？
+  * [可否用try-catch捕获OOM以避免其发生](./Docs/Java/可否用try-catch捕获OOM以避免其发生.md)
   * 内存泄漏场景
   * 内存泄露如何产生？
   * 如何定位及修复内存泄漏
   * 垃圾回收机制与调用System.gc()区别
-  * java四种引用
+  * [Java四种引用](./Docs/Java//Java四种引用.md)
   * 强引用置为null，会不会被回收？
   * NIO
+  * [JavaPoet的使用指南](./Docs/Java//JavaPoet的使用指南.md)
 
 
 
@@ -70,7 +71,7 @@
   * Activity调用方式(显式&隐式)		[link](./Docs/Android/其他/Activity调用方式.md)
   * Activity 上有 Dialog 的时候按 home 键时的生命周期
   * 横竖屏切换的时候，Activity 各种情况下的生命周期
-  * AlertDialog,popupWindow,Activity区别
+  * Dialog,PopupWindow,Activity区别
   * Activity与Fragment之间生命周期比较
   * 前台切换到后台，然后再回到前台，Activity生命周期回调方法。弹出Dialog，生命值周期回调方法
   * 多层Fragment嵌套的时候setUserHint  

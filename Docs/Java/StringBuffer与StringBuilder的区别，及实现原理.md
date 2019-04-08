@@ -1,0 +1,1 @@
+[StringBuffer与StringBuilder的区别，及实现原理](https://blog.csdn.net/longfulong/article/details/78700239)
