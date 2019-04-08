@@ -58,3 +58,7 @@ intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 applicationContext.startActivity(intent)
 ```
 
+
+类似微博分享功能适合的launchMode，为什么不是singleInstance？
+> 分享页面有跳转其他页面按钮，点击跳转其他页面，如果使用singleInstance，点击回退，就回不到分享页面了。这里需要注意的是，singleInstance是独占一个栈的。
+

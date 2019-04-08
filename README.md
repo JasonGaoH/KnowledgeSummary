@@ -28,10 +28,18 @@
     * TreeMap (支持红黑树排序)
     * ConcurrentHashMap				[link](./Docs/DataStructrue/ConcurrentHashMap.md)
     * HashTable
-    * HashMap源码,SpareArray原理
+    * HashMap源码
+      * HashMap实现原理和如何解决散列碰撞，HashMap底层为什么是线程不安全的
+      * java8对hashmap的优化
+      * hashmap和hashset区别，hash怎么散列的
+      * HashMap的rehash扩容是怎么操作的
   * [StringBuffer与StringBuilder的区别，及实现原理](./Docs/Java/StringBuffer与StringBuilder的区别，及实现原理.md)
-  * String 为什么要设计成不可变的？
-  * Object类的equal 和hashcode 方法重写，为什么？
+  * [String为什么要设计成不可变的] (https://blog.csdn.net/renfufei/article/details/16808775)
+    * 字符串常量池的需要
+    * 允许String对象缓存HashCode
+    * 安全性
+  * [Object类的equal和hashcode方法](./Docs/Java/Object类的equal和hashcode方法.md)
+
 
 * Java进阶
   * java注解
@@ -66,7 +74,6 @@
 * Activity和Fragment
   * Activity栈
   * 简述Activity启动全部过程
-  * Activity的启动模式
   * launchMode					[link](./Docs/Android/其他/launchMode.md)
   * Activity调用方式(显式&隐式)		[link](./Docs/Android/其他/Activity调用方式.md)
   * Activity 上有 Dialog 的时候按 home 键时的生命周期
@@ -77,6 +84,8 @@
   * 多层Fragment嵌套的时候setUserHint  
   * 下拉状态栏是不是影响activity的生命周期，如果在onStop的时候做了网络请求，onResume的时候怎么恢复  
   * Activity之间的通信方式
+    * bundle
+    * 为什么使用Bundle不用HashMap传输数据 [Android里面为什么要设计出Bundle而不是直接用Map结构](https://github.com/android-cn/android-discuss/issues/142)
   * fragment 各种情况下的生命周期
   * ViewPager使用细节，如何设置成每次只初始化当前的Fragment，其他的不初始化
   * fragment之间传递数据的方式
@@ -85,11 +94,12 @@
   * service生命周期
   * Service两种启动方式			(startService和bindService)
   * 怎么启动service，service和activity怎么进行数据交互
+    * 如何在后台下载任务, 并在Activity显示进度
   * Service的开启方式  
 
 * BroadcastReceiver
   * 广播（动态注册和静态注册区别，有序广播和标准广播）
-  * BroadcastReceiver，LocalBroadcastReceiver 区别
+  * BroadcastReceiver，LocalBroadcastReceiver区别
   * 广播的使用场景
 
 * ContentProvider
@@ -106,11 +116,20 @@
   * LinearLayout、RelativeLayout、FrameLayout的特性、使用场景
   * view渲染  
   * ListView重用的是什么
-
+  * 自定义View的属性引用attr，styleable里定义的名称可否与系统已经存在的name重复？当然是不可以的，编译器会预先检查系统已经存在或者之前已经定义重复的
   * Android为什么引入Parcelable
   * 有没有尝试简化Parcelable的使用
   * 序列化的作用，以及 Android 两种序列化的区别
-  * TextView性能 https://www.jianshu.com/p/9f7f9213bff8
+  * [TextView性能瓶颈，渲染优化，以及StaticLayout的一些用处](https://www.jianshu.com/p/9f7f9213bff8)
+
+
+*  Handler
+   *  Handler如何在handleMessage方法拦截之前发出的message
+   *  HandlerThread的原理
+   *  IntentService的实现原理
+   *  Handler实现机制（很多细节需要关注：如线程如何建立和退出消息循环等等
+   *  Handler发消息给子线程，looper怎么启动
+   *  Handler postDelay这个延迟是怎么实现的
 
 
 
@@ -127,10 +146,12 @@
   * RxJava的功能与原理实现
   * RxJava简介及其源码解读？
   * RxJava的作用，优缺点
+  * RxJava变换操作符map,flatMap,concatMap,buffer
 * Retrofit						[link](./Docs/Android/开源库/Retrofit.md)
 * OKHTTP						[link](./Docs/Android/开源库/OKHTTP.md)
 * LeakCanary					[link](./Docs/Android/开源库/LeakCanary.md)
 * Atlas							[link](./Docs/Android/开源库/atlast.md)
+* BlockCanary
 * Glide		
 	* glide 使用什么缓存
 	* Glide 内存缓存如何控制大小
@@ -156,13 +177,13 @@
 * 性能优化3/5 -- 稳定性优化		[link](./Docs/Android/APP性能优化/稳定性优化.md)
 	* Java层Crash监控
 	* Native层Crash监控
-	* ANR 分析
+	* [ANR分析](./Docs/Android/APP性能优化/ANR分析.md)
 * 性能优化4/5 -- 耗电优化			[link](./Docs/Android/APP性能优化/耗电优化.md)
 * 性能优化5/5 -- 安装包优化		[link](./Docs/Android/APP性能优化/安装包优化.md)
 * OOM定位及解决方案
 * 安全、加固
 * 如何保持应用的稳定性
-* App启动流程，从点击桌面开始
+
 * 性能优化如何分析systrace？
 
 
@@ -184,7 +205,7 @@
 
 ### Android其他
 
-* [Art和Dalvik区别]				(./Docs/Android/其他/Art和Dalvik区别.md)
+* [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
 * 详解注解处理器APT技术			[link](./Docs/Android/其他/详解APT.md)
 * gradle
 * 四大组件
@@ -205,11 +226,11 @@
 * Android进程分类
 * 是否熟悉Android jni开发，jni如何调用java层代码
 * 多线程断点续传原理
-* handler实现机制（很多细节需要关注：如线程如何建立和退出消息循环等等
-* handler发消息给子线程，looper怎么启动
+* Appliction启动过程（App启动过程）
+  * App启动流程，从点击桌面开始
 * 为什么不能在子线程更新UI
 * App启动崩溃异常捕捉
-* sqlite升级，增加字段的语句
+* [数据库如何进行升级,SQLite增删改查的基础sql语句](./Docs/Android/其他/数据库如何进行升级,SQLite增删改查的基础sql语句.md)
 * App中唤醒其他进程的实现方式
 * AndroidManifest的作用与理解
 * Android中开启摄像头的主要步骤
@@ -217,7 +238,13 @@
 * 差值器&估值器
 * Android中进程内存的分配，能不能自己分配定额内存
 * 视频加密传输
-*  MVP模式
+* 数据怎么压缩，数据的安全
+* MVP模式
+* Android中为什么主线程不会因为Looper.loop()里的死循环卡死？
+  * [主线程的工作原理](https://haldir65.github.io/2016/10/12/2016-10-12-How-the-mainThread-work/)
+  > 这篇文章笔记有新意的思考点是：在2.2版本以前，这套机制是用我们熟悉的线程的wait和notify 来实现的,之前的Android版本用的是Java的线程wait和notify。
+
+  >Android应用程序的主线程在进入消息循环过程前，会在内部创建一个Linux管道（Pipe），这个管道的作用是使得Android应用程序主线程在消息队列为空时可以进入空闲等待状态，并且使得当应用程序的消息队列有消息需要处理时唤醒应用程序的主线程。
 
 
 ### 多线程相关
@@ -264,6 +291,7 @@
 * https相关，如何验证证书的合法性，https中哪里用了对称加密，哪里用了非对称加密，对加密算法（如RSA）等是否有了解
 * TCP与UDP区别与应用（三次握手和四次挥手）涉及到部分细节（如client如何确定自己发送的消息被server收到） HTTP相关 
 * 提到过Websocket 问了WebSocket相关以及与socket的区别
+* https握手过程，如何实现数据加密？客户端如何保证安全实现双重证书校验？请你设计一个登录功能，需要注意哪些安全问题
 
 
 ### 设计模式

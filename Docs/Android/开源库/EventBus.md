@@ -9,6 +9,7 @@
 4. ConcurrentHashMap
 5. CopyOnWriteArrayList
 6. ThreadLocal
+7. EventBus为什么不能跨进程通信
 
 
 ### 1. register过程：
