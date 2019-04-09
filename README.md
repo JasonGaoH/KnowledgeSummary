@@ -17,28 +17,29 @@
 
 ### Java
 * Java基础知识
+  * [Java中常用关键字final,static,transient的总结.md](./Docs/Java/Java中常用关键字final,static,transient的总结.md)
   * [Java对象的生命周期](./Docs/Java/Java对象的生命周期.md)
   * [抽象类和接口的区别](./Docs/Java/抽象类和接口的区别.md)
-  * [final关键字](./DocsJava/final关键字.md)
-  * [transient关键字](./Docs/Java/transient关键字.md)
   * [Java内部类详解](./Docs/Java/Java内部类详解.md)
-  * [Java集合框架之Collections接口及实现类](./Docs/Java/Java集合框架之Collections接口及实现类.md)
-    * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
-    * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
-    * TreeMap (支持红黑树排序)
-    * ConcurrentHashMap				[link](./Docs/DataStructrue/ConcurrentHashMap.md)
-    * HashTable
-    * HashMap源码
-      * HashMap实现原理和如何解决散列碰撞，HashMap底层为什么是线程不安全的
-      * java8对hashmap的优化
-      * hashmap和hashset区别，hash怎么散列的
-      * HashMap的rehash扩容是怎么操作的
   * [StringBuffer与StringBuilder的区别，及实现原理](./Docs/Java/StringBuffer与StringBuilder的区别，及实现原理.md)
-  * [String为什么要设计成不可变的] (https://blog.csdn.net/renfufei/article/details/16808775)
+  * [String为什么要设计成不可变的](https://blog.csdn.net/renfufei/article/details/16808775)
     * 字符串常量池的需要
     * 允许String对象缓存HashCode
     * 安全性
   * [Object类的equal和hashcode方法](./Docs/Java/Object类的equal和hashcode方法.md)
+
+* 集合
+  * [Java集合框架之Collections接口及实现类](./Docs/Java/Java集合框架之Collections接口及实现类.md)
+  * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
+  * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
+  * TreeMap (支持红黑树排序)
+  * ConcurrentHashMap				[link](./Docs/DataStructrue/ConcurrentHashMap.md)
+  * HashTable
+  * HashMap源码
+      * HashMap实现原理和如何解决散列碰撞，HashMap底层为什么是线程不安全的
+      * java8对hashmap的优化
+      * hashmap和hashset区别，hash怎么散列的
+      * HashMap的rehash扩容是怎么操作的
 
 
 * Java进阶
