@@ -17,16 +17,9 @@
 
 ### Java
 * Java基础知识
-  * [Java中常用关键字final,static,transient的总结.md](./Docs/Java/Java中常用关键字final,static,transient的总结.md)
-  * [Java对象的生命周期](./Docs/Java/Java对象的生命周期.md)
-  * [抽象类和接口的区别](./Docs/Java/抽象类和接口的区别.md)
+  * [基础知识](./Docs/Java/基础知识.md)
   * [Java内部类详解](./Docs/Java/Java内部类详解.md)
-  * [StringBuffer与StringBuilder的区别，及实现原理](./Docs/Java/StringBuffer与StringBuilder的区别，及实现原理.md)
-  * [String为什么要设计成不可变的](https://blog.csdn.net/renfufei/article/details/16808775)
-    * 字符串常量池的需要
-    * 允许String对象缓存HashCode
-    * 安全性
-  * [Object类的equal和hashcode方法](./Docs/Java/Object类的equal和hashcode方法.md)
+
 
 * 集合
   * [Java集合框架之Collections接口及实现类](./Docs/Java/Java集合框架之Collections接口及实现类.md)
