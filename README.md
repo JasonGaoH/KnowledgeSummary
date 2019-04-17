@@ -1,4 +1,4 @@
-本篇总结的知识点分类：
+## KnowledgeSummary目录：
 
 * [Java](#Java)
 * [Android](#Android)
@@ -19,7 +19,8 @@
 * Java基础知识
   * [Java基础知识总结](./Docs/Java/Java基础知识总结.md)
   * [Java中的集合框架](./Docs/Java/Java中的集合框架.md)
-* 集合
+* 集合  
+  * [从源码角度来看ArrayList和Vector的区别](./Docs/Java/从源码角度来看ArrayList和Vector的区别.md)
   * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
   * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
   * TreeMap (支持红黑树排序)
