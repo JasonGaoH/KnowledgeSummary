@@ -1,1 +1,0 @@
-[Java集合框架之Collections接口及实现类](https://my.oschina.net/u/2930289/blog/1587498)

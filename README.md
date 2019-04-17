@@ -17,12 +17,9 @@
 
 ### Java
 * Java基础知识
-  * [基础知识](./Docs/Java/基础知识.md)
-  * [Java内部类详解](./Docs/Java/Java内部类详解.md)
-
-
+  * [Java基础知识总结](./Docs/Java/Java基础知识总结.md)
+  * [Java中的集合框架](./Docs/Java/Java中的集合框架.md)
 * 集合
-  * [Java集合框架之Collections接口及实现类](./Docs/Java/Java集合框架之Collections接口及实现类.md)
   * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
   * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
   * TreeMap (支持红黑树排序)
