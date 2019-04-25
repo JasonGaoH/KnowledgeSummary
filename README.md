@@ -22,17 +22,10 @@
   * [从源码角度分析ArrayList和Vector的区别](./Docs/Java/从源码角度分析ArrayList和Vector的区别.md)
   * [从源码角度分析ArrayList和LinkedList的区别](./Docs/Java/从源码角度分析ArrayList和LinkedList的区别.md)
   * [从源码角度分析HashMap的原理与实现](./Docs/Java/从源码角度分析HashMap的原理与实现.md)
-  * LinkedHashMap					[link](./Docs/DataStructrue/LinkedHashMap.md)
-  * SparseArray					[link](./Docs/DataStructrue/SparseArray.md)
+  * [ConcurrentHashMap](./Docs/Java/ConcurrentHashMap.md)
+  * [LinkedHashMap](./Docs/Java/LinkedHashMap.md)
   * TreeMap (支持红黑树排序)
-  * ConcurrentHashMap				[link](./Docs/DataStructrue/ConcurrentHashMap.md)
   * HashTable
-  * HashMap源码
-      * HashMap实现原理和如何解决散列碰撞，HashMap底层为什么是线程不安全的
-      * java8对hashmap的优化
-      * hashmap和hashset区别，hash怎么散列的
-      * HashMap的rehash扩容是怎么操作的
-
 
 * Java进阶
   * java注解

@@ -194,9 +194,7 @@ LinkedList的get(int index)方法只是对上面ode(int index)方法的简单包
     }
 ```
 
-ArrayList和LinkedList的性能分析和适用场景
-
-从上面的分析来看，ArrayList的性能总体上优于LinkedList。
+### ArrayList和LinkedList的性能分析和适用场景
 
 当程序需要以get(int index)方法获取指定索引处的元素时，ArrayList性能大大地优于Linkedlist.因为 Arraylist底层以数组来保存集合元素，所示调用get(int index)方法来获取指定索引处的元素时，底层实际上调用 elementdata［index］来返回该元素，因此性能非常好。
 
