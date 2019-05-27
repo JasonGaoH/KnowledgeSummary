@@ -201,8 +201,8 @@ LinkedList的get(int index)方法只是对上面ode(int index)方法的简单包
 当程序调用 add(int index， Object obj)向List集合中添加元素时， Arraylist必须对底层数组元素进行“整体搬家”，如果添加元素导致集合长度将要超过底层数组长度，ArrayList必须创建一个长度为原来长度1.5倍的数组，再由垃圾回收机制回收原有数组，因此
 开销比较大。对于 Linkedlist而言，它的主要开销集中在 node(index)方法上，该方法必須一个个地搜索过去，直到找到idex处的元素，然后再在该元素之前插入新元索。即使如此，执行该方法的时候 LinkedList方法的性能依然高于ArrayList
 
-当程序调用 remove（int index）方法删除 index索引处的元素时， Arraylist同样也需要对底层数组元素进行“整体搬家”。但调用 remove（int index）方法別除集合元素时， Arraylist无需考虑创建新数组，因此执行 Array List f的 remove（int index）方法比执行add（ int index， Object ol이i方法略快一点。当 Linkedlist i调用 remove（ int index）方法删除集合元素时，与调用 add（int index,Oject obj）方法添加元素的系统开销几乎完全相同。
+当程序调用 remove（int index）方法删除 index索引处的元素时， Arraylist同样也需要对底层数组元素进行“整体搬家”。但调用 remove（int index）方法別除集合元素时， Arraylist无需考虑创建新数组，因此执行 ArrayList的 remove（int index）方法比执行add（ int index， Object o)方法略快一点。当 Linkedlist调用 remove（ int index）方法删除集合元素时，与调用 add（int index,Oject obj）方法添加元素的系统开销几乎完全相同。
 
-当程序调用ad（ Object obj））方法向List集合尾端添加一个元素时，大部分时候 Arraylist无需对底层数组元素进行“整体搬家”，因此也可以获得很好的性能（甚至比 Linkedlist的add（ Object obj）方法的性能更好）；但如果添加这个元素导致集合长度将要超过底层数组长度，那么 Array List必须创建一个长度为原来长度1.5倍的数组，再由垃圾回收机制回收原有数组一一这样系统开销就比较大了。但 Linkedlist i调用add（ Object obj，）方法添加元系时总可以获得较好的性能。
-当程序把 Linkedlist当成双端队列、栈使用，调用 addfirst（E e）、 addlast（E e）、 getis、 getlast（E e）、ofer（E e）、 offerFirst()、 offerLast()等方法来操作集合元素时， Linkedlist以快速定位需要操作的元素，因此 Linkedlist总是具有较好的性能表现。
-上面分析了Amay、 Linkedlis各自的适用场景。大部分情况下， ArrayList的性能总Linkedlist，因此绝大部分都应该考虑使用 Arraylis合。但如果程序经常需要添加除元素，尤其是经常需要调用add(E e）方法向集合中添加元素时，则应该考虑使用 LinkedList集合。
+当程序调用add(Object obj）方法向List集合尾端添加一个元素时，大部分时候 Arraylist无需对底层数组元素进行“整体搬家”，因此也可以获得很好的性能（甚至比 Linkedlist的add(Object obj)方法的性能更好）；但如果添加这个元素导致集合长度将要超过底层数组长度，那么 Array List必须创建一个长度为原来长度1.5倍的数组，再由垃圾回收机制回收原有数组一一这样系统开销就比较大了。但 Linkedlist调用add(Object obj）方法添加元系时总可以获得较好的性能。
+当程序把 Linkedlist当成双端队列、栈使用，调用 addfirst（E e）、 addLast（E e）、 getFirst、 getLast（E e）、offer（E e）、 offerFirst()、 offerLast()等方法来操作集合元素时， Linkedlist以快速定位需要操作的元素，因此 Linkedlist总是具有较好的性能表现。
+上面分析了ArrayList、 Linkedlis各自的适用场景。大部分情况下， ArrayList的性能总Linkedlist，因此绝大部分都应该考虑使用 Arraylis合。但如果程序经常需要添加除元素，尤其是经常需要调用add(E e）方法向集合中添加元素时，则应该考虑使用 LinkedList集合。
