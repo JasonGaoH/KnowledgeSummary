@@ -1,7 +1,3 @@
-# UI
-* SurfaceView VS TextureView
-* ConstraintLayout
-
 ##### SurfaceView VS TextureView
 相同点：都继承于View，可在独立线程绘制和渲染。
 
