@@ -25,8 +25,8 @@
 
 * Java进阶
   * [Java中的注解](./Docs/Java/Java中的注解.md)
-  * JVM
-  * 谈谈ClassLoader
+  * [Java中的ClassLoader机制](./Docs/Java/Java中的ClassLoader机制.md)
+  * JVM 
   * GC回收策略
   * GC算法
   * 类加载过程
@@ -57,26 +57,22 @@
   * 简述Activity启动全部过程
   * [launchMode](./Docs/Android/其他/launchMode.md)
   * [Activity调用方式](./Docs/Android/其他/Activity调用方式.md)
-  * Activity 上有 Dialog 的时候按 home 键时的生命周期
-  * 横竖屏切换的时候，Activity 各种情况下的生命周期
+  * [AlertDialog，Toast对Activity生命周期的影响](./Docs/Android/其他/AlertDialog，Toast对Activity生命周期的影响.md)
   * Dialog,PopupWindow,Activity区别
   * Activity与Fragment之间生命周期比较
   * 前台切换到后台，然后再回到前台，Activity生命周期回调方法。弹出Dialog，生命值周期回调方法
   * 多层Fragment嵌套的时候setUserHint  
   * 下拉状态栏是不是影响activity的生命周期，如果在onStop的时候做了网络请求，onResume的时候怎么恢复  
-  * Activity之间的通信方式
-    * bundle
-    * [Android里面为什么要设计出Bundle而不是直接用Map结构](https://github.com/android-cn/android-discuss/issues/142)
+  * [Activity之间的通信方式](/Docs/Android/其他/Activity之间的通信方式.md)
+  * [Android里面为什么要设计出Bundle而不是直接用Map结构](https://github.com/android-cn/android-discuss/issues/142)
   * fragment 各种情况下的生命周期
   * ViewPager使用细节，如何设置成每次只初始化当前的Fragment，其他的不初始化
   * fragment之间传递数据的方式
 
 * Service
-  * service生命周期
-  * Service两种启动方式			(startService和bindService)
+  * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
   * 怎么启动service，service和activity怎么进行数据交互
-    * 如何在后台下载任务, 并在Activity显示进度
-  * Service的开启方式  
+    * 如何在后台下载任务, 并在Activity显示进度 
 
 * BroadcastReceiver
   * 广播（动态注册和静态注册区别，有序广播和标准广播）
@@ -90,7 +86,7 @@
   * WebView优化（包括加载加速）
   * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
   * 封装view的时候怎么知道view的大小
-  * 计算一个view的嵌套层级
+  * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
   * 微信上消息小红点的原理
   * RecycleView的使用，原理，RecycleView优化 
   * ListView的优化 
@@ -161,7 +157,6 @@
 * 图片裁剪、压缩、旋转、滤镜
 * 如何做图片缓存
 * 如何防止加载大图OOM
-* WebP
 * [图像显示原理](./Docs/Android/图片相关/图像显示原理.md)
 * [Bitmap和Drawable	](./Docs/Android/图片相关/bitmap_vs_drawable.md)
 * [图片加载优化](./Docs/Android/图片相关/图片加载优化.md)
@@ -179,7 +174,6 @@
 * ANR 怎么分析
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
 * ActicityThread相关
-* 应用安装过程
 * [IntentFilter匹配规则](./Docs/Android/其他/IntentFilter匹配规则.md)
 * [插件化](./Docs/Android/其他/插件化.md)
 * [组件化](./Docs/Android/其他/组件化.md)

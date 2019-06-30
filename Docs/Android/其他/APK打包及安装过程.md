@@ -1,41 +1,22 @@
-# APK打包及安装过程
+### APK的打包流程
 
-* APK打包过程
-* APK安装过程
-* APK文件结构
+Android的包文件APK分为两个部分：代码和资源，所以打包也分为资源打包和代码打包两部分。
 
-### APK打包过程
+APK整体打包流程如下图所示：
+![](../../img/Android_pack_apk.png)
 
+- 1、通过AAPT工具进行资源文件（包括AndroidManifest.xml、布局文件、各种xml资源等）的打包，生成R.java
+- 2、通过AIDL工具处理AIDL文件，生成相应的Java文件
+- 3、通过Javac工具编译项目源码，生成class文件
+- 4、通过DX工具将所有的Class文件转换成DEX文件，该过程主要是完成Java字节码装换成Dalvik字节码，压缩常量池以及清除信息等工作
+- 5、 通过ApkBuilder将资源文件、DEX文件打包生成APK文件
+- 6、 利用KeyStore对生成的APK文件进行签名
+- 7、 如果是正式版的APK，还会利用ZIPAlign工具进行对齐处理，对齐的过程就是将文件中所有的资源文件起始距离都偏移4字节的整数倍，这样通过内存映射访问APK文件的速度回更快
 
 
 ### APK安装过程
 
-Android应用安装涉及到如下几个目录：
-
-* /data/app : 存放用户安装的apk的目录，安装时，把apk拷贝于此。
-* /data/data : 安装完成后，在/data/data下生成与应用包名一致的文件夹，用于存放应用的数据(file/cache等)。
-* /data/dalvik-cache : 存放APK的odex文件，便于应用启动时直接执行。
-
-
-安装过程如下：
-
-* 首先，复制APK安装包到/data/app下
-* 然后校验APK的签名是否正确，检查APK的结构是否正常
-* 进而解压并且校验APK中的dex文件，确定dex文件没有被损坏后，再把dex优化成odex，使得应用程序启动时间加快
-* 同时在/data/data目录下建立于APK包名相同的文件夹
-* 如果APK中有lib库，系统会判断这些so库的名字，查看是否以lib开头，是否以.so结尾，再根据CPU的架构解压对应的so库到/data/data/packagename/lib下。
-
-
-APK安装的时候会把DEX文件解压并且优化位odex，odex的格式如Figure 5图所示：
-
-
-
-odex在原来的dex文件头添加了一些数据，在文件尾部添加了程序运行时需要的依赖库和辅助数据，使得程序运行速度更快。
-
-
 ### APK文件结构
-
-
 
 参考内容：
 
