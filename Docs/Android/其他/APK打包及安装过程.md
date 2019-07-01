@@ -16,6 +16,15 @@ APK整体打包流程如下图所示：
 
 ### APK安装过程
 
+![](../../img/Android_install_apk.png)
+
+- 1、 复制APK到/data/app目录下，解压并扫描安装包。
+- 2、 资源管理器解析APK文件
+- 3、 解析AndroidManifest.xml文件，并在data/data目录下创建对应的应用数据目录
+- 4、 然后对dex文件进行优化，并保存在dalivk-cache目录下
+- 5、 将AndroidManifest.xml中解析出的四大组件信息注册到PackageMangerService中
+- 6、 安装完成后，发送广播
+
 ### APK文件结构
 
 参考内容：

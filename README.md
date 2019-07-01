@@ -36,9 +36,8 @@
   * 内存泄露如何产生？
   * 如何定位及修复内存泄漏
   * 垃圾回收机制与调用System.gc()区别
-  * [Java四种引用](./Docs/Java//Java四种引用.md)
-  * 强引用置为null，会不会被回收？
   * NIO
+  * [Java四种引用](./Docs/Java//Java四种引用.md)
   * [JavaPoet的使用指南](./Docs/Java//JavaPoet的使用指南.md)
 
 
@@ -87,7 +86,6 @@
   * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
   * 封装view的时候怎么知道view的大小
   * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
-  * 微信上消息小红点的原理
   * RecycleView的使用，原理，RecycleView优化 
   * ListView的优化 
   * LinearLayout、RelativeLayout、FrameLayout的特性、使用场景
@@ -187,7 +185,7 @@
 * 是否熟悉Android jni开发，jni如何调用java层代码
 * 多线程断点续传原理
 * Appliction启动过程（App启动过程）
-  * App启动流程，从点击桌面开始
+  * App启动流程，从点击桌面开始 [link](http://www.androidos.net.cn/doc/day/2018-02-18/15384.md)
 * 为什么不能在子线程更新UI
 * App启动崩溃异常捕捉
 * [数据库如何进行升级,SQLite增删改查的基础sql语句](./Docs/Android/其他/数据库如何进行升级,SQLite增删改查的基础sql语句.md)
@@ -200,7 +198,6 @@
 * 视频加密传输
 * 数据怎么压缩，数据的安全
 * MVP模式
-
 * 插桩（打点等会用到）
 * 模块化实现（好处，原因）
 * 统计启动时长,标准
