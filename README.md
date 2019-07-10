@@ -47,7 +47,7 @@
     * ConstraintLayout
     * 常用Drawable
     * Drawable VS Bitmap
-    * CoordinateLayout.Behavior
+    * [CoordinateLayout的原理分析]((./Docs/Android/UI/CoordinateLayout的原理分析.md)
 
 * Activity和Fragment
   * Activity栈
@@ -113,7 +113,7 @@
 * ButterKnife
 * [EventBus](./Docs/Android/开源库/EventBus.md)						
 * [RxJava](./Docs/Android/开源库/RxJava.md)						
-  *  RxJava
+  * RxJava
   * RxJava的功能与原理实现
   * RxJava简介及其源码解读？
   * RxJava的作用，优缺点
@@ -122,7 +122,7 @@
 * [OKHTTP](./Docs/Android/开源库/OKHTTP.md)						
 * [LeakCanary](./Docs/Android/开源库/LeakCanary.md)					
 * [Atlas](./Docs/Android/开源库/atlast.md)							
-* BlockCanary
+* [BlockCanary](./Docs/Android/开源库/BlockCanary.md)
 * Glide		
 	* glide 使用什么缓存
 	* Glide 内存缓存如何控制大小
@@ -165,7 +165,6 @@
 * [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * gradle
-* ANR 如何产生,怎么分析
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
 * ActicityThread相关
 * [IntentFilter匹配规则](./Docs/Android/其他/IntentFilter匹配规则.md)
@@ -174,7 +173,7 @@
 * [热修复方案对比](./Docs/Android/其他/热修复.md)
 * 埋点框架
 * 画出Android的大体架构图
-* 描述清点击 Android Studio 的 build 按钮后发生了什么
+* 描述清点击AndroidStudio的build按钮后发生了什么
 * 动态权限适配方案，权限组的概念
 * 进程保活
 * Android进程分类
@@ -193,12 +192,11 @@
 * Android中进程内存的分配，能不能自己分配定额内存
 * 视频加密传输
 * 数据怎么压缩，数据的安全
-* MVP模式
 * 插桩（打点等会用到）
 * 模块化实现（好处，原因）
 * 统计启动时长,标准
 * 动态布局
-* App 是如何沙箱化，为什么要这么做；
+* App是如何沙箱化，为什么要这么做；
 * 权限管理系统（底层的权限是如何进行 grant 的）
 
 * Android中为什么主线程不会因为Looper.loop()里的死循环卡死？
@@ -211,7 +209,6 @@
 ### 多线程相关
 
 * [死锁](./Docs/MultiThread/死锁.md)
-	
 * [Android多进程](./Docs/MultiThread/Android多进程.md)
 * [Android进程间通信--Binder	](./Docs/MultiThread/Android进程间通信--Binder.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
@@ -279,7 +276,7 @@
 * 一个无序，不重复数组，输出N个元素，使得N个元素的和相加为M，给出时间复杂度、空间复杂度。手写算法
 * 合并多个单有序链表（假设都是递增的）
 * 上一问扩展，海量数据，内存中放不下，怎么求出。
-* string to integer
+* String to Integer
 
 
 ### 操作系统
