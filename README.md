@@ -32,9 +32,7 @@
   * 类加载过程
   * 垃圾收集机制 对象创建，新生代与老年代
   * [可否用try-catch捕获OOM以避免其发生](./Docs/Java/可否用try-catch捕获OOM以避免其发生.md)
-  * 内存泄漏场景
-  * 内存泄露如何产生？
-  * 如何定位及修复内存泄漏
+  * 内存泄漏场景,如何定位及修复内存泄漏
   * 垃圾回收机制与调用System.gc()区别
   * NIO
   * [Java四种引用](./Docs/Java//Java四种引用.md)
@@ -71,7 +69,7 @@
 * Service
   * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
   * 怎么启动service，service和activity怎么进行数据交互
-    * 如何在后台下载任务, 并在Activity显示进度 
+  * [如何在后台下载任务, 并在通知栏显示进度](https://juejin.im/post/586072c861ff4b005820901d)
 
 * BroadcastReceiver
   * 广播（动态注册和静态注册区别，有序广播和标准广播）
@@ -132,12 +130,12 @@
 
 ### 性能优化
 
-*	[绘制优化](./Docs/PerformanceOptimization/绘制优化.md)
+* [绘制优化](./Docs/PerformanceOptimization/绘制优化.md)
 * [启动优化](./Docs/PerformanceOptimization/启动优化.md)	
 * [内存优化](./Docs/PerformanceOptimization/内存优化.md)
 * [稳定性优化](./Docs/PerformanceOptimization/稳定性优化.md)
 * [ANR分析](./Docs/PerformanceOptimization/ANR分析.md)
-*	[耗电优化](./Docs/PerformanceOptimization/耗电优化.md)
+* [耗电优化](./Docs/PerformanceOptimization/耗电优化.md)
 * [安装包优化](./Docs/PerformanceOptimization/安装包优化.md)
 
 (待整理)
@@ -167,9 +165,7 @@
 * [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * gradle
-* 四大组件
-* ANR 如何产生
-* ANR 怎么分析
+* ANR 如何产生,怎么分析
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
 * ActicityThread相关
 * [IntentFilter匹配规则](./Docs/Android/其他/IntentFilter匹配规则.md)
@@ -177,7 +173,7 @@
 * [组件化](./Docs/Android/其他/组件化.md)
 * [热修复方案对比](./Docs/Android/其他/热修复.md)
 * 埋点框架
-* 画出 Android 的大体架构图
+* 画出Android的大体架构图
 * 描述清点击 Android Studio 的 build 按钮后发生了什么
 * 动态权限适配方案，权限组的概念
 * 进程保活
@@ -215,7 +211,7 @@
 ### 多线程相关
 
 * [死锁](./Docs/MultiThread/死锁.md)
-* AIDL	
+	
 * [Android多进程](./Docs/MultiThread/Android多进程.md)
 * [Android进程间通信--Binder	](./Docs/MultiThread/Android进程间通信--Binder.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
@@ -229,6 +225,7 @@
 * synchronized与Lock的区别
 * volatile
 * JVM 内存区域 开线程影响哪块内存
+* AIDL
 * 进程与线程
 * 并发集合了解哪些
 * CAS介绍
@@ -236,7 +233,6 @@
 * 多线程（关于AsyncTask缺陷引发的思考）
 * 手写生产者/消费者模式
 * 多进程场景遇见过么？
-* concurrenthashmap
 * 如何保证多线程读写文件的安全？
 * volatile的原理
 * synchronize的原理
@@ -244,7 +240,6 @@
 * 线程如何关闭，以及如何防止线程的内存泄漏
 * wait/notify
 * 多线程：怎么用、有什么问题要注意；Android线程有没有上限，然后提到线程池的上限
-* 线程死锁的4个条件
 * 线程间操作List
 
 ### 网络
@@ -271,18 +266,14 @@
 
 ### 算法
 * 排序，快速排序，堆排序的实现
-* 树：B+树的介绍
+* 常用数据结构简介
+* 树：B+树的介绍,B+树
 * 图：有向无环图的解释
 * 阻塞队列BlockQueue
-* 集合 Set实现 Hash 怎么防止碰撞
 * 二叉树 深度遍历与广度遍历
-* B树、B+树
-* 常用数据结构简介
+* 二叉树，给出根节点和目标节点，找出从根节点到目标节点的路径
 * 判断环（猜测应该是链表环）
 * 链表反转
-* 二叉树，给出根节点和目标节点，找出从根节点到目标节点的路径
-* 翻转一个单项链表
-* 快速排序
 * 两个栈组成一个队列
 * [二叉树相关](./Docs/Algorithm/二叉树相关.md)
 * 一个无序，不重复数组，输出N个元素，使得N个元素的和相加为M，给出时间复杂度、空间复杂度。手写算法
