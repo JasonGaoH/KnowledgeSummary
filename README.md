@@ -50,14 +50,13 @@
     * [CoordinateLayout的原理分析](./Docs/Android/UI/CoordinateLayout的原理分析.md)
 
 * Activity和Fragment
-  * Activity栈
+  * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
   * 简述Activity启动全部过程
   * [launchMode](./Docs/Android/其他/launchMode.md)
   * [Activity调用方式](./Docs/Android/其他/Activity调用方式.md)
   * [AlertDialog，Toast对Activity生命周期的影响](./Docs/Android/其他/AlertDialog，Toast对Activity生命周期的影响.md)
   * Dialog,PopupWindow,Activity区别
   * Activity与Fragment之间生命周期比较
-  * 前台切换到后台，然后再回到前台，Activity生命周期回调方法。弹出Dialog，生命值周期回调方法
   * 多层Fragment嵌套的时候setUserHint  
   * 下拉状态栏是不是影响activity的生命周期，如果在onStop的时候做了网络请求，onResume的时候怎么恢复  
   * [Activity之间的通信方式](/Docs/Android/其他/Activity之间的通信方式.md)

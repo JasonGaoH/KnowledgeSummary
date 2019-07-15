@@ -6,7 +6,7 @@ Activity四种启动模式。
 
 每次启动都会创建一个新的实例。
 
-该模式下，新启动的Activity会放在启动它的Activity所在的栈中。所以使用Application Context启动Activity会报错，因为非Activity的Context并没有所谓的任务栈。解决此问题的方法是待启动Activity指定``FLAG_ACTIVITY_NEW_TASK``标记位，这样，会先新建一个任务栈，再把待启动的Activity放到新的栈中。相当于singleTask模式。
+该模式下，新启动的Activity会放在启动它的Activity所在的栈中。所以使用Application Context启动Activity会报错，因为非Activity的Context并没有所谓的任务栈。解决此问题的方法是待启动Activity指定``FLAG_ACTIVITY_NEW_TASK``标记位，这样，会先新建一个任务栈，再把待启动的Activity放到新的栈中。
 
 ##### singleTop: 栈顶复用
 
