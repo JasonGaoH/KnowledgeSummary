@@ -20,12 +20,7 @@ android:process 两种声明方式：
 * android:process=“com.utils.myapplication.user"
 	以包名形式声明的进程，属于全局进程，其他应用可以通过shareUserId方式和该进程跑在同一进程中，从而分享应用间的私有数据。但是这两个应用的签名还必须相同，才能共享私有数据，比如data目录、组件信息等。
 
-### 使用多进程的问题
 
-1. 静态成员和单例模式失效；
-2. 线程同步机制完全失效；
-3. SharePreference可靠性下降；
-4. Application会多次创建。
 
 ### PID与UID区别
 
@@ -62,6 +57,5 @@ UID：
 
 注意：两个应用通过shareUserId共享数据时，这两个应用的签名也要必须相同！
 
-## Add
-补充：之前遇到过的问题，在应用Application中写入SharedPreference时，在多进程情况下，每个进程都会走Application的创建，这样会导致进程间会有数据的同步问题，考虑在写入Sp的时候判断当前的进程。
+
 

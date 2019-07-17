@@ -31,11 +31,7 @@
 
 * Activity和Fragment
   * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
-  * [launchMode](./Docs/Android/其他/launchMode.md)
-  * [Activity调用方式](./Docs/Android/其他/Activity调用方式.md)
-  * [AlertDialog，Toast对Activity生命周期的影响](./Docs/Android/其他/AlertDialog，Toast对Activity生命周期的影响.md) 
-  * [Activity之间的通信方式](/Docs/Android/其他/Activity之间的通信方式.md)
-  * [Android里面为什么要设计出Bundle而不是直接用Map结构](https://github.com/android-cn/android-discuss/issues/142)
+  * [Activity之间的通信方式](/Docs/Android/Activity/Activity之间的通信方式.md)
 
 * Service
   * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
@@ -46,6 +42,9 @@
   * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
   * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
   * [TextView性能瓶颈，渲染优化，以及StaticLayout的一些用处](https://www.jianshu.com/p/9f7f9213bff8)
+
+* IPC机制
+  * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
 
 ### 开源库
 
