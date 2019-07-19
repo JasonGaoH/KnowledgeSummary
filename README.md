@@ -9,27 +9,23 @@
 ### Java
   * [Java基础知识总结](./Docs/Java/Java基础知识总结.md)
   * [Java中的集合框架](./Docs/Java/Java中的集合框架.md)
-  * [从源码角度分析ArrayList和Vector的区别](./Docs/Java/从源码角度分析ArrayList和Vector的区别.md)
-  * [从源码角度分析ArrayList和LinkedList的区别](./Docs/Java/从源码角度分析ArrayList和LinkedList的区别.md)
-  * [从源码角度分析HashMap的原理与实现](./Docs/Java/从源码角度分析HashMap的原理与实现.md)
+  * [ArrayList和Vector的区别](./Docs/Java/ArrayList和Vector的区别.md)
+  * [ArrayList和LinkedList的区别](./Docs/Java/ArrayList和LinkedList的区别.md)
+  * [HashMap的原理与实现](./Docs/Java/HashMap的原理与实现.md)
   * [Java中的注解](./Docs/Java/Java中的注解.md)
   * [Java中的ClassLoader机制](./Docs/Java/Java中的ClassLoader机制.md)
+  * [Java中的泛型](./Docs/Java/Java中的泛型.md)
 
 ### Android
-
 * [SurfaceView VS TextureView](./Docs/Android/UI/SurfaceView和TextureView的区别.md)
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
 * [Activity之间的通信方式](/Docs/Android/Activity/Activity之间的通信方式.md)
-
 * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
 * [如何在后台下载任务, 并在通知栏显示进度](https://juejin.im/post/586072c861ff4b005820901d)
-
 * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
 * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
 * [TextView性能瓶颈，渲染优化，以及StaticLayout的一些用处](https://www.jianshu.com/p/9f7f9213bff8)
-
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
-
 * [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)

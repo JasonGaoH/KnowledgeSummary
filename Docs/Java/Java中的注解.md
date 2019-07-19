@@ -1,4 +1,3 @@
-
 ### 注解相当于是加在代码上的标签。
 
 ####  注解的定义
@@ -36,6 +35,28 @@ public @interface Test {
 ```
 上面的代码中，我们指定Test注解可以在程序运行周期被获取到，因此它的生命周期非常的长。
 
+这里对于注解的@Retention怎么使用还是有点疑问，什么时候该用Source，什么时候该用CLASS以及什么时候该用RUNTIME呢？
+
+根据主键的存活时间来划分如下
+首先要明确存活的时间长度 SOURCE < CLASS < RUNTIME ，所以前者能作用的地方后者一定也能作用。
+
+举例，一般如果需要在运行时去动态获取注解信息，那只能用 RUNTIME 注解，比如Android中使用@Deprecated标记方法，字段，类等是否废弃，
+还有很多场景也会使用Runtime，例如dagger2中的Component注解，dagger2中会在运行时会通过这个注解有些特殊的行为交互。
+
+如果要在编译时进行一些预处理操作，比如生成一些辅助代码（如 ButterKnife），就用 CLASS注解。
+
+例如AndroidX包下面的DrawableRes。
+```
+@Documented
+@Retention(RetentionPolicy.CLASS)
+@Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.LOCAL_VARIABLE})
+public @interface DrawableRes {
+}
+```
+DrawableRes表示期望整数参数、字段或方法返回值是一个drawable资源引用。
+
+如果只是做一些检查性的操作，比如 @Override 和 @SuppressWarnings，使用SOURCE 注解。
+
 #### @Documented
 顾名思义，这个元注解肯定是和文档有关。它的作用是能够将注解中的元素包含到 Javadoc 中去。
 
@@ -58,7 +79,6 @@ Target 是目标的意思，@Target 指定了注解运用的地方。
 
 #### @Inherited
 Inherited 是继承的意思，但是它并不是说注解本身可以继承，而是说如果一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。
-
 
 ```
 @Inherited
@@ -105,11 +125,8 @@ public class SuperMan{
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Test {
-	
 	int id();
-	
 	String msg();
-
 }
 
 ```
@@ -133,11 +150,8 @@ public class Test {
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TestAnnotation {
-	
 	public int id() default -1;
-	
 	public String msg() default "Hi";
-
 }
 
 ```
@@ -166,18 +180,13 @@ public Annotation[] getAnnotations() {}
 ```
 @TestAnnotation()
 public class Test {
-	
 	public static void main(String[] args) {
-		
 		boolean hasAnnotation = Test.class.isAnnotationPresent(TestAnnotation.class);
-		
 		if ( hasAnnotation ) {
 			TestAnnotation testAnnotation = Test.class.getAnnotation(TestAnnotation.class);
-			
 			System.out.println("id:"+testAnnotation.id());
 			System.out.println("msg:"+testAnnotation.msg());
 		}
-
 	}
 }
 ```
