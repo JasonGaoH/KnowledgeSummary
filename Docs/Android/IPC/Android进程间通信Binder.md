@@ -1,4 +1,4 @@
-# Android进程间通信--Binder
+# Android进程间通信Binder
 
 Binder工作机制:<br>
 从Android应用层来说，Binder是客户端和服务端进行通信的媒介。<br>

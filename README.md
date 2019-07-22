@@ -14,6 +14,7 @@
   * [HashMap的原理与实现](./Docs/Java/HashMap的原理与实现.md)
   * [Java中的注解](./Docs/Java/Java中的注解.md)
   * [Java中的ClassLoader机制](./Docs/Java/Java中的ClassLoader机制.md)
+  * [JVM类加载器](./Docs/Java/JVM类加载器.md)
   * [Java中的泛型](./Docs/Java/Java中的泛型.md)
 
 ### Android
@@ -25,7 +26,6 @@
 * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
 * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
 * [TextView性能瓶颈，渲染优化，以及StaticLayout的一些用处](https://www.jianshu.com/p/9f7f9213bff8)
-* [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
 * [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
@@ -35,6 +35,8 @@
 * [热修复方案对比](./Docs/Android/其他/热修复.md)
 * [App启动流程，从点击桌面开始](http://www.androidos.net.cn/doc/day/2018-02-18/15384.md)
 * [数据库如何进行升级,SQLite增删改查的基础sql语句](./Docs/Android/其他/数据库如何进行升级,SQLite增删改查的基础sql语句.md)
+* [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
+* [Android进程间通信Binder](./Docs/Android/IPC/Android进程间通信Binder.md)
 
 ### 开源库
 
@@ -63,9 +65,9 @@
 
 ### 多线程
 
+* [synchronized关键字的原理](./Docs/MultiThread/synchronized关键字的原理.md)
+* [深入解析volatile关键字](./Docs/MultiThread/深入解析volatile关键字.md)
 * [死锁](./Docs/MultiThread/死锁.md)
-* [Android多进程](./Docs/MultiThread/Android多进程.md)
-* [Android进程间通信--Binder](./Docs/MultiThread/Android进程间通信--Binder.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
 * [线程安全](./Docs/MultiThread/线程安全.md)
 * [ThreadLocal](./Docs/MultiThread/ThreadLocal.md)
