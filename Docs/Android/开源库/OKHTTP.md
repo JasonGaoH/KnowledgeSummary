@@ -1,7 +1,5 @@
 # OKHTTP
 
-[优秀博客](https://blog.piasy.com/2016/07/11/Understand-OkHttp/)
-
 1. 利用 okhttp 实现基本的网络访问功能，包括基本的数据请求，表单提交，文件上传，文件断点下载，https的设置等等。
 
 2. 深入研究 okhttp 源码，熟悉 okhttp 中的调用过程，拦截器原理，缓存原理以及其中涉及的设计模式，并可以自定义拦截器实现特殊的功能，如日志打印等等。
@@ -63,3 +61,5 @@ RealInterceptorChain.java
     return response;
   }
 ```
+
+[优秀博客](https://blog.piasy.com/2016/07/11/Understand-OkHttp/)

@@ -1,1 +1,0 @@
-# Bitmap VS Drawable

@@ -275,7 +275,7 @@ public void testSuper(Collection<? super Sub> para){
 
 ```
 
-**<? super Sub>** 表示凡是Sub以及Sub的子类都可以写入到这个Collection集合中。
+```<? super Sub>``` 表示凡是Sub以及Sub的子类都可以写入到这个Collection集合中。
 
 
 我们接着改成<? super Base>
@@ -291,7 +291,7 @@ public void testSuper(Collection<? super Sub> para){
 ```
 
 
-**<? super Base>**表示Base以及Base的子类都能够执行写操作。
+```<? super Base>```表示Base以及Base的子类都能够执行写操作。
 
 另外，在kotlin中，<? extends T> 写法是
 ```

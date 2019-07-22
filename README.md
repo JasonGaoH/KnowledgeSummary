@@ -22,7 +22,6 @@
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
 * [Activity之间的通信方式](/Docs/Android/Activity/Activity之间的通信方式.md)
 * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
-* [如何在后台下载任务, 并在通知栏显示进度](https://juejin.im/post/586072c861ff4b005820901d)
 * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
 * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
 * [TextView性能瓶颈，渲染优化，以及StaticLayout的一些用处](https://www.jianshu.com/p/9f7f9213bff8)
