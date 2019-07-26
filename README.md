@@ -66,6 +66,7 @@
 
 * [synchronized关键字的原理](./Docs/MultiThread/synchronized关键字的原理.md)
 * [深入解析volatile关键字](./Docs/MultiThread/深入解析volatile关键字.md)
+* [Java中sleep,wait,yield,join的区别](./Docs/MultiThread/Java中sleep,wait,yield,join的区别.md)
 * [死锁](./Docs/MultiThread/死锁.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
 * [线程安全](./Docs/MultiThread/线程安全.md)
