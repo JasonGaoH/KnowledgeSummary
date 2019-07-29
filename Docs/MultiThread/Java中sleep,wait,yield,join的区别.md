@@ -1,7 +1,7 @@
 - sleep()方法 
 在指定时间内让当前正在执行的线程暂停执行，但不会释放“锁标志”。不推荐使用。 sleep()使当前线程进入阻塞状态，在指定时间内不会执行。
 - wait()方法
-在其他线程调用对象的 notify 或 notifyAll 方法前，导致当前线程等待。线程会释放掉它所占 有的“锁标志”，从而使别的线程有机会抢占该锁。当前线程必须拥有当前对象锁。如果当前 线程不是此锁的拥有者，会抛出 IllegalMonitorStateException 异常。唤醒当前对象锁的等待 线程使用 notify 或 notifyAll 方法，也必须拥有相同的对象锁，否则也会抛出 IllegalMonitorStateException 异常。
+在其他线程调用对象的 notify 或 notifyAll 方法前，导致当前线程等待。线程会释放掉它所占有的“锁标志”，从而使别的线程有机会抢占该锁。当前线程必须拥有当前对象锁。如果当前 线程不是此锁的拥有者，会抛出 IllegalMonitorStateException 异常。唤醒当前对象锁的等待 线程使用 notify 或 notifyAll 方法，也必须拥有相同的对象锁，否则也会抛出 IllegalMonitorStateException 异常。
 wait()和 notify()必须在 synchronized 函数或 synchronized block 中进行调用。如果在 non- synchronized 函数或 non-synchronized block 中进行调用，虽然能编译通过，但在运行时 会发生 IllegalMonitorStateException 的异常。
 - yield 方法
 暂停当前正在执行的线程对象。
