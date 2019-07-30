@@ -1,5 +1,6 @@
 - sleep()方法 
-在指定时间内让当前正在执行的线程暂停执行，但不会释放“锁标志”。不推荐使用。 sleep()使当前线程进入阻塞状态，在指定时间内不会执行。
+sleep方法会使当前线程进入指定毫秒数的休眠，暂停执行，虽然给定了一个休眠的时间，但是最终要以系统的定时器和调度器的精准度为准，休眠有一个非常重要的特性，那就是不会放弃monitor锁的所有权。
+sleep()使当前线程进入阻塞状态，在指定时间内不会执行。
 
 #### Thread.java ->sleep，这是一个native方法。
 ```
@@ -91,7 +92,7 @@ sleep这个操作跟具体的操作系统实现有关，
 linux对应目录是：jdk-8-hotspot/src/os/linux/vm/os_linux.cpp；
 windows对应的目录是：jdk-8-hotspot/src/os/windows/vm/os_windows.cpp；
 
-来看下Linux下os_linux.cpp中的sleep方法：
+来看下Linux下os_windowscpp中的sleep方法：
 ```
 int os::sleep(Thread* thread, jlong ms, bool interruptable) {
   jlong limit = (jlong) MAXDWORD;
@@ -200,10 +201,125 @@ JVM_END
 这个wait方法太长，就不贴代码了。
 
 - yield 方法
-暂停当前正在执行的线程对象。
-yield()只是使当前线程重新回到可执行状态，所以执行 yield()的线程有可能在进入到可执行 状态后马上又被执行。
-yield()只能使同优先级或更高优先级的线程有执行的机会。?
+yield属于一种启发式方法，岂会提醒调度器我愿意放弃当前CPU资源，如果CPU资源不紧张，则会忽略这种提醒。
+
+```
+import java.util.function.IntFunction;
+import java.util.stream.IntStream;
+
+public class ThreadYield {
+	public static void main(String[] args) {
+		IntStream.range(0, 2).mapToObj(new IntFunction<Thread>(){
+			@Override
+			public Thread apply(int value) {
+				return ThreadYield.create(value);
+			}}).forEach(new Consumer<Thread>() {
+				@Override
+				public void accept(Thread t) {
+					t.start();
+				}
+			});
+	}
+	
+	private static Thread create(int index) {
+		return new Thread(){
+			@Override
+			public void run() {
+				//if(index == 0) Thread.yield();
+				System.out.println(index);
+			}
+		};
+	}
+}
+```
+
+上面的程序运行很多次,你会发现输出的结果不一致，有时候是0最先打印出来，有时候是1最先打印出来，但是当你打开代码的注释部分，你会发现，顺序始终是0，1。
+
+因为第一个线程如果先获得了CPU资源，它会比较谦虚，主动告诉CPU调度器释放了原本属于自己的资源，但是yield知识一个提示，CPU调度器并不会担保每次都能满足yield提示。
+
 调用 yield 方法并不会让线程进入阻塞状态，而是让线程重回就绪状态，它只需要等待重新 获取 CPU 执行时间，这一点是和 sleep 方法不一样的。
+
 - join 方法
-等待该线程终止。
-等待调用 join 方法的线程结束，再继续执行。如:t.join();//主要用于等待 t 线程运行结束， 若无此句，main 则会执行完毕，导致结果不可预测。 在很多情况下，主线程创建并启动了线程，如果子线程中药进行大量耗时运算，主线程往往 将早于子线程结束之前结束。这时，如果主线程想等待子线程执行完成之后再结束，比如子 线程处理一个数据，主线程要取得这个数据中的值，就要用到 join()方法了。方法 join()的作 用是等待线程对象销毁。
+join某个线程A，会使当前线程B进入等待，直到线程A结束生命周期，或者到达给定的时间，那么在此期间B线程是处于BLOCKED的，而不是A线程。
+
+```
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.IntFunction;
+import java.util.stream.IntStream;
+
+public class ThreadJoin {
+
+	public static void main(String[] args) throws InterruptedException {
+		List<Thread> threads = new ArrayList<Thread>();
+		IntStream.range(0, 2).mapToObj(new IntFunction<Thread>(){
+			@Override
+			public Thread apply(int value) {
+				return ThreadJoin.create(value);
+			}}).forEach(new Consumer<Thread>() {
+				@Override
+				public void accept(Thread t) {
+					t.start();
+					threads.add(t);
+				}
+			});
+		
+		for(Thread thread:threads) {
+			thread.join();
+		}
+		for(int i =0;i<3;i++) {
+			System.out.println(Thread.currentThread().getName() + "#" + i);
+			shortSleep();
+		}
+	}
+	
+	private static Thread create(int seq) {
+		return new Thread(seq + ""){
+			@Override
+			public void run() {
+				for(int i=0;i< 3;i++) {
+					System.out.println(Thread.currentThread().getName() + "#" + i);
+					shortSleep();
+				}
+			}
+		};
+	}
+	
+	private static void shortSleep() {
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+运行上面的程序你就会发现线程1和线程2交替地输出直到它们生命周期结束，main线程的循环才会开始执行，程序输出如下：
+```
+0#0
+1#0
+0#1
+1#1
+0#2
+1#2
+main#0
+main#1
+main#2
+```
+如果将join部分的代码注释掉，那么三个线程会交替地输出，输出如下：
+```
+0#0
+main#0
+1#0
+1#1
+0#1
+main#1
+0#2
+1#2
+main#2
+```
+
+#### interrupt方法
