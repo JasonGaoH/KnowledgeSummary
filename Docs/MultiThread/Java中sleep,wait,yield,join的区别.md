@@ -323,3 +323,128 @@ main#2
 ```
 
 #### interrupt方法
+
+如下方法会使得当前线程进入阻塞状态，而调用线程的interrupt方法会打断阻塞。
+- Object的wait方法
+- Object的wait(long)方法
+- Thread的sleep(long)方法
+- Thread的join方法
+- InterruptibleChannel的io操作
+- Selector的wakeup方法
+- 其他方法
+
+上述若干方法都会使得当前线程进入阻塞状态，若另外的一个线程调用被阻塞线程的interrupt方法，则会打断这种阻塞，因此这种方法有时会被称为可中断方法，但是，打断一个线程并不等于该线程生命周期会结束，仅仅是打断了当前线程的阻塞状态。
+
+一旦线程在阻塞的情况下被打断，都会抛出一个称为InterruptException的异常，这个异常就像一个signal(信号)一样通知当前线程被打断了。
+
+interrupt这个方法到了做了什么样的事情呢？在一个线程内存存在着名为interrupt flag的标识，如果一个线程被interrupt，那么他的flag将被设置为true，但是如果当前线程正在执行可中断方法被阻塞时，调用interrupt方法将其中断，这个时候它的flag会被清除，清除即设置为false。
+
+具体可以看下面的程序代码：
+```
+import java.util.concurrent.TimeUnit;
+
+public class ThreadInterrupt {
+	public static void main(String[] args) throws InterruptedException {
+		Thread thread = new Thread(){
+			@Override
+			public void run() {
+				while(true) {
+					//loop
+				}
+			}
+		};
+		thread.start();
+		TimeUnit.MILLISECONDS.sleep(2);
+		System.out.println("Thread is interrupted:  " + thread.isInterrupted());
+		thread.interrupt();
+		System.out.println("Thread is interrupted:  " + thread.isInterrupted());
+	}
+}
+
+```
+输出结果如下：
+```
+Thread is interrupted:  false
+Thread is interrupted:  true
+
+```
+
+上面的run方法中我们写了个死循环，这里没有使用sleep方法，因为sleep是可中断方法，可中断方法在捕获InterruptException后会将线程interrupt复位。
+
+我们把程序改成下面这样。
+```
+import java.util.concurrent.TimeUnit;
+
+public class ThreadInterrupt {
+
+	public static void main(String[] args) throws InterruptedException {
+		Thread thread = new Thread(){
+			@Override
+			public void run() {
+				while(true) {
+					try {
+						TimeUnit.MINUTES.sleep(2);
+					} catch (InterruptedException e) {
+						System.out.println("I am be interrupted:  " + isInterrupted());
+					}
+				}
+			}
+		};
+		thread.setDaemon(true);
+		thread.start();
+		TimeUnit.MILLISECONDS.sleep(2);
+		System.out.println("Thread is interrupted:  " + thread.isInterrupted());
+		thread.interrupt();
+		System.out.println("Thread is interrupted:  " + thread.isInterrupted());
+	}
+
+}
+
+```
+由于在run方法中使用了sleep这个可中断方法，它会捕获到中断信号，并且会擦除interrupt表示，因此程序的执行结果都会是false。
+```
+Thread is interrupted:  false
+I am be interrupted:  false
+Thread is interrupted:  false
+
+```
+
+#### interrupted
+
+interrupted是一个静态方法，虽然其页用于判断当前线程是否被中断，但是它和成员方法isInterrupted还是有很大区别的，调用该方法会直接擦除的线程的interrupt标识，需要注意的是，如果当前线程被打断了那么第一次调用interrupted方法会返回true，并且立即擦除了interrupt标识，第二次包括以后的调用永远都会放回false，除非在此期间有一次地被打断。
+
+```
+import java.util.concurrent.TimeUnit;
+
+public class ThreadInterrupt {
+
+	public static void main(String[] args) throws InterruptedException {
+		Thread thread = new Thread(){
+			@Override
+			public void run() {
+				while(true) {
+					System.out.println(Thread.interrupted());
+				}
+			}
+		};
+		thread.setDaemon(true);
+		thread.start();
+		TimeUnit.MILLISECONDS.sleep(2);
+		thread.interrupt();			
+	}
+
+```
+
+由于不想要受到可中断方法如sleep的影响，在Thread的run方法中没有进行任何短暂的休眠。
+在很多false中出现了一个true，也就是interrupted方法判断到了其被中断，立即擦除了中断标识。
+
+```
+...
+false
+false
+true
+false
+false
+...
+
+```
