@@ -18,7 +18,6 @@
   * [Java中的泛型](./Docs/Java/Java中的泛型.md)
 
 ### Android
-* [SurfaceView VS TextureView](./Docs/Android/UI/SurfaceView和TextureView的区别.md)
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
 * [Activity之间的通信方式](/Docs/Android/Activity/Activity之间的通信方式.md)
 * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
@@ -66,7 +65,7 @@
 * [线程的生命周期详解](./Docs/MultiThread/线程的生命周期详解.md)
 * [synchronized关键字的原理](./Docs/MultiThread/synchronized关键字的原理.md)
 * [深入解析volatile关键字](./Docs/MultiThread/深入解析volatile关键字.md)
-* [Java中sleep,wait,yield,join的区别](./Docs/MultiThread/Java中sleep,wait,yield,join的区别.md)
+* [Java中sleep,wait,yield,join,interrupted的区别](./Docs/MultiThread/Java中sleep,wait,yield,join,interrupted的区别.md)
 * [死锁](./Docs/MultiThread/死锁.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
 * [线程安全](./Docs/MultiThread/线程安全.md)
