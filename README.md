@@ -1,6 +1,7 @@
 ## KnowledgeSummary：
 
 * [Java](#Java)
+* [JVM](#JVM)
 * [Android](#Android)
 * [开源库](#开源库)
 * [性能优化](#性能优化)
@@ -16,6 +17,10 @@
   * [Java中的ClassLoader机制](./Docs/Java/Java中的ClassLoader机制.md)
   * [JVM类加载器](./Docs/Java/JVM类加载器.md)
   * [Java中的泛型](./Docs/Java/Java中的泛型.md)
+
+### JVM
+  * [Java的内存区域](./Docs/Java/Java的内存区域.md)
+  
 
 ### Android
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
