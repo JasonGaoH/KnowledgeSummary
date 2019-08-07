@@ -20,7 +20,7 @@
 
 ### JVM
   * [Java的内存区域](./Docs/Java/Java的内存区域.md)
-  
+  * [JVM的GC和内存分配](./Docs/Java/JVM的GC和内存分配.md)
 
 ### Android
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
