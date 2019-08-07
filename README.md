@@ -19,8 +19,8 @@
   * [Java中的泛型](./Docs/Java/Java中的泛型.md)
 
 ### JVM
-  * [Java的内存区域](./Docs/Java/Java的内存区域.md)
-  * [JVM的GC和内存分配](./Docs/Java/JVM的GC和内存分配.md)
+  * [Java的内存区域](./Docs/JVM/1_Java的内存区域.md)
+  * [JVM的GC和内存分配](./Docs/JVM/2_JVM的GC和内存分配.md)
 
 ### Android
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
@@ -37,9 +37,8 @@
 * [组件化](./Docs/Android/其他/组件化.md)
 * [热修复方案对比](./Docs/Android/其他/热修复.md)
 * [App启动流程，从点击桌面开始](http://www.androidos.net.cn/doc/day/2018-02-18/15384.md)
-* [数据库如何进行升级,SQLite增删改查的基础sql语句](./Docs/Android/其他/数据库如何进行升级,SQLite增删改查的基础sql语句.md)
+* [SQLite增删改查以及升级的sql语句](./Docs/Android/其他/SQLite增删改查以及升级的sql语句.md)
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
-* [Android进程间通信Binder](./Docs/Android/IPC/Android进程间通信Binder.md)
 
 ### 开源库
 
@@ -76,5 +75,3 @@
 * [线程安全](./Docs/MultiThread/线程安全.md)
 * [ThreadLocal](./Docs/MultiThread/ThreadLocal.md)
 * [ReentrantLock](./Docs/MultiThread/ReentrantLock.md)
-* [同步相关知识](./Docs/MultiThread/同步相关知识.md)
-

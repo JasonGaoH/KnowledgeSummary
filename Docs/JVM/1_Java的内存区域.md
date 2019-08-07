@@ -107,5 +107,3 @@
 * 通过直接指针访问对象：在Java堆对象的布局中考虑如何放置访问类型数据的相关信息，reference存储的直接就是对象地址。好处：速度更快，节省了一次指针定位的时间开销。
 
 ![image](../img/java_object_access_2.webp)
-
-https://www.jianshu.com/p/cd93567ed868
