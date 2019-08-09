@@ -21,6 +21,7 @@
 ### JVM
   * [Java的内存区域](./Docs/JVM/1_Java的内存区域.md)
   * [JVM的GC和内存分配](./Docs/JVM/2_JVM的GC和内存分配.md)
+  * [JVM类加载机制](./Docs/JVM/3_JVM类加载机制.md)
 
 ### Android
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
