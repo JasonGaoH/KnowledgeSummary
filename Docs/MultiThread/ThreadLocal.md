@@ -66,4 +66,96 @@ ThreadLocal<Object> threadLocal = new ThreadLocal<Object>() {
 java.lang.Object@4f90c612
 java.lang.Object@65ab7765
 ```
-#### ThreadLocal的注意事项
+
+#### ThreadLocal源码分析
+
+##### set(T t)方法
+set方法主要是为ThreadLocal指定将要被存储的数据，如果重写了initialValue方法，在不钓鱼set方法的情况下，数据的初始值是initialValue方法计算结果。
+```java
+//ThreadLocal的set方法
+public void set(T value) {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null)
+            map.set(this, value);
+        else
+            createMap(t, value);
+    }
+//ThreadLocal的createMap方法
+void createMap(Thread t, T firstValue) {
+        t.threadLocals = new ThreadLocalMap(this, firstValue);
+    }
+//ThreadLocalMap的set方法源码
+ private void set(ThreadLocal<?> key, Object value) {
+        // We don't use a fast path as with get() because it is at
+        // least as common to use set() to create new entries as
+        // it is to replace existing ones, in which case, a fast
+        // path would fail more often than not.
+
+        Entry[] tab = table;
+        int len = tab.length;
+        int i = key.threadLocalHashCode & (len-1);
+
+        for (Entry e = tab[i];
+                e != null;
+                e = tab[i = nextIndex(i, len)]) {
+            ThreadLocal<?> k = e.get();
+
+            if (k == key) {
+                e.value = value;
+                return;
+            }
+
+            if (k == null) {
+                replaceStaleEntry(key, value, i);
+                return;
+            }
+        }
+
+        tab[i] = new Entry(key, value);
+        int sz = ++size;
+        if (!cleanSomeSlots(i, sz) && sz >= threshold)
+            rehash();
+    }
+```
+set方法的运行流程大致如下：
+1. 使用Thread.currentThread()获取当前线程，根据当前线程获取与之关联的ThreadLocalMap的数据结构
+2. 如果map为null，则创建一个ThreadLocalMap，用当前ThreadLocal实例作为key，将要存放的数据作为value，对象到ThreadLocal中则是创建了一个Entry
+3. 如果map不为null，调用map的set方法，set方法中会遍历整个map的Entry，如果发现Entry的Key为null，则直接将其逐出兵器使用心得数据占用被逐出数据的位置，这个过程主要是为了防止内存泄漏
+4. 接着创建心得Entry，使用ThreadLocal作为Key，将要存放的数据作为value
+5. 最后再根据ThreadLocalMap的放弃数据元素的大小和阈值做比较，进行可以为null的数据项清理工作。
+
+##### get(T t)方法
+```java
+//ThreadLocal的get方法
+public T get() {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null) {
+            ThreadLocalMap.Entry e = map.getEntry(this);
+            if (e != null) {
+                @SuppressWarnings("unchecked")
+                T result = (T)e.value;
+                return result;
+            }
+        }
+        return setInitialValue();
+    }
+
+private T setInitialValue() {
+        T value = initialValue();
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null)
+            map.set(this, value);
+        else
+            createMap(t, value);
+        return value;
+    }
+```
+get方法的工作流程如下：
+1.  使用Thread.currentThread()获取当前线程，再通过当前线程获取与之关联的ThreadLocalMap，如果获取的到map，则以当前ThreadLocal作为key值获取对于的Entry，如果Entry不为null，则直接返回Entry的值。
+2.  如果通过当前线程获取到的map为null，则需要调用setInitialValue方法，setInitialValue中首先调用initialValue获取初始值，再拿到这个初始值后跟上面的set方面的逻辑基本没啥区别了。
+
+> 无论是get方法还是set方法，都不可避免地要与ThreadLocalMap和Entry打交道，ThreadLocalMap是一个完全类似于HashMap的数据结构，仅仅用于存放线程存放在ThreadLocal中的数据备份，ThreadLocalMap中的所有方法对外部都是不可见的。
+> 在ThreadLocalMap中用于存储数据的是Entry，它是一个WeakReference类型的子类，之所以这样设计是为了能够在JVM发生垃圾回收事件时，能够自动回收防止发现内存泄漏。
