@@ -1,4 +1,10 @@
 # ConcurrentHashMap
+jdk8中摒弃了segment锁，直接将hash桶的头结点当做锁。`
+
+[从ConcurrentHashMap的演进看Java多线程核心技术](http://www.jasongj.com/java/concurrenthashmap/)
+
+[ConcurrentHashMap源码分析(JDK8)get/put/remove方法分析](https://www.jianshu.com/p/5bc70d9e5410)
+
 [探索 ConcurrentHashMap 高并发性的实现机制](https://www.ibm.com/developerworks/cn/java/java-lo-concurrenthashmap/index.html)
 
 [Java7/8 中的 HashMap 和 ConcurrentHashMap 全解析](http://www.importnew.com/28263.html)
