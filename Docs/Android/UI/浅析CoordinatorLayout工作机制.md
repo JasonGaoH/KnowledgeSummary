@@ -5,7 +5,7 @@
 
 我们在项目中也要实现的效果，一开始我的想法是使用嵌套RecycleView的形式来实现，因为我去调研了下京东和淘宝的首页布局都是这么实现的，京东和淘宝首页实现方式和下面的图类似，外部的整个RecycleView嵌套ViewPager，ViewPager中再有多个RecycleView，这个实现起来稍微有点麻烦，难点是要处理好外部的RecycleView和ViewPager中内部RecycleView的滑动事件传递，这里我们只是简单介绍下，后面我会专门来介绍类似这样的嵌套RecycleView如何实现。
 
-![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1636ca00ac16?w=417&h=562&f=png&s=9228)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/nested_recycler_view.png)
 
 接下来是如何采用其他方便的方式来实现类似需求？我想到了CoordinatorLayout，CoordinatorLayout在处理吸顶是有一套已经成熟的方案的。
 
@@ -13,7 +13,7 @@
 
 而我们这篇文章主要是讲使用CoordinatorLayout中遇到的问题，问题如何解决以及CoordinatorLayout为什么会有这样的问题。
 
-![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1636cbf89f58?w=376&h=502&f=png&s=12897)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/CoordinatorLayout.png)
 
 实现这个大概是像上面这样类似的布局结构，来看下布局文件。
 
@@ -71,13 +71,13 @@
 #### 第一，抖动问题
 该问题场景描述：我们触摸AppBarLayout使AppBarLayout整体向上滑动，，即手指上滑，当AppBarLayout fling的同时，我们触摸下部ViewPager中的RecycleView区域，使RecycleView区域整体向下滑动，即手指下滑，这个时候会发现一个明显页面动画现象，这个问题几乎是必现。
 
-来看下gif效果：![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1636cc304c2c?w=1080&h=2340&f=gif&s=3345526)
+来看下gif效果：![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_1.gif)
 
 接下来我们来看问题的原因，其实这个要搞清楚原因需要对CoordinatorLayout的工作机制有个比较清晰的理解，然而CoordinatorLayout这里牵扯到嵌套滚动以及Behavior这些，
 
 我们这里尝试简单地介绍下CoordinatorLayout的工作机制。
 
-![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1636cc4b1feb?w=682&h=531&f=png&s=48986)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinatorLayout_analysis.png)
 
 
 - CoordinatorLayout实现NestedScrollingParent2接口，用于处理与滑动子View的联动交互，实际上交由Behavior进行处理。
@@ -129,7 +129,7 @@ CoordinatorLayout中的onStartNestedScroll方法基本都会调用到每个子Vi
 [事件分发和NestedScrolling](https://blog.csdn.net/aishang5wpj/article/details/78873343)
 
 嵌套滚动机制NestedScrollingParent2和NestedScrollingChild2的各个回调方法调用流程如下图所示：
-![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1636d47796f7?w=1045&h=767&f=jpeg&s=62475)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/nested.jpeg)
 
 上图列出来手指从按下到抬起时的整个流程，当然这些都是在子View的onTouchEvent()中完成的，所以父View一定不能拦截子View的事件，否则这套机制就失效了。
 
@@ -410,12 +410,12 @@ coordinatorLayout.setOnInterceptTouchListener {
 
 问题场景描述，我们反复上下滑动AppBarLayout的时候，可以看到AppBarLayout在滑出屏幕外之后又反弹回去了，而且当你滑动的加速度很大的时候，这个反弹的幅度也会跟着变大。
 
-![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1aa4c6084817?w=1080&h=2340&f=gif&s=2439127)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_2.gif)
 
 这个问题造成的原因是因为在手指向上滑动后造成RecyclerView的fling操作执行，具体的代码在RecyclerView内部类ViewFlinger中。
 
 我使用Android Studio中的Profiler抓取了一下当出现反弹问题的时候出现的方法调用堆栈如下所示：
-![image](https://user-gold-cdn.xitu.io/2019/7/8/16bd1a4a99e88716?w=2018&h=518&f=jpeg&s=383953)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_bugs_method_call.jpg)
 
 
 发现RecyclerView中ViewFlinger调用后，接着触发了HeaderBehavior中的FlingRunnable。而ViewFling中会调用dispatchNestedScroll(...)方法，RecyclerView作为CoordinatorLayout的子View，它通过嵌套滚动的机制又会调用到CoordinatorLayout中的onNestedScroll，这里主要就是通过AppBarLayout的Behavior中的方法setHeaderTopBottomOffset来实现AppBarLayout的滚动，后面会发现多次setHeaderTopBottomOffset的调用，其实目前看到这里，并不太确定造成这个问题的具体原因是啥，感觉上是因为RecyclerView的滑动和CoordinatorLayout的滑动冲突导致了反弹效果的出现。
