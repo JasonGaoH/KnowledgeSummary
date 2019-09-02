@@ -158,4 +158,46 @@ public class MyClassLoader extends ClassLoader {
  - javax.security.KeyStore$Builder$FileBuilder$1:包名.类名$内部类$内部类$匿名内部类
 
 > 另外，需要注意的是，每个包名对应其实是一个目录，如果只是在java代码最上面加入package xxx;这样的包名是无效的，相当于没有定义包名。
-> 第二，
+> 第二，需要强调的是defineClass方法，该方法的完整方法描述是defineClass(String name, byte[] b, int off, int len)，其中，第一个是要定义类的名字，一般与findClass方法中的类名保持一致即可；第二个是class文件的二进制字节数组，这个也不难理解，但三个字节数组的偏移量；第四个是从偏移量开始读取多长的byte数据。在类的加载过程中，第一个阶段的加载主要是获取class的字节流信息，那么我们将整个字节流信息交给defineClass方法不久行了吗，为什么还要画蛇添足地指定偏移量和读取长度呢？原因是因为class字节数组不一定是从一个class文件中获得的，有可能是来自网络的，也有可能是编程的方法写入的，由此可见，一个字节数组可能会有多个class字节信息。
+
+我们写一个简单的类，通过上面的自定义ClassLoader来加载它。
+```java
+package com.gaohui;
+
+public class HelloWorld {
+	static {
+		System.out.println("Hello Wolrd class is Initialized");
+	}
+
+	public String welcome() {
+		return "Hello Wolrd";
+	}
+}
+```
+这里没有采用ide来写这个类，主要是为了防止会与Java自带的ClassLoader混淆，因为类的加载遵循双亲委托加载，如果优先被Java中的ClassLoader加载，那么我们自定义ClassLoader的效果就会出不来。
+
+> 这里不使用ide来编写这个类，需要注意的是类的包名，类的包名其实对应的是操作系统中的目录，指定com.gaohui表示这个类在com/gaohui的目录下，而不是简单指定包名即可，需要新建相应的目录，然后再编写这个类具体代码。
+
+
+接下来我们对其进行简单的测试。
+```java
+public class MyClassLoaderTest {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		MyClassLoader classLoader = new MyClassLoader();
+		Class<?> aClass = classLoader.loadClass("com.gaohui.HelloWorld");
+		System.out.println(aClass.getClassLoader());
+		//这个时候会打印出static代码块的输出
+		Object helloWorld = aClass.newInstance();
+		System.out.println(helloWorld);
+	}
+}
+```
+输出结果如下：
+```
+main.MyClassLoader@5c647e05
+Hello Wolrd class is Initialized
+com.gaohui.HelloWorld@55f96302
+```
+这里输出结果表明“com.gaohui.HelloWorld”被成功加载了并且处处了类加载器信息，但是HelloWorld的静态代码块并没有得到执行，那是因为使用类加载器loadClass并不会导致类的主动初始化化，它只是指定了加载过程中的加载阶段而已。
+
+### 双亲委托机制的详细介绍
