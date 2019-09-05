@@ -62,7 +62,7 @@ public class ExtCladdLoader {
 应用类加载器是一种常见的类加载器，其负责加载classpath下的类库资源。
 应用类加载器的父加载器是扩展类加载器，同时它也是自定义类加载器的默认父加载器，应用类加载器的加载路径一般通过-classpath或者-cp指定，同样也可以通过系统属性java.class.path进行获取，示例代码如下：
 
- ```
+ ```java
 public class ApplicationClassLoader {
 	public static void main(String[] args) {
 		System.out.println(System.getProperty("java.class.path"));
@@ -96,7 +96,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MyClassLoader extends ClassLoader {
-
+	
 	private final static Path DEFAULT_CLASS_DIR = Paths.get("/Users/gaohui");
 	
 	private final Path classDir;
@@ -108,12 +108,12 @@ public class MyClassLoader extends ClassLoader {
 	//允许传入指定路径的class 路径
 	public MyClassLoader(String classDir) {
 		super();
-		this.classDir = Paths.get("classDir");
+		this.classDir = Paths.get(classDir);
 	}
 	
 	public MyClassLoader(String classDir,ClassLoader parent) {
-		super();
-		this.classDir = Paths.get("classDir");
+		super(parent);
+		this.classDir = Paths.get(classDir);
 	}
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -132,6 +132,7 @@ public class MyClassLoader extends ClassLoader {
 		String classPath = name.replace(".", "/");
 		Path classFullPath = classDir.resolve(Paths.get(classPath + ".class"));
 		System.out.println(classFullPath.toFile().exists());
+		System.out.println(classFullPath.toAbsolutePath().toString());
 		if(!classFullPath.toFile().exists()) {
 			throw new ClassNotFoundException("The class " + name + " not found");
 		}
@@ -146,6 +147,7 @@ public class MyClassLoader extends ClassLoader {
 	}
 	
 }
+
  ```
  我们完成了一个非常简单的基于磁盘的ClassLoader的定义，，几个关键的地方都已经做了标注，第一个构造函数使用默认的文件路径，第二个构造函数允许外部指定一个特定的磁盘目录，第三个构造函数出来可以指定磁盘目录以外还可以指定该类加载器的父加载器。
 
@@ -174,17 +176,128 @@ public class HelloWorld {
 	}
 }
 ```
-这里没有采用ide来写这个类，主要是为了防止会与Java自带的ClassLoader混淆，因为类的加载遵循双亲委托加载，如果优先被Java中的ClassLoader加载，那么我们自定义ClassLoader的效果就会出不来。
-
-> 这里不使用ide来编写这个类，需要注意的是类的包名，类的包名其实对应的是操作系统中的目录，指定com.gaohui表示这个类在com/gaohui的目录下，而不是简单指定包名即可，需要新建相应的目录，然后再编写这个类具体代码。
-
 
 接下来我们对其进行简单的测试。
 ```java
 public class MyClassLoaderTest {
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		MyClassLoader classLoader = new MyClassLoader();
+		Class<?> aClass = classLoader.loadClass("main.HelloWorld");
+		System.out.println(aClass.getClassLoader());
+		//这个时候会打印出static代码块的输出
+		Object helloWorld = aClass.newInstance();
+		System.out.println(helloWorld);
+	}
+}
+```
+输出结果如下：
+```
+sun.misc.Launcher$AppClassLoader@2a139a55
+Hello Wolrd class is Initialized
+main.HelloWorld@4e25154f
+```
+
+我们会发现打印出的classLoader是AppClassLoader，我们自定义的ClassLoader并没有真正生效，那么怎么让我们的自定义ClassLoader生效呢？
+
+> 我们可以尝试不使用IDE来开发这个HelloWorld类，我这里采用的是eclipse来写的，eclipse能自动注入CLASSPATH，eclipse又有自动保存，自动编译的功能。如果自动编译了，由于双亲委派，如果你的CustomLoader设置了父加载器是 Application ClassLoader 的话，就会自动优先使用Application ClassLoader加载器，而不是自定义的。
+
+我尝试用文本编辑器重新写了个新的HelloWord类，“com.gaohui.HelloWorld”，然后调用javac命令对其进行编译，然后把我们的这个HelloWorld.class拷贝到/Users/gaohui目录下，并且加上两层目录，因为java中的包名对应就是操作系统中的目录。
+
+```java
+package main;
+
+public class MyClassLoaderTest {
+
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		MyClassLoader classLoader = new MyClassLoader();
 		Class<?> aClass = classLoader.loadClass("com.gaohui.HelloWorld");
+		System.out.println(aClass.getClassLoader());
+		//这个时候会打印出static代码块的输出
+		Object helloWorld = aClass.newInstance();
+		System.out.println(helloWorld);
+	}
+
+}
+```
+
+```
+main.MyClassLoader@5c647e05
+Hello Wolrd class is Initialized
+com.gaohui.HelloWorld@55f96302
+```
+输出如果如上，我们发现这个新的HelloWorld类的确是能够被我们自定义的ClassLoader加载出来了。
+
+这里输出结果表明“com.gaohui.HelloWorld”被成功加载了并且处处了类加载器信息，但是HelloWorld的静态代码块并没有得到执行，那是因为使用类加载器loadClass并不会导致类的主动初始化化，它只是指定了加载过程中的加载阶段而已。
+
+> 这里不使用ide来编写这个类，需要注意的是类的包名，类的包名其实对应的是操作系统中的目录，指定com.gaohui表示这个类在com/gaohui的目录下，而不是简单指定包名即可，需要新建相应的目录，然后再编写这个类具体代码。
+
+### 双亲委托机制的详细介绍
+当一个类加载器被调用了loadClass之后，它并不会直接将其加载，而是先交给当前类加载器的父加载器尝试加载直到最顶层的父加载器，然后再依次向下进行加载，这也是为什么上面我们自定义加载器的时候没有在ide里面写这个HelloWorld类的原因。
+
+那么我们能不能可以不这样做还能让我们的自定义ClassLoader加载这个类呢？
+
+首先来看下ClassLoader的源码：
+```
+ public Class<?> loadClass(String name) throws ClassNotFoundException {
+        return loadClass(name, false);
+}
+
+protected Class<?> loadClass(String name, boolean resolve)
+        throws ClassNotFoundException
+{
+        synchronized (getClassLoadingLock(name)) {
+            // First, check if the class has already been loaded
+            Class<?> c = findLoadedClass(name);
+            if (c == null) {
+                long t0 = System.nanoTime();
+                try {
+                    if (parent != null) {
+                        c = parent.loadClass(name, false);
+                    } else {
+                        c = findBootstrapClassOrNull(name);
+                    }
+                } catch (ClassNotFoundException e) {
+                    // ClassNotFoundException thrown if class not found
+                    // from the non-null parent class loader
+                }
+
+                if (c == null) {
+                    // If still not found, then invoke findClass in order
+                    // to find the class.
+                    long t1 = System.nanoTime();
+                    c = findClass(name);
+
+                    // this is the defining class loader; record the stats
+                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                    sun.misc.PerfCounter.getFindClasses().increment();
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+}
+
+```
+上面的代码片段是java.lang.ClassLoader的loadClass方法，前面的loadClass最终调用的还是后面的那个两个参数的方法。
+* 从当前类加载器的已加载类缓存中根据类的全路径来查询是否存在该类，吐过存在则直接返回。
+* 如果当前类存在父类加载器，则调用父类加载器的loadClass方法对齐进行加载。
+* 如果类加载器不存在父类加载器，则直接调用各类加载器对各类进行加载。
+* 如果当前所有父类加载器都没有成功加载class，则尝试调用当前类加载器的findClass进行加载，该方法就是我们自定义加载器需要重写的方法。
+* 由于loadClass指定了resolve为false，所以不会进行连接阶段的继续执行，这也就解释了为什么通过类加载器加载类并不会导致累得初始化。
+
+那么回到开始时的问题，如何在使用ide环境，在不删除.class文件的情况下能够让我们的自定义ClassLoader来加载我们编写的类？
+
+第一种方法是绕过系统加载器，直接将扩展类加载器作为MyClassLoader的父加载器，代码如下：
+```java
+public class MyClassLoaderTest {
+
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		ClassLoader extClassLoader = MyClassLoaderTest.class.getClassLoader().getParent();
+		MyClassLoader classLoader = new MyClassLoader("/Users/gaohui/Documents/workspace1/Test/bin/",extClassLoader);
+		Class<?> aClass = classLoader.loadClass("main.HelloWorld");
 		System.out.println(aClass.getClassLoader());
 		//这个时候会打印出static代码块的输出
 		Object helloWorld = aClass.newInstance();
@@ -196,8 +309,32 @@ public class MyClassLoaderTest {
 ```
 main.MyClassLoader@5c647e05
 Hello Wolrd class is Initialized
-com.gaohui.HelloWorld@55f96302
+main.HelloWorld@55f96302
 ```
-这里输出结果表明“com.gaohui.HelloWorld”被成功加载了并且处处了类加载器信息，但是HelloWorld的静态代码块并没有得到执行，那是因为使用类加载器loadClass并不会导致类的主动初始化化，它只是指定了加载过程中的加载阶段而已。
+首先我们通过MyClassLoaderTest.class获取系统类加载器，然后再获取系统类加载器的父类加载器中扩展类加载器，时期称为MyClassLoader的父类加载器，这样一来，根加载器和扩展类加载器都无法对"main.HelloWorld"类文件进行加载，自然而然地就交给了MyClassLoader对HelloWorld进行加载了，这种方式充分利用了类加载双亲委托机制的特性。
 
-### 双亲委托机制的详细介绍
+第二种方式是在构造MyClassLoader的时候指定其父类加载器为null，示例代码如下：
+```java
+package main;
+
+public class MyClassLoaderTest {
+
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		//ClassLoader extClassLoader = MyClassLoaderTest.class.getClassLoader().getParent();
+		MyClassLoader classLoader = new MyClassLoader("/Users/gaohui/Documents/workspace1/Test/bin/",null);
+		Class<?> aClass = classLoader.loadClass("main.HelloWorld");
+		System.out.println(aClass.getClassLoader());
+		//这个时候会打印出static代码块的输出
+		Object helloWorld = aClass.newInstance();
+		System.out.println(helloWorld);
+	}
+
+}
+```
+输出结果如下：
+```
+main.MyClassLoader@5c647e05
+Hello Wolrd class is Initialized
+main.HelloWorld@55f96302
+```
+根据loadClass方法的源码分析，当前类没有在父类加载器的情况下，会直接使用根加载器对该类进行加载，很显然，HelloWorld在根加载器的加载路径下是无法找到的，那么它自然而然地就交给当前类加载器进行加载了。
