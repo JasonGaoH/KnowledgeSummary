@@ -1,6 +1,6 @@
 # ThreadLocal
 
-ThreadLocal为每一个使用该变量的线程都提供了独立的副本，可以做大线程间的数据隔离，每一个线程都可以访问各自内部的副本变量。
+ThreadLocal为每一个使用该变量的线程都提供了独立的副本，可以做线程间的数据隔离，每一个线程都可以访问各自内部的副本变量。
 
 #### ThreadLocal的简单使用
 ```
@@ -159,3 +159,15 @@ get方法的工作流程如下：
 
 > 无论是get方法还是set方法，都不可避免地要与ThreadLocalMap和Entry打交道，ThreadLocalMap是一个完全类似于HashMap的数据结构，仅仅用于存放线程存放在ThreadLocal中的数据备份，ThreadLocalMap中的所有方法对外部都是不可见的。
 > 在ThreadLocalMap中用于存储数据的是Entry，它是一个WeakReference类型的子类，之所以这样设计是为了能够在JVM发生垃圾回收事件时，能够自动回收防止发现内存泄漏。
+
+##### ThreadLocal内存示意图
+上面对于方法流程的分析还是显得有点抽象，我们来看下面这张图，我是从网上下载下来的，好多博客都在引用这张图，对于ThreadLocal运行时内存表现的很形象。
+![image](../img/ThreadLocal.webp)
+
+- 每个thread中都存在一个map(ThreadLocalMap), map的类型是ThreadLocal.ThreadLocalMap。
+- ThreadLocalMap中的key为一个threadlocal实例，value则是我们需要存储的值。
+- ThreadLocalMap中是用弱引用包含的hreadlocal实例，当threadlocal实例置为null以后,没有任何强引用指向threadlocal实例,所以threadlocal将会被gc回收。
+- 正常情况下，我们的value却不能回收,因为存在一条从current thread连接过来的强引用. 只有当前thread结束以后, current thread就不会存在栈中,强引用断开, Current Thread, Map, value将全部被GC回收。
+
+之前看到网上有人问过这类问题，ThreadLocalMap.Entry使用弱引用，当堆内存吃紧时，会不会因为ThreadLocal被回收导致该线程获取不到对应的实例？
+> 其实因为当前Thread会持有这个ThreadLocalMap，Java里的Thread类每一个都会一个ThreadLocalMap，这个是强引用，虽然ThreadLocalMap中的key是弱引用的ThreadLocal，当内存吃紧时，这个map仍然会有一个强引用指向它，所以gc并不会回收这部分内存，只有当当前Thread退出后，强引用断开，这部分才有可能会被GC回收。
