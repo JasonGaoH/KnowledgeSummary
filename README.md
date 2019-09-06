@@ -1,4 +1,13 @@
-## KnowledgeSummary：
+<div align="center">  
+<img src="./Docs/img/logo.png" width=""/> 
+<br/>
+</div>
+
+> `KnowledgeSummary`：Android开发知识总结系列(一份涵盖大部分Android程序员所需要掌握的核心知识).
+
+[为什么会有KnowledgeSummary](./Docs/为什么会有KnowledgeSummary.md)
+
+# 目录
 
 * [Java](#Java)
 * [JVM](#JVM)
@@ -29,15 +38,9 @@
 * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
 * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
 * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
-* [TextView性能瓶颈，渲染优化，以及StaticLayout的一些用处](https://www.jianshu.com/p/9f7f9213bff8)
 * [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
-* [IntentFilter匹配规则](./Docs/Android/其他/IntentFilter匹配规则.md)
-* [插件化](./Docs/Android/其他/插件化.md)
-* [组件化](./Docs/Android/其他/组件化.md)
-* [热修复方案对比](./Docs/Android/其他/热修复.md)
-* [App启动流程，从点击桌面开始](http://www.androidos.net.cn/doc/day/2018-02-18/15384.md)
 * [SQLite增删改查以及升级的sql语句](./Docs/Android/其他/SQLite增删改查以及升级的sql语句.md)
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
 * [浅析CoordinatorLayout工作机制](./Docs/Android/UI/浅析CoordinatorLayout工作机制.md)
@@ -71,10 +74,8 @@
 * [线程的生命周期详解](./Docs/MultiThread/线程的生命周期详解.md)
 * [synchronized关键字的原理](./Docs/MultiThread/synchronized关键字的原理.md)
 * [深入解析volatile关键字](./Docs/MultiThread/深入解析volatile关键字.md)
-* [Java中sleep,wait,yield,join,interrupted的区别](./Docs/MultiThread/Java中sleep,wait,yield,join,interrupted的区别.md)
+* [Java中sleep,wait等方法的区别](./Docs/MultiThread/Java中sleep,wait等方法的区别.md)
 * [从AtomicInteger来看CAS机制](./Docs/MultiThread/从AtomicInteger来看CAS机制.md)
-* [死锁](./Docs/MultiThread/死锁.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
-* [线程安全](./Docs/MultiThread/线程安全.md)
 * [ThreadLocal](./Docs/MultiThread/ThreadLocal.md)
 * [ReentrantLock](./Docs/MultiThread/ReentrantLock.md)
