@@ -1,4 +1,4 @@
-# Bitmap加载优化
+# 从assets目录和drawable加载的Bitmap的区别
 
 一张图片从assert目录下加载到内存和从drawable目录下加载到内存有什么区别？
 
