@@ -34,12 +34,9 @@
 
 ### Android
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
-* [Activity之间的通信方式](./Docs/Android/Activity/Activity之间的通信方式.md)
-* [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
 * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
-* [SQLite增删改查以及升级的sql语句](./Docs/Android/其他/SQLite增删改查以及升级的sql语句.md)
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
 * [浅析CoordinatorLayout工作机制](./Docs/Android/UI/浅析CoordinatorLayout工作机制.md)
 * [从assets目录和drawable加载的Bitmap的区别](./Docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)

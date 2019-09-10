@@ -49,7 +49,7 @@ ART缺点：
 
 ``【参考】:``先把 header 直到\r\n\r\n 整个地址记录下来
 > 如果是短连接，没有启用 keepalive，则可以通过是否关闭了连接来判断是否传输结束， 即在读取时可判断 read() != -1。传输完毕就关闭 connection，即 recv 收到 0 个字节。
-> 如果时长连接，那么一个 socket(tcp)可能发送和接收多次请求，那么如何判断每次的 响应已经接收?
+> 如果是长连接，那么一个 socket(tcp)可能发送和接收多次请求，那么如何判断每次的 响应已经接收?
 > 1. 先读请求头，一直到\r\n\r\n 说明请求头结束，然后解析 http 头，如果 Content-Length=x 存在，则知道 http 响应的长度为 x。从头的末尾直接读取 x 字节就是响应内容。
 > 2. 如果 Content-Length=x 不存在，那么头类型为 Transfer-Encoding: chunked 说明响应 的长度不固定，则在响应头结束后标记第一段流的长度，即直到流里有\r\n0\r\n\r\n 结束
 > 3. 如果 recv 返回 SOCKET_ERROR 时，说明对方已经断开连接，但是可能是非正常断开 (断网或者客户端进程结束
@@ -300,9 +300,21 @@ TimeUnit unit, BlockingQueue<Runnable> workQueue) {
 我们执行线程时都会调用到 ThreadPoolExecutor 的 execute()方法，现在我们来看看这个方法的源码(就是下面这段代码了，这里面有一些注释解析)，我直接来解释一下吧:在这段代码中我们至少要看懂一个逻辑:当当前线程数小于核心池线程数时，只需要添加一个线程并且启动它，如果线程数数目大于核心线程池数目，我们将任务放到 workQueue中，如果连WorkQueue满了，那么就要拒绝任务了。
 
 ## Intent传递数据的限制大小
+``【参考】: ``
+用Intent传递数据，实际上走的是跨进程通信（IPC），跨进程通信需要把数据从内核copy到进程中，每一个进程有一个接收内核数据的缓冲区，默认是1M；如果一次传递的数据超过限制，就会出现异常。
 
+不同厂商表现不一样有可能是厂商修改了此限制的大小，也可能同样的对象在不同的机器上大小不一样。
 
 ## onStartCommand 的几种模式
+``【参考】: ``
+> START_NOT_STICKY
+如果返回 START_NOT_STICKY，表示当 Service 运行的进程被 Android 系统强制杀掉之后， 不会重新创建该Service。当然如果在其被杀掉之后一段时间又调用了startService，那么该 Service 又将被实例化。那什么情境下返回该值比较恰当呢?
+如果我们某个 Service 执行的工作被中断几次无关紧要或者对 Android 内存紧张的情况下需 要被杀掉且不会立即重新创建这种行为也可接受，那么我们便可将 onStartCommand 的返 回值设置为 START_NOT_STICKY。
+举个例子，某个 Service 需要定时从服务器获取最新数据:通过一个定时器每隔指定的 N 分 钟让定时器启动 Service 去获取服务端的最新数据。当执行到 Service 的 onStartCommand 时，在该方法内再规划一个 N 分钟后的定时器用于再次启动该 Service 并开辟一个新的线程 去执行网络操作。假设 Service 在从服务器获取最新数据的过程中被 Android 系统强制杀掉， Service 不会再重新创建，这也没关系，因为再过 N 分钟定时器就会再次启动该 Service 并重 新获取数据。
+> START_STICKY
+如果返回 START_STICKY，表示 Service 运行的进程被 Android 系统强制杀掉之后，Android 系统会将该 Service 依然设置为 started 状态(即运行状态)，但是不再保存 onStartCommand 方法传入的 intent 对象，然后 Android 系统会尝试再次重新创建该 Service，并执行 onStartCommand 回调方法，但是 onStartCommand 回调方法的 Intent 参数为 null，也就是 onStartCommand 方法虽然会执行但是获取不到 intent 信息。如果你的 Service 可以在任意 时刻运行或结束都没什么问题，而且不需要 intent 信息，那么就可以在 onStartCommand 方 法中返回 START_STICKY，比如一个用来播放背景音乐功能的 Service 就适合返回该值。
+> START_REDELIVER_INTENT
+如果返回 START_REDELIVER_INTENT，表示 Service 运行的进程被 Android 系统强制杀掉之后，与返回START_STICKY的情况类似，Android 系统会将再次重新创建该 Service，并执行 onStartCommand 回调方法，但是不同的是，Android 系统会再次将 Service 在被杀掉之前 最后一次传入 onStartCommand 方法中的 Intent 再次保留下来并再次传入到重新创建后的 Service 的 onStartCommand 方法中，这样我们就能读取到 intent 参数。只要返回 START_REDELIVER_INTENT，那么 onStartCommand 重的 intent 一定不是 null。如果我们的 Service 需要依赖具体的 Intent 才能运行(需要从 Intent 中读取相关数据信息等)，并且在强 制销毁后有必要重新创建运行，那么这样的 Service 就适合返回 START_REDELIVER_INTENT
 
 ## RelativeLayout的onMeasure方法是怎么Measure的
 ``【参考】: `` 发现 RelativeLayout 会根据 2次排列的结果对子View各做一次 measure。 而在做横向的测量时，纵向的测量结果尚未完成，只好暂时使用 myHeight 传入子View系统。
@@ -320,3 +332,221 @@ Handler 底层采用 Linux 的 pipe/epoll 机制，MessageQueue 没有消息的�
 2. 子类需继承 IntentService 并且实现里面的 onHandlerIntent 抽象方法来处理 intent 类型 的任务请求。
 3. 子类需要重写默认的构造方法，且在构造方法中调用父类带参数的构造方法。
 4. IntentService 类内部利用 HandlerThread+Handler 构建了一个带有消息循环处理机制的 后台工作线程，客户端只需调用 Content#startService(Intent)将 Intent 任务请求放入后台工 作队列中，且客户端无需关注服务是否结束，非常适合一次性的后台任务。比如浏览器下载 文件，退出当前浏览器之后，下载任务依然存在后台，直到下载文件结束，服务自动销毁。 只要当前 IntentService 服务没有被销毁，客户端就可以同时投放多个 Intent 异步任务请求， IntentService 服务端这边是顺序执行当前后台工作队列中的 Intent 请求的，也就是每一时刻 只能执行一个 Intent 请求，直到该 Intent 处理结束才处理下一个 Intent。因为 IntentService 类内部利用 HandlerThread+Handler 构建的是一个单线程来处理异步任务。
+
+## SQLite增删改查以及升级的sql语句
+``【参考】: ``
+``` java
+public SQLiteOpenHelper(Context context, String name, CursorFactory factory, int version) {
+        this(context, name, factory, version, null);
+    }
+
+    public SQLiteDatabase getWritableDatabase() {
+        synchronized (this) {
+            return getDatabaseLocked(true);
+        }
+    }
+
+  private SQLiteDatabase getDatabaseLocked(boolean writable) {
+      .......
+      db.beginTransaction();
+      try {
+              if (version == 0) {
+                   onCreate(db);
+              } else {
+                   if (version > mNewVersion) {
+                         onDowngrade(db, version, mNewVersion);
+                   } else {
+                         onUpgrade(db, version, mNewVersion);
+                   }
+              }
+               db.setVersion(mNewVersion);
+                db.setTransactionSuccessful();
+              } finally {
+                 db.endTransaction();
+              }
+  }
+
+```
+onUpgrade()会被触发，可以在该方法中编写数据库升级逻辑。具体的数据库升级逻辑示例可参考这里.
+
+常用的SQL增删改查：
+- 增：INSERT INTO table_name (列1, 列2,…) VALUES (值1, 值2,….)
+- 删： DELETE FROM 表名称 WHERE 列名称 = 值
+- 改：UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值
+- 查：SELECT 列名称（通配是*符号） FROM 表名称
+ps:操作数据表是:ALTER TABLE。该语句用于在已有的表中添加、修改或删除列。
+- ALTER TABLE table_name ADD column_name datatype
+- ALTER TABLE table_name DROP COLUMN column_name
+- ALTER TABLE table_name_old RENAME TO table_name_new
+
+## Service的生命周期
+``【参考】: ``
+Service是运行在主线程中的，即主线程。
+- startService() 开启Service，调用者退出后Service仍让存在。
+- bindService() 开启Service，调用者退出后Service也随即退出。
+
+Service的生命周期
+- 只是startService的情况下，onCreate() -> onStartCommand() -> onDestroy()
+- 只是bindService的情况下，onCreate() -> onBind() -> onUnBind() -> onDestroy()
+
+## Activity之间的通信方式
+``【参考】: ``
+- Intent 
+- 借助类的静态变量 
+- 借助全局变量/Application 
+- 借助外部工具
+    * 借助 SharedPreference
+    * 使用 Android 数据库 SQLite – 赤裸裸的使用File
+    * Android 剪切板
+- 借助Service
+
+## SurfaceView和TextureView的区别
+``【参考】: ``
+相同点：都继承于View，可在独立线程绘制和渲染。
+
+不同点：
+* SurfaceView：嵌入视图层级内的绘制界面，是一种独立的View，更像是Window，不能做缩放、平移、画圆角等一般View形式操作；
+* TextureView：更像是一般的View，可以做缩放、平移等View形式操作；
+
+从性能和安全性角度出发，使用播放器优先选SurfaceView。
+1.在android 7.0上系统surfaceview的性能比TextureView更有优势，支持对象的内容位置和包含的应用内容同步更新，平移、缩放不会产生黑边。 在7.0以下系统如果使用场景有动画效果，可以选择性使用TextureView
+2.SurfaceView优点及缺点优点：可以在一个独立的线程中进行绘制，不会影响主线程，使用双缓冲机制，播放视频时画面更流畅
+缺点：Surface不在View hierachy中，它的显示也不受View的属性控制，所以不能进行平移，缩放等变换，也不能放在其它ViewGroup中。SurfaceView 不能嵌套使用
+TextureView优点及缺点
+优点：支持移动、旋转、缩放等动画，支持截图
+缺点：必须在硬件加速的窗口中使用，占用内存比SurfaceView高，在5.0以前在主线程渲染，5.0以后有单独的渲染线程
+
+## onSaveInstanceState和onRestoreInstanceState调用时机
+``【参考】: ``
+
+```java
+03-09 12:14:32.529 2298-2298/com.example.myapplication I/MY_TEST: onPause 
+03-09 12:14:32.556 2298-2298/com.example.myapplication I/MY_TEST: onCreate2
+03-09 12:14:32.557 2298-2298/com.example.myapplication I/MY_TEST: onStart2
+03-09 12:14:32.557 2298-2298/com.example.myapplication I/MY_TEST: onResume2
+03-09 12:14:32.981 2298-2298/com.example.myapplication I/MY_TEST: onSaveInstanceState 一个参数
+03-09 12:14:32.981 2298-2298/com.example.myapplication I/MY_TEST: onStop
+
+分割线-------------------------------------------------------------------------
+
+03-09 12:15:28.715 2298-2298/com.example.myapplication I/MY_TEST: onPause2
+03-09 12:15:28.763 2298-2298/com.example.myapplication I/MY_TEST: onCreate
+03-09 12:15:28.764 2298-2298/com.example.myapplication I/MY_TEST: onStart
+03-09 12:15:28.764 2298-2298/com.example.myapplication I/MY_TEST: onRestoreInstanceState
+03-09 12:15:28.767 2298-2298/com.example.myapplication I/MY_TEST: onActivityResult 
+03-09 12:15:28.767 2298-2298/com.example.myapplication I/MY_TEST: onResume 
+03-09 12:15:29.141 2298-2298/com.example.myapplication I/MY_TEST: onStop2
+03-09 12:15:29.141 2298-2298/com.example.myapplication I/MY_TEST: onDestroy2
+```
+1. 跳转过程中，先执行1的onpause，等等 onstop，等待2的onresume执行完之后，再执行1的onstop、ondestory
+2. onSaveInstanceState每次隐藏activity都会在onpause之后执行(即使activity没有销毁也会执行)
+3. onRestoreInstance 在 onstart 之后，onActivityResult 之前执行
+
+## LeakCanary原理
+``【参考】: ``
+> 弱引用WeakReference
+被强引用的对象就算发生 OOM 也永远不会被垃圾回收机回收;
+被弱引用的对象，只要被垃圾回收器发现就会立即被回收;
+被软引用的对象，具备内存敏感性，只有内存不足时才会 被回收，常用来做内存敏感缓存器;
+虚引用则任意时刻都可能被回收，使用较少。
+
+引用队列ReferenceQueue
+
+> 我们常用一个 WeakReference reference = new WeakReference(activity);，这里我们创建了 一个 reference 来弱引用到某个 activity，当这个 activity 被垃圾回收器回收后，这个 reference 会被放入内部的 ReferenceQueue 中。也就是说，从队列 ReferenceQueue 取出 来的所有 reference，它们指向的真实对象都已经成功被回收了。
+
+1. 利用 application.registerActivityLifecycleCallbacks(lifecycleCallbacks) 来监听整个生命周期内的 Activity onDestoryed 事件;
+2. 当某个 Activity 被 destory 后，将它传给 RefWatcher 去做观测，确保其后续会被正常 回收;
+3. RefWatcher 首先把 Activity 使用 KeyedWeakReference 引用起来，并使用一个 ReferenceQueue 来记录该 KeyedWeakReference 指向的对象是否已被回收;
+4. AndroidWatchExecutor 会延迟 5 秒后，再开始检查这个弱引用内的 Activity 是否被正常 回收。判断条件是:若 Activity 被正常回收，那么引用它的 KeyedWeakReference 会被自 动放入 ReferenceQueue 中。
+5. 判断方式是:先看 Activity 对应的 KeyedWeakReference 是否已经放入 ReferenceQueue 中;如果没有，则手动 GC:gcTrigger.runGc();;然后再一次判断 ReferenceQueue 是否已经含有对应的 KeyedWeakReference。若还未被回收，则认为可能发 生内存泄漏。
+6. 利用 HeapAnalyzer 对 dump 的内存情况进行分析并进一步确认，若确定发生泄漏，则 利用 HeapAnalyzerService发送通知。
+7. 弱引用与 ReferenceQueue 联合使用，如果弱引用关联的对象被回收，则会把这个弱引用 加入到 ReferenceQueue 中;通过这个原理，可以看出 removeWeaklyReachableReferences() 执行后，会对应删除 KeyedWeakReference 的数据。如果这个引用继续存在，那么就说明没 有被回收。
+8. 为了确保最大保险的判定是否被回收，一共执行了两次回收判定，包括一次手动 GC 后 的回收判定。两次都没有被回收，很大程度上说明了这个对象的内存被泄漏了，但并不能 100% 保证;因此 LeakCanary是存在极小程度的误差的。
+
+## Android系统为什么会设计ContentProvider
+``【参考】: ``
+
+在开发中，假如，A、B 进程有部分信息需要同步，这个时候怎么处理呢?设想这么一个场 景，有个业务复杂的 Activity 非常占用内存，并引发 OOM，所以，想要把这个 Activity 放到 单独进程，以保证 OOM 时主进程不崩溃。但是，两个整个 APP 有些信息需要保持同步，比 如登陆信息等，无论哪个进程登陆或者修改了相应信息，都要同步到另一个进程中去，这个 时候怎么做呢?
+
+第一种:一个进程里面的时候，经常采用SharePreference 来做，但是SharePreference 不支持多进程，它基于单个文件的，默认是没有考虑同步互斥，而且，APP对SP对象做了缓存， 不好互斥同步，虽然可以通过 FileLock 来实现互斥，但同步仍然是一个问题。 第二种:基于 Binder 通信实现 Service 完成跨进程数据的共享，能够保证单进程访问数据， 不会有互斥问题，可是同步的事情仍然需要开发者手动处理。
+第三种:基于Android提供的ContentProvider来实现，ContentProvider 同样基于Binder， 不存在进程间互斥问题，对于同步，也做了很好的封装，不需要开发者额外实现。
+
+ContentProvider 只是 Android 为了跨进程共享数据提供的一种机制， 本身基于 Binder 实现，
+在操作数据上只是一种抽象，具体要自己实现
+ContentProvider 只能保证进程间的互斥，无法保证进程内，需要自己实现
+ContentResolver 接口的 notifyChange 函数来通知那些注册了监控特定 URI 的 ContentObserver 对象，使得它们可以相应地执行一些处理。ContentObserver 可以通过 registerContentObserver 进行注册。
+既然是对外提供数据共享，那么如何限制对方的使用呢?
+android:exported 属性非常重要。这个属性用于指示该服务是否能够被其他应用程序组件调 用或跟它交互。如果设置为 true，则能够被调用或交互，否则不能。设置为 false 时，只有 同一个应用程序的组件或带有相同用户 ID 的应用程序才能启动或绑定该服务。
+
+## Service和Activity通信
+``【参考】: ``
+
+Activity 调用 bindService (Intent service, ServiceConnection conn, int flags)方法，得到 Service 对象的一个引用，这样 Activity 可以直接调用到 Service 中的方法，如果要主动通知 Activity， 我们可以利用回调方法
+Service 向 Activity 发送消息，可以使用广播，当然 Activity要注册相应的接收器。比如 Service 要向多个 Activity发送同样的消息的话，用这种方法就更好。
+
+## OOM 是否可以try catch
+``【参考】: ``
+一般不适合这么处理
+Java 中管理内存除了显式地 catch OOM 之外还有更多有效的方法:比如 SoftReference, WeakReference, 硬盘缓存等。
+在 JVM 用光内存之前，会多次触发 GC，这些 GC 会降低程序运行的效率。
+如果 OOM 的原因不是 try 语句中的对象(比如内存泄漏)，那么在 catch 语句中会继续抛出 OOM
+
+## AlertDialog，Toast 对Activity生命周期的影响
+``【参考】: ``
+无论 Dialog 弹出覆盖页面，对 Activity 生命周期没有影响，只有再启动另外一个 Activity 的时候才会进入 onPause 状态，而不是想象中的被覆盖或者不可见，同时通过 AlertDialog 源码或者 Toast 源码我们都可以发现它们实现的原理都是 windowmanager.addView();来添加的， 它们都是一个个 view ,因此不会对 activity 的生命周 期有任何影响。
+
+## HTTP与TCP的区别和联系
+``【参考】: ``
+TCP 连接
+ 
+手机能够使用联网功能是因为手机底层实现了 TCP/IP 协议，可以使手机终端通过无线网络，建立 TCP 连接。TCP 协议可以对上层网络提供接口，使上层网络数据的传输建立在“无差别” 的网络之上。
+
+建立起一个 TCP 连接需要经过“三次握手”:
+- 第一次握手:客户端发送 syn 包(syn=j)到服务器，并进入 SYN_SEND 状态，等待服务器确认;
+- 第二次握手:服务器收到 syn 包，必须确认客户的 SYN(ack=j+1)，同时自己也发送一个SYN 包(syn=k)，即 SYN+ACK 包，此时服务器进入 SYN_RECV 状态;
+- 第三次握手:客户端收到服务器的 SYN+ACK 包，向服务器发送确认包 ACK(ack=k+1)，此包发送完毕，客户端和服务器进入 ESTABLISHED 状态，完成三次握手。
+
+握手过程中传送的包里不包含数据，三次握手完毕后，客户端与服务器才正式开始传递数据。理想状态下，TCP连接一旦建立，在通信双方中的任何一方主动关闭连接之前，TCP连接都将被一直保持下去。断开连接时服务器和客户端均可以主动发起断开TCP连接的请求，断开过程需要经过“四次挥手”。
+
+HTTP 连接
+
+HTTP 连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，
+理想状态下，TCP 连接一旦建立，在通信双方中的任何一方主动关闭连 接之前，TCP 连接
+都将被一直保持下去。断开连接时服务器和客户端均可以主动发起断开 TCP 连接的请求，
+断开过程需要经过“四次握手”(过程就不细写 了，就是服务器和客户端交互，最终确定断
+开)
+ HTTP 协议即超文本传送协议(Hypertext Transfer Protocol )，是 Web 联网的基础，也是手
+ 机联网常用的协议之一，HTTP 协议是建立在 TCP 协议之上的一种应用。
+ 会主动释放连接。从建立连接到关闭连接的过程称为“一次连接”。
+- 1)在 HTTP 1.0 中，客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，
+ 就自动释放连接。
+- 2)在 HTTP 1.1 中则可以在一次连接中处理多个请求，并且多个请求可以重叠进行，不需要
+  等待一个请求结束后再发送下一个请求。
+由于 HTTP 在每次请求结束后都会主动释放连接，因此 HTTP 连接是一种“短连接”，要保持客户端程序的在线状态，需要不断地向服务器发起连接请求。通常的 做法是即时不需要获
+得任何数据，客户端也保持每隔一段固定的时间向服务器发送一次“保持连接”的请求，服务器在收到该请求后对客户端进行回复，表明知道客 户端“在线”。若服务器长时间无法收到
+客户端的请求，则认为客户端“下线”，若客户端长时间无法收到服务器的回复，则认为网络已经断开。
+
+TPC/IP 协议是传输层协议，主要解决数据如何在网络中传输，而 HTTP 是应用层协议，主要 解决如何包装数据。TCP 协议对应于传输层，而 HTTP 协议对应于应用层，从本质上来说， 二者没有可比性。Http 协议是建立在 TCP 协议基础之上的，当浏览器需要从服务器获取网 页数据的时候，会发出一次 Http 请求。Http 会通过 TCP 建立起一个到服务器的连接通道。 简单地说，当一个网页打开完成后，客户端和服务器之间用于传输 HTTP 数据的 TCP 连接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接
+ Keep-Alive 不会永久保持连接，它有一个保持时间，可以在不同的服务器软件(如 Apache)
+ 中设定这个时间。Http 是无状态的短连接，而 TCP 是有状态的长连接。
+
+ ## 为什么要用多进程?有哪些方式?怎么使用多进程?
+``【参考】: ``
+ 那么多进程应该能为我们带来什么呢?
+我们都知道，android 平台对应用都有内存限制，其实这个理解有点问题，应该是说 android 平台对每个进程有内存限制，比如某机型对对进程限制是 24m，如果应用有两个进程，则该应该的总内存限制是 2*24m。使用多进程就可以使得我们一个 apk 所使用的内存限制加大几倍。 所以可以借此图片平台对应用的内存限制，比如一些要对图片、视频、大文件进程处理的好内存的应用可以考虑用多进程来解决应用操作不流畅问题。
+
+开启多进程模式:
+在 Android 中使用多进程只有一种方法,那就是在 AndroidManifest 中给四大组件 (Activity,Service,Receiver,ContentProvider)指定 android:process 属性.除此之外没有其他的办 法,也就是说我们无法给一个线程活一个实体类指定其运行时所在的进程.其实还有另一种非常规的多进程方法,那就是通过 JNI 在 native 层去 fork一个新的进程,但这种方法属于特殊情 况,并不是常用的创建多进程的方式,所以我们也暂不考虑这种情况
+进程名以":"开头的进程属于当前应用的私有进程,其他应用的组件不可以和它跑在同一个进 程中,而进程名不以":"开头的进程属于全局进程,其他应用通过 ShareUID 方式可以和它跑在 同一个进程中.
+
+用多进程的好处与坏处
+好处:
+1)分担主进程的内存压力。 当应用越做越大，内存越来越多，将一些独立的组件放到不同的进程，它就不占用主进程的 内存空间了。当然还有其他好处，有心人会发现 2)使应用常驻后台，防止主进程被杀守护进程，守护进程和主进程之间相互监视，有一方 被杀就重新启动它。Android 后台进程里有很多应用是多个进程的，因为它们要常驻后台，特别是即时通讯或者社交应用，不过现在多进程已经被用烂了。
+典型用法是在启动一个不可见的轻量级私有进程，在后台收发消息，或者做一些耗时的事情， 或者开机启动这个进程，然后做监听等。
+
+坏处:消耗用户的电量。
+多占用了系统的空间，若所有应用都这样占用，系统内存很容易占满而导致卡顿。 应用程序架构会变得复杂，因为要处理多进程之间的通信。这里又是另外一个问题了。
+多进程的缺陷 进程间的内存空间是不可见的。开启多进程后，会引发以下问题:
+1)Application 的多次重建。 2)静态成员的失效。 3)文件共享问题。 4)断点调试问题。
+
+ 
