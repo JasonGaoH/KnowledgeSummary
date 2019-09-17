@@ -4,7 +4,7 @@ volatile是一个非常重要的关键字，虽然看起来很简单，但是想
 
 #### volatile关键字使用
 首先我们还是从代码来入手：
-```
+```java
 
 import java.util.concurrent.TimeUnit;
 
