@@ -45,4 +45,76 @@ JMM中所说的主内存、工作内存与Java内存区域中的Java堆、栈、
 * store(存储)：作用于工作内存的变量，它把工作内存中的一个变量的值传送到主内存中，以便随后的write操作使用。
 * write(写入)：作用于主内存的变量，它把store操作从工作内存中得到的变量的值放入主内存的变量中。
 
+> 如果要把一个变量从主内存复制到工作内存，那就要顺序地执行read和load操作，如果要把变量从工作内存同步到主内存，就要顺序地执行store和write操作。注意，Java内存模型要求上述两个操作必须按顺序执行，而没有保证是连续执行。
+
+Java内存还规定了在执行上述8种操作时必须满足如下规则：
+* 不允许read和load、store和write操作之一单独出现，即不允许一个变量从主内存读取了但工作内存不接收，或者从工作内存发起回写了但主内存不接受的情况出现。
+* 不允许一个线程丢弃它的assign操作，即变量在工作内存中改变了之后必须把该变化同步回主内存。
+* 不允许一个线程无原因地（没有发生过任何assign操作）把数据从线程的工作内存同步会主内存中。
+* 一个新的变量只能在主内存中”诞生“，不允许在工作内存中直接使用一个未被初始化（load或assign）的变量，换句话说，就是对一个变量实施use、store之前，必须先执行过了assign和load操作。
+* 一个变量在同一个时刻只允许一条线程对其进行lock操作，但lock操作可以被同一条线程重复执行多次，多次执行lock后，只有执行相同次数的unlock，变量才会被解锁。
+* 吐过对一个变量执行lock操作，那将会清空工作内存中此变量的值，在执行引擎使用这个变量前，需要重新执行load或assign操作初始化变量的值。
+* 对一个变量执行unlock操作之前，必须先把此变量同步回主内存中（执行store、write操作）。
+
+### 对于volatile变量的特殊规则
+关键字volatile可以说是Java虚拟机提供的最轻量级的同步机制，但是它并不容易完全被正确、完整地理解，以至于大多数情况我们喜欢使用synchronized来做同步。
+
+> volatile的语义
+当一个变量定义为volatile之后，它将具备两种特性，第一是保证此变量对所有线程的可见性。
+
+这里的“可见性”是指当一条线程修改了这个变量的值，新值对于其他线程来说是可以立即得知的。而普通变量不能做到这一点，普通变量的值在线程间传递均需要通过主内存来完成。
+
+虽然说volatile变量对所有线程是可见的（在各个线程的工作内存中，volatile变量也可以存在不一致的情况，但是由于每次使用之前都要先刷新，执行引擎看不懂不一致的情况，因此可以认为不存在不一致问题）。
+
+Java里面的运算并非原子操作，导致volatile变量的运算在并发下是不安全的，我们通过一段简单的代码来说明原因。
+```java
+
+public class VolatileTest {
+	public static volatile int race = 0;
+	
+	public static void increase() {
+		race ++;
+	}
+	
+	private static final int THREAD_COUNT = 20;
+
+	public static void main(String[] args) {
+		Thread[] threads = new Thread[THREAD_COUNT];
+		for(int i =0 ;i<THREAD_COUNT;i++) {
+			threads[i] = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					for(int i =0;i< 10000;i++) {
+						increase();
+					}
+				}
+			});
+			threads[i].start();
+		}
+        //等待所有线程都累加结束
+		while(Thread.activeCount() > 1)
+			Thread.yield();
+		
+		System.out.println(race);
+	}
+}
+```
+这段代码发起了20个线程，每个线程对race变量进行10000次自增操作，如果这段代码能够正确并发的话，最后输出的结果应该是200000。我们运行完这段代码之后，并没有获得期望的结果，而且发现每次运行程序。输出的结果都不一样，都是一个小于200000的数字。
+
+问题就出在自增运算”race++“之中，我们用javap反编译这段代码后发现只有一行代码的increase()方法在Class文件中是由4条字节码指令构成的。
+
+```java
+  public static void increase();
+    Code:
+       0: getstatic     #13                 // Field race:I
+       3: iconst_1
+       4: iadd
+       5: putstatic     #13                 // Field race:I
+       8: return
+```
+从字节码层面上很容易分析出原因了：当getstatic指令把race的值取到操作栈时，volatile关键字保证了race的值此时是正确的，但是在执行iconst_1、iAdd这些指令的时候，其他线程可能已经把race的值加大了，而在操作栈订的值就变成了过期的数据，所以putstati指令执行后就坑你吧较小的值同步回主内存中去了。
+
+客观地说，我们在此使用字节码来分析并发问题，仍然是不严谨的，因为即使编译出来的只有一条字节指令，也并不意味执行这条指令就是一个原子操作。
+
 https://www.jianshu.com/p/90a036212cb4
