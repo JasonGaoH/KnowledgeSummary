@@ -19,3 +19,6 @@ ConnectionPool pool = new ConnectionPool(5, 10000, TimeUnit.MILLISECONDS);
 OkHttpClient client = new OkHttpClient.Builder()
 .connectionPool(pool)
 .build();
+
+
+[拆轮子系列：拆 Retrofit](https://blog.piasy.com/2016/06/25/Understand-Retrofit/index.html)
