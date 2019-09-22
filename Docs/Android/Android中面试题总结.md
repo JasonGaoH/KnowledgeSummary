@@ -7,42 +7,42 @@
 
 [原文链接](https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/Android/Android%E4%B8%AD%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93.md)
 
-[如何计算一个View的层级](#如何计算一个view的层级)
-[Art和Dalvik区别](#art和dalvik区别)
-[socket判断http请求或http响应的传输结束](#socket判断http请求或http响应的传输结束)
-[OnLowMemory和OnTrimMemory的比较](#onlowmemory和ontrimmemory的比较)
-[BlockCanary核心原理分析](#blockcanary核心原理分析)
-[onRestart 什么时候调用](#onrestart-什么时候调用)
-[Handler 如何防止内存泄漏](#handler-如何防止内存泄漏)
-[TCP可靠性的保证机制总结](#tcp可靠性的保证机制总结)
-[synchronized 和 ReentrantLock 的区别和使用选择](#synchronized-和-reentrantlock-的区别和使用选择)
-[synchronized，volitale的异同](#synchronizedvolitale的异同)
-[SparseArray和ArrayMap使用场景](#sparsearray和arraymap使用场景)
-[Android 中 getRawX()和 getX()区别](#android-中-getrawx和-getx区别)
-[Android中的MotionEvent手势事件](#android中的motionevent手势事件)
-[onInterceptTouchEvent()函数与 onTouchEvent()的区别](#onintercepttouchevent函数与-ontouchevent的区别)
-[Http 1.0和Http 2.0的区别](#http-10和http-20的区别)
-[View.getLocationInWindow和View.getLocationOnScreen区别](#viewgetlocationinwindow和viewgetlocationonscreen区别)
-[http和https的区别](#http和https的区别)
-[为什么要有内部类,静态内部类和普通内部类区别是什么](#为什么要有内部类静态内部类和普通内部类区别是什么)
-[Java中四种线程池的总结](#java中四种线程池的总结)
-[Intent传递数据的限制大小](#intent传递数据的限制大小)
-[onStartCommand 的几种模式](#onstartcommand-的几种模式)
-[RelativeLayout的onMeasure方法是怎么Measure的](#relativelayout的onmeasure方法是怎么measure的)
-[主线程的死循环是否一致耗费CPU资源](#主线程的死循环是否一致耗费cpu资源)
-[Service 和 IntentService 的区别](#service-和-intentservice-的区别)
-[SQLite增删改查以及升级的sql语句](#sqlite增删改查以及升级的sql语句)
-[Service的生命周期](#service的生命周期)[Activity之间的通信方式](#activity之间的通信方式)
-[SurfaceView和TextureView的区别](#surfaceview和textureview的区别)
-[onSaveInstanceState和onRestoreInstanceState调用时机](#onsaveinstancestate和onrestoreinstancestate调用时机)
-[LeakCanary原理](#leakcanary原理)
-[Android系统为什么会设计ContentProvider](#android系统为什么会设计contentprovider)
-[Service和Activity通信](#service和activity通信)
-[OOM 是否可以try catch](#oom-是否可以try-catch)
-[AlertDialog，Toast 对Activity生命周期的影响](#alertdialogtoast-对activity生命周期的影响)
-[HTTP与TCP的区别和联系](#http与tcp的区别和联系)
-[viewstub可以多次inflate么?多次inflate会怎样?](#viewstub可以多次inflate么多次inflate会怎样)
-[onWindowFocusChanged 执行时机](#onwindowfocuschanged-执行时机)
+[如何计算一个View的层级](#如何计算一个view的层级)<br/>
+[Art和Dalvik区别](#art和dalvik区别)<br/>
+[socket判断http请求或http响应的传输结束](#socket判断http请求或http响应的传输结束)<br/>
+[OnLowMemory和OnTrimMemory的比较](#onlowmemory和ontrimmemory的比较)<br/>
+[BlockCanary核心原理分析](#blockcanary核心原理分析)<br/>
+[onRestart 什么时候调用](#onrestart-什么时候调用)<br/>
+[Handler 如何防止内存泄漏](#handler-如何防止内存泄漏)<br/>
+[TCP可靠性的保证机制总结](#tcp可靠性的保证机制总结)<br/>
+[synchronized 和 ReentrantLock 的区别和使用选择](#synchronized-和-reentrantlock-的区别和使用选择)<br/>
+[synchronized，volitale的异同](#synchronizedvolitale的异同)<br/>
+[SparseArray和ArrayMap使用场景](#sparsearray和arraymap使用场景)<br/>
+[Android 中 getRawX()和 getX()区别](#android-中-getrawx和-getx区别)<br/>
+[Android中的MotionEvent手势事件](#android中的motionevent手势事件)<br/>
+[onInterceptTouchEvent()函数与 onTouchEvent()的区别](#onintercepttouchevent函数与-ontouchevent的区别)<br/>
+[Http 1.0和Http 2.0的区别](#http-10和http-20的区别)<br/>
+[View.getLocationInWindow和View.getLocationOnScreen区别](#viewgetlocationinwindow和viewgetlocationonscreen区别)<br/>
+[http和https的区别](#http和https的区别)<br/>
+[为什么要有内部类,静态内部类和普通内部类区别是什么](#为什么要有内部类静态内部类和普通内部类区别是什么)<br/>
+[Java中四种线程池的总结](#java中四种线程池的总结)<br/>
+[Intent传递数据的限制大小](#intent传递数据的限制大小)<br/>
+[onStartCommand 的几种模式](#onstartcommand-的几种模式)<br/>
+[RelativeLayout的onMeasure方法是怎么Measure的](#relativelayout的onmeasure方法是怎么measure的)<br/>
+[主线程的死循环是否一致耗费CPU资源](#主线程的死循环是否一致耗费cpu资源)<br/>
+[Service 和 IntentService 的区别](#service-和-intentservice-的区别)<br/>
+[SQLite增删改查以及升级的sql语句](#sqlite增删改查以及升级的sql语句)<br/>
+[Service的生命周期](#service的生命周期)[Activity之间的通信方式](#activity之间的通信方式)<br/>
+[SurfaceView和TextureView的区别](#surfaceview和textureview的区别)<br/>
+[onSaveInstanceState和onRestoreInstanceState调用时机](#onsaveinstancestate和onrestoreinstancestate调用时机)<br/>
+[LeakCanary原理](#leakcanary原理)<br/>
+[Android系统为什么会设计ContentProvider](#android系统为什么会设计contentprovider)<br/>
+[Service和Activity通信](#service和activity通信)<br/>
+[OOM 是否可以try catch](#oom-是否可以try-catch)<br/>
+[AlertDialog，Toast 对Activity生命周期的影响](#alertdialogtoast-对activity生命周期的影响)<br/>
+[HTTP与TCP的区别和联系](#http与tcp的区别和联系)<br/>
+[viewstub可以多次inflate么?多次inflate会怎样?](#viewstub可以多次inflate么多次inflate会怎样)<br/>
+[onWindowFocusChanged 执行时机](#onwindowfocuschanged-执行时机)<br/>
 
 ## 如何计算一个View的层级
 ``【参考】:``
