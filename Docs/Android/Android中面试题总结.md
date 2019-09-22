@@ -1,4 +1,48 @@
-> Android中面试题总结主要用于收录一些零散的面试题，这些面试题因为知识点比较零散，所以准备把这部分整理做个总结。对于有的知识点考虑篇幅很大，不会放在这篇文章中，会作为一篇独立的文章来总结放在最外面的REDAME目录中。
+# 前言
+自己一直做Java、Android相关的知识总结->[KnowledgeSummary系列](https://github.com/JasonGaoH/KnowledgeSummary)。这个GitHub的repo想作为自己对于Android核心知识点以及一些面试题的总结，因为很多知识点理解的不够深刻，所以通过这个来强迫自己做总结，目前已经初具规模，我基本每天都会更新这个repo，后续还会持续更新下去，大家有兴趣可以点个star关注下，感谢。
+
+在做这个知识总结系列，发现有的比较零散的面试题不太适合开个doc文档来写，于是想着把这些零散的面试题做个总结，所以想收录在这篇文章里面，并且每个面试题尽量提供一个参考答案，因为如果只是把面试题列出来，我举得一点意思都没有，这样的面试题网上一搜一大把，所以我希望为每一个面试题提供一个参考，但不能保证这些答案完全正确。
+
+我的目标是这份面试题能够长期更新，因为比较多，暂时就不分类了。
+
+[原文链接](https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/Android/Android%E4%B8%AD%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93.md)
+
+[如何计算一个View的层级](#如何计算一个view的层级)
+[Art和Dalvik区别](#art和dalvik区别)
+[socket判断http请求或http响应的传输结束](#socket判断http请求或http响应的传输结束)
+[OnLowMemory和OnTrimMemory的比较](#onlowmemory和ontrimmemory的比较)
+[BlockCanary核心原理分析](#blockcanary核心原理分析)
+[onRestart 什么时候调用](#onrestart-什么时候调用)
+[Handler 如何防止内存泄漏](#handler-如何防止内存泄漏)
+[TCP可靠性的保证机制总结](#tcp可靠性的保证机制总结)
+[synchronized 和 ReentrantLock 的区别和使用选择](#synchronized-和-reentrantlock-的区别和使用选择)
+[synchronized，volitale的异同](#synchronizedvolitale的异同)
+[SparseArray和ArrayMap使用场景](#sparsearray和arraymap使用场景)
+[Android 中 getRawX()和 getX()区别](#android-中-getrawx和-getx区别)
+[Android中的MotionEvent手势事件](#android中的motionevent手势事件)
+[onInterceptTouchEvent()函数与 onTouchEvent()的区别](#onintercepttouchevent函数与-ontouchevent的区别)
+[Http 1.0和Http 2.0的区别](#http-10和http-20的区别)
+[View.getLocationInWindow和View.getLocationOnScreen区别](#viewgetlocationinwindow和viewgetlocationonscreen区别)
+[http和https的区别](#http和https的区别)
+[为什么要有内部类,静态内部类和普通内部类区别是什么](#为什么要有内部类静态内部类和普通内部类区别是什么)
+[Java中四种线程池的总结](#java中四种线程池的总结)
+[Intent传递数据的限制大小](#intent传递数据的限制大小)
+[onStartCommand 的几种模式](#onstartcommand-的几种模式)
+[RelativeLayout的onMeasure方法是怎么Measure的](#relativelayout的onmeasure方法是怎么measure的)
+[主线程的死循环是否一致耗费CPU资源](#主线程的死循环是否一致耗费cpu资源)
+[Service 和 IntentService 的区别](#service-和-intentservice-的区别)
+[SQLite增删改查以及升级的sql语句](#sqlite增删改查以及升级的sql语句)
+[Service的生命周期](#service的生命周期)[Activity之间的通信方式](#activity之间的通信方式)
+[SurfaceView和TextureView的区别](#surfaceview和textureview的区别)
+[onSaveInstanceState和onRestoreInstanceState调用时机](#onsaveinstancestate和onrestoreinstancestate调用时机)
+[LeakCanary原理](#leakcanary原理)
+[Android系统为什么会设计ContentProvider](#android系统为什么会设计contentprovider)
+[Service和Activity通信](#service和activity通信)
+[OOM 是否可以try catch](#oom-是否可以try-catch)
+[AlertDialog，Toast 对Activity生命周期的影响](#alertdialogtoast-对activity生命周期的影响)
+[HTTP与TCP的区别和联系](#http与tcp的区别和联系)
+[viewstub可以多次inflate么?多次inflate会怎样?](#viewstub可以多次inflate么多次inflate会怎样)
+[onWindowFocusChanged 执行时机](#onwindowfocuschanged-执行时机)
 
 ## 如何计算一个View的层级
 ``【参考】:``
@@ -549,4 +593,65 @@ TPC/IP 协议是传输层协议，主要解决数据如何在网络中传输，�
 多进程的缺陷 进程间的内存空间是不可见的。开启多进程后，会引发以下问题:
 1)Application 的多次重建。 2)静态成员的失效。 3)文件共享问题。 4)断点调试问题。
 
- 
+## viewstub可以多次inflate么?多次inflate会怎样?
+``【参考】: ``
+在使用 viewstub 的时候要注意一点，viewstub 只能 inflate 一次，而且 setVisibility 也会间接的调用到 inflate，重复 inflate 会抛出异常: java.lang.IllegalStateException:ViewStub must have a non-null ViewGroup viewParent。
+
+解决方法为设置一个 Boolean 类型的变量，标记 viewstub 是否已经 inflate，如果 viewstub 还未 inflate 则执行初始化操作，反之则不进行操作。其中要使用 ViewStub 中的 OnInflateListener()监听事件来判断是否已经填充,从而保证 viewstub 不重复的 inflate。
+
+解决方法:
+1.定义 boolean 变量和 ViewStub boolean isInflate = false; ViewStub mViewStub;
+
+2.初始化 ViewStub，并为 ViewStub 添加 OnInflateListener()监听事件
+```java
+mViewStub = (ViewStub)findViewById(R.id.viewstub_match_single);
+mViewStub.setOnInflateListener(new OnInflateListener() { @Override
+public void onInflate(ViewStub stub, View inflated) {
+isInflate = true; }
+});
+```
+ 3.填充 ViewStub
+ ```java
+private void initViewStub(){//填充 ViewStub 的方法
+    if(!isInflate){//如果没有填充则执行 inflate 操作
+        View view = stubMatchSingle.inflate();
+        //初始化 ViewStub 的 layout 里面的控件
+        TextView mTv = (TextView) view.findViewById(R.id.txt_url); mTv.setOnClickListener(this);
+    } 
+}
+ ```
+
+ ## 如何获取一个图片的宽高
+ ``【参考】: ``
+ android 在不加载图片的前提下获得图片的宽高
+ ```java
+public static int[] getImageWidthHeight(String path){
+BitmapFactory.Options options = new BitmapFactory.Options();
+    /**
+    * 最关键在此，把 options.inJustDecodeBounds = true;
+    * 这里再 decodeFile()，返回的 bitmap 为空，但此时调用 options.outHeight 时，已经
+    包含了图片的高了 */
+    options.inJustDecodeBounds = true; 
+    Bitmapbitmap=BitmapFactory.decodeFile(path,options);// 此时返回的bitmap为null /**
+    /*
+    *options.outHeight 为原始图片的高
+    */
+    return new int[]{options.outWidth,options.outHeight};
+}
+ ```
+
+ 通过 BitmapFactory 从不同位置获取 Bitmap
+* 1.资源文件(drawable/mipmap/raw)
+BitmapFactory.decodeResource(getResources(), R.mipmap.slim_lose_weight_plan_copenhagen,options);
+* 2.资源文件(assets)
+InputStream is = getActivity().getAssets().open("bitmap.png"); BitmapFactory.decodeStream(is);
+* 3.内存卡文件
+bitmap = BitmapFactory.decodeFile("/sdcard/bitmap.png");
+* 4.网络文件
+bitmap = BitmapFactory.decodeStream(is);
+可根据 BitmapFactory 获取图片时传入 option，通过上述方法获取图片的宽高
+
+## onWindowFocusChanged 执行时机
+``【参考】: ``
+真正的 visible 时间点是 onWindowFocusChanged()函数被执行时，当前窗体得到
+ 或失去焦点的时候的时候调用。这是这个活动是否是用户可见的最好的指标。
