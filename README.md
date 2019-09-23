@@ -40,6 +40,7 @@
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
 * [浅析CoordinatorLayout工作机制](./Docs/Android/UI/浅析CoordinatorLayout工作机制.md)
 * [从assets目录和drawable加载的Bitmap的区别](./Docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)
+* [RecyclerView中出现item重复的问题分析](./Docs/Android/UI/RecyclerView中出现item重复的问题分析.md)
 
 #### Android面试
 * [Android中面试题总结](./Docs/Android/Android中面试题总结.md)
@@ -73,7 +74,7 @@
 * [线程的生命周期详解](./Docs/MultiThread/线程的生命周期详解.md)
 * [synchronized关键字的原理](./Docs/MultiThread/synchronized关键字的原理.md)
 * [深入解析volatile关键字](./Docs/MultiThread/深入解析volatile关键字.md)
-* [Java中sleep,wait等方法的区别](./Docs/MultiThread/Java中sleep,wait等方法的区别.md)
+* [一次搞懂sleep、wait、yield、join和interrupted线程相关方法](./Docs/MultiThread/一次搞懂sleep、wait、yield、join和interrupted线程相关方法.md)
 * [从AtomicInteger来看CAS机制](./Docs/MultiThread/从AtomicInteger来看CAS机制.md)
 * [多线程间通信](./Docs/MultiThread/多线程间通信.md)
 * [ThreadLocal](./Docs/MultiThread/ThreadLocal.md)

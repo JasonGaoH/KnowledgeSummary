@@ -60,7 +60,7 @@ Java内存还规定了在执行上述8种操作时必须满足如下规则：
 关键字volatile可以说是Java虚拟机提供的最轻量级的同步机制，但是它并不容易完全被正确、完整地理解，以至于大多数情况我们喜欢使用synchronized来做同步。
 
 > volatile的语义
-当一个变量定义为volatile之后，它将具备两种特性，第一是保证此变量对所有线程的可见性。
+``当一个变量定义为volatile之后，它将具备两种特性，第一是保证此变量对所有线程的可见性。``
 
 这里的“可见性”是指当一条线程修改了这个变量的值，新值对于其他线程来说是可以立即得知的。而普通变量不能做到这一点，普通变量的值在线程间传递均需要通过主内存来完成。
 
@@ -115,6 +115,54 @@ public class VolatileTest {
 ```
 从字节码层面上很容易分析出原因了：当getstatic指令把race的值取到操作栈时，volatile关键字保证了race的值此时是正确的，但是在执行iconst_1、iAdd这些指令的时候，其他线程可能已经把race的值加大了，而在操作栈订的值就变成了过期的数据，所以putstati指令执行后就坑你吧较小的值同步回主内存中去了。
 
-客观地说，我们在此使用字节码来分析并发问题，仍然是不严谨的，因为即使编译出来的只有一条字节指令，也并不意味执行这条指令就是一个原子操作。
+客观地说，我们在此使用字节码来分析并发问题，仍然是不严谨的，因为即使编译出来的只有一条字节指令，也并不意味执行这条指令就是一个原子操作。一条字节码指令在解释执行时，解释器将要运行许多行代码才能实现它的语义，如果是编译执行，一条字节码指令也可能转化成若干条本地机器码指令。
+
+由于volatile变量只能保证可见性，在不符合以下两条规则的运算场景中，我们仍然要通过加锁（synchronized或java.util.concurrent中的原子类）来保证原子性。
+- 运输结果并不依赖变量的当前值，或者能够确保只有单一的线程修改变量的值。
+- 变量不需要与其他状态变量共同参与不变约束。
+
+类似下面的场景就时候采用volatile来控制并发。
+```java
+volatile boolean shutdownRequested;
+public void shutdown() {
+	shutdownRequested = true;
+}
+public void doWork() {
+	while(!shutdownRequested) {
+		//do stuff
+	}
+}
+```
+
+``使用volatile变量的第二个语义是进制指令重排序优化。``
+
+普通的变量仅仅会保证在该方法的执行过程中所有依赖赋值结构的地方都你能获取到正确的结果，而不能保证变量赋值操作的顺序与程序代码中的执行属性一致。
+
+我们用一段伪代码来帮助下理解：
+```java
+Map configOptions;
+char[] configText;
+//此变量必须定义为volatile
+volatile boolean initialized = false;
+
+//假设一下代码在线程A中执行
+//模拟读取配置信息，当读取完成后将initialized设置为true以通知其他线程配置可用
+configOptions = new HashMap();
+configText = readConfigFile(fileName);
+processCongigOptions(configText,configOptions);
+initialized = true
+
+//假设一下代码在线程B中执行
+//等待initialized为true，代表线程A已经吧配置信息初始化完成
+while(!initialized) {
+	sleep();
+}
+//使用线程A中初始化好的配置信息
+doSomethingWithConfig();
+```
+
+上面这段代码如果定义的initialized没有使用volatile来修饰，就可能会由于指令重排序的优化，导致位于线程A中最后一句代码``initialized = true``被提前执行（这里虽然使用Java作为伪代码，但所指的重排序优化是机器级的优化操作，提前执行时值这句话对于的汇编代码被提前执行），这样在线程B中使用配置信息的代码就可能出现错误，而volatile能避免此类情况的发生。
+
+
 
 https://www.jianshu.com/p/90a036212cb4
