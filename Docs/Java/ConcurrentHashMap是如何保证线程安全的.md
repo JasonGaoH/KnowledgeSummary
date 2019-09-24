@@ -1,5 +1,5 @@
 # ConcurrentHashMap是如何保证线程安全的
-之前分析过HashMap的一些实现细节，[HashMap的原理与实现](./HashMap的原理与实现.md), 今天我们从源码角度来看看ConcurrentHashMap是如何实现线程安全的，其实网上这类文章分析特别多，秉着”纸上得来终觉浅，绝知此事要躬行“的原则，我们尝试自己去分析下，希望这样对于ConcurrentHashMap有一个更深刻的理解。
+之前分析过HashMap的一些实现细节，[关于HashMap你需要知道的一些细节](https://blog.csdn.net/H_Gao/article/details/90746413), 今天我们从源码角度来看看ConcurrentHashMap是如何实现线程安全的，其实网上这类文章分析特别多，秉着”纸上得来终觉浅，绝知此事要躬行“的原则，我们尝试自己去分析下，希望这样对于ConcurrentHashMap有一个更深刻的理解。
 
 ### 为什么说HashMap线程不安全，而ConcurrentHashMap就线程安全
 其实ConcurrentHashMap在Android开发中使用的场景并不多，但是ConcurrentHashMap为了支持多线程并发这些优秀的设计却是最值得我们学习的地方，往往”ConcurrentHashMap是如何实现线程安全“这类问题却是面试官比较喜欢问的问题。
@@ -150,7 +150,7 @@ JDK1.8中的ConcurrentHashMap不再使用Segment分段锁，而是以table数组
     transient volatile Node<K,V>[] table;
 ```
 数据结构图如下所示：
-![](../img/concurrenthashmap.png)
+![在这里插入图片描述](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/concurrenthashmap.png)
 
 其实ConcurrentHashMap保证线程安全主要有三个地方。
 > * 一、使用volatile保证当Node中的值变化时对于其他线程是可见的
@@ -286,8 +286,7 @@ casTabAt同样是通过调用Unsafe类来实现的，调用Unsafe的compareAndSw
 当头结点不为null时，则使用该头结点加锁，这样就能多线程去put hashCode相同的时候不会出现数据丢失的问题。synchronized是互斥锁，有且只有一个线程能够拿到这个锁，从而保证了put操作是线程安全的。
 
 下面是ConcurrentHashMap的put操作的示意图，图片来自于[ConcurrentHashMap源码分析(JDK8)get/put/remove方法分析](https://www.jianshu.com/p/5bc70d9e5410)。
-
-![ConcurrentHashMap的put操作](../img/concurrenthashmap_put.webp)
+![在这里插入图片描述](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/concurrenthashmap_put.webp)
 
 
 ### 参考文章
