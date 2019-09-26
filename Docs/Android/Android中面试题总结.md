@@ -655,3 +655,17 @@ bitmap = BitmapFactory.decodeStream(is);
 ``【参考】: ``
 真正的 visible 时间点是 onWindowFocusChanged()函数被执行时，当前窗体得到
  或失去焦点的时候的时候调用。这是这个活动是否是用户可见的最好的指标。
+##  LaunchMode 的应用场景
+``【参考】: ``
+LaunchMode 有四种，分别为 Standard，SingleTop，SingleTask 和 SingleInstance，每种模式的实现原理一楼都做了较详细说明，下面说一下具体使用场景：
+
+* Standard：
+  Standard 模式是系统默认的启动模式，一般我们 app 中大部分页面都是由该模式的页面构成的，比较常见的场景是：社交应用中，点击查看用户A信息->查看用户A粉丝->在粉丝中挑选查看用户B信息->查看用户A粉丝... 这种情况下一般我们需要保留用户操作 Activity 栈的页面所有执行顺序。
+* SingleTop:
+  SingleTop 模式一般常见于社交应用中的通知栏行为功能，例如：App 用户收到几条好友请求的推送消息，需要用户点击推送通知进入到请求者个人信息页，将信息页设置为 SingleTop 模式就可以增强复用性。
+* SingleTask：
+  SingleTask 模式一般用作应用的首页，例如浏览器主页，用户可能从多个应用启动浏览器，但主界面仅仅启动一次，其余情况都会走onNewIntent，并且会清空主界面上面的其他页面。
+* SingleInstance：
+  SingleInstance 模式常应用于独立栈操作的应用，如闹钟的提醒页面，当你在A应用中看视频时，闹钟响了，你点击闹钟提醒通知后进入提醒详情页面，然后点击返回就再次回到A的视频页面，这样就不会过多干扰到用户先前的操作了。
+
+ 
