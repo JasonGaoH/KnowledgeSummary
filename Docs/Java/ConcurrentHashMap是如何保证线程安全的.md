@@ -8,7 +8,7 @@
 
 因为不同于其他的线程同步问题，想模拟出一种场景来表明HashMap是线程不安全的稍微有点麻烦，可能是hash散列有关，在数据量较小的情况下，计算出来的hashCode是不太容易产生碰撞的，网上很多文章都是尝试从源码角度来分析HashMap可能会导致的线程安全问题。
 
-我们来看下下面这段代码,构造一百个线程每个线程都先是往HashMap中put一个数据，然后再将这个数据remove掉，理论上如果没有线程安全问题的话，我们的每个线程拿到的HashMap的size应该都是0.
+我们来看下下面这段代码,我们构造10个线程，每个线程分别往map中put 1000个数据，为了保证每个数据的key不一样，我们将i+ 线程名字来作为map 的key，这样，如果所有的线程都累加完的话，我们预期的map的size应该是10 * 1000 = 10000。
 
 ```java
 
@@ -18,100 +18,53 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class HashMapTest {
 
-    public static void main(String[] args) {
-    	Map<String, String> map = new HashMap<String, String>();
-        for (int i = 0; i < 100; i++) {
-            TestThread testThread = new TestThread(map, "线程名字：" + i);
-            testThread.start();
-        }
-    }
+	public static void main(String[] args) {
+		Map<String, String> map = new HashMap<String, String>();
+		
+//   	 Map<String, String> map = new ConcurrentHashMap<String, String>();
+		for (int i = 0; i < 10; i++) {
+			MyThread testThread = new MyThread(map, "线程名字：" + i);
+	    	testThread.start();
+	    }
+		//等待所有线程都结束
+		while(Thread.activeCount() > 1)
+			Thread.yield();
+		
+		System.out.println(map.size());
+	}
 }
 
-class TestThread extends Thread {
+
+class MyThread extends Thread {
     public Map<String, String> map;
     public String name;
 
-    public TestThread(Map<String, String> map, String name) {
+    public MyThread(Map<String, String> map, String name) {
       this.map = map;
       this.name = name;
     }
     public void run() {
-      int i = (int)Math.random() * 100;
-      map.put("键" + i, "值" + i);
-      map.remove("键" + i);
-      System.out.println(name + " 当前时间：" + i + "   size = " + map.size());
+    	for(int i =0;i<1000;i++) {
+    		map.put(i + name, i + name);
+    	}
     }
   }
 
-```
-输出结果如下所示，由于输出量太大，中间删除了部分重复的输出，我们发现打印出的数量是不准确的。
-```
-线程名字：0 当前时间：0   size = -1
-线程名字：3 当前时间：0   size = -1
-线程名字：5 当前时间：0   size = -1
-线程名字：7 当前时间：0   size = -1
-线程名字：6 当前时间：0   size = -1
-线程名字：4 当前时间：0   size = 0
-线程名字：9 当前时间：0   size = -1
-线程名字：2 当前时间：0   size = -1
-线程名字：1 当前时间：0   size = -1
-线程名字：10 当前时间：0   size = -1
-线程名字：11 当前时间：0   size = -1
-线程名字：8 当前时间：0   size = -1
-线程名字：12 当前时间：0   size = -1
-线程名字：13 当前时间：0   size = -1
-...
-线程名字：90 当前时间：0   size = -1
-线程名字：91 当前时间：0   size = -1
-线程名字：92 当前时间：0   size = -1
-线程名字：93 当前时间：0   size = -1
-线程名字：94 当前时间：0   size = -1
-线程名字：95 当前时间：0   size = -1
-线程名字：96 当前时间：0   size = -1
-线程名字：97 当前时间：0   size = -1
-线程名字：98 当前时间：0   size = -1
-线程名字：99 当前时间：0   size = -1
 
 ```
-那我们如果把这里的HashMap换成ConcurrentHashMap来试试看看效果如何。
-
-```java
-public class HashMapTest {
-    public static void main(String[] args) {
-   	    Map<String, String> map = new ConcurrentHashMap<String, String>();
-        for (int i = 0; i < 100; i++) {
-            TestThread testThread = new TestThread(map, "线程名字：" + i);
-            testThread.start();
-        }
-    }
-}
+使用HashMap，程序运行，结果如下：
 ```
-输出如下，同样中间也省略了很多重复的打印，我们发现这个时候所有的打印的map的size都是0，从而也验证了ConcurrentHashMap是线程安全的。
-```
-线程名字：0 当前时间：0   size = 0
-线程名字：7 当前时间：0   size = 0
-线程名字：3 当前时间：0   size = 0
-线程名字：9 当前时间：0   size = 0
-线程名字：6 当前时间：0   size = 0
-线程名字：2 当前时间：0   size = 0
-线程名字：1 当前时间：0   size = 0
-线程名字：5 当前时间：0   size = 0
-线程名字：4 当前时间：0   size = 0
-线程名字：11 当前时间：0   size = 0
-线程名字：10 当前时间：0   size = 0
-线程名字：8 当前时间：0   size = 0
-...
-线程名字：91 当前时间：0   size = 0
-线程名字：92 当前时间：0   size = 0
-线程名字：93 当前时间：0   size = 0
-线程名字：94 当前时间：0   size = 0
-线程名字：95 当前时间：0   size = 0
-线程名字：96 当前时间：0   size = 0
-线程名字：97 当前时间：0   size = 0
-线程名字：98 当前时间：0   size = 0
-线程名字：99 当前时间：0   size = 0
+9930
 
 ```
+那我们如果把这里的HashMap换成ConcurrentHashMap来试试看看效果如何，输出结果如下：
+
+```
+10000
+
+```
+我们发现不管运行几次，HashMap的size都是小于10000的，而ConcurrentHashMap的size都是10000。从这个角度也证明了ConcurrentHashMap是线程安全的，而HashMap则是线程不安全的。
+HashMap在多线程put的时候，当产生hash碰撞的时候，会导致丢失数据，因为要put的两个值hash相同，如果这个对于hash桶的位置个数小于8，那么应该是以链表的形式存储，由于没有做通过，后面put的元素可能会直接覆盖之前那个线程put的数据，这样就导致了数据丢失。
 
 其实列举上面这个例子只是为了从一个角度来展示下为什么说HashMap线程不安全，而ConcurrentHashMap则是线程安全的，鉴于HashMap线程安全例子比较难列举出来，所有才通过打印size这个角度来模拟了下。
 
