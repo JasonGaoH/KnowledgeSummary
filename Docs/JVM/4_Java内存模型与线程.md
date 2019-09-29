@@ -163,6 +163,32 @@ doSomethingWithConfig();
 
 上面这段代码如果定义的initialized没有使用volatile来修饰，就可能会由于指令重排序的优化，导致位于线程A中最后一句代码``initialized = true``被提前执行（这里虽然使用Java作为伪代码，但所指的重排序优化是机器级的优化操作，提前执行时值这句话对于的汇编代码被提前执行），这样在线程B中使用配置信息的代码就可能出现错误，而volatile能避免此类情况的发生。
 
+```java
+public class Singleton {
+	private volatile static Singleton instance;
+	
+	public static Singleton getInstance() {
+		if(instance ==null) {
+			synchronized(Singleton.class) {
+				if(instance == null) {
+					instance = new Singleton();
+				}
+			}
+		}
+		return instance;
+	}
+	
+	public static void main(String[] args) {
+		Singleton.getInstance();
+	}
+}
+```
 
+java -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints  -XX:+PrintAssembly -XX:CompileCommand=dontinline,Singleton.getInstance,-XX:CompileCommand=compileonly,Singleton.getInstance > ~/JIT.text
+
+
+ java -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+PrintAssembly -XX:CompileCommand=dontinline,Singleton.getInstance -XX:CompileCommand=compileonly,Singleton.getInstance main.Singleton
+
+  java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=dontinline,Singleton.getInstance -XX:CompileCommand=compileonly,Singleton.getInstance main.Singleton
 
 https://www.jianshu.com/p/90a036212cb4
