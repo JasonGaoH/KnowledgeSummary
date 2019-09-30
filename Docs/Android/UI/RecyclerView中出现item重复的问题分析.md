@@ -7,8 +7,6 @@
 
 这个图画的有点丑，凑合看，意思大概就是这样的。
 
-![](https://raw.githubusercontent.com/JasonGaoH/Images/master/a236242c-aa4f-4006-b82c-69541ee8f312.gif)
-
 接下来，我就得追踪下这个问题了，开始时我几乎就一口咬定是接口返回的有问题，由于前几次后端没有日志，好像之前的反馈就那么过去了，直到后面又出现一次重复笔记的问题，这次是公司内部员工出现的，于是后端也通过这个抓到了相应的日志，发现返回的笔记的确没有重复的，这下跑不掉了，就是前端的问题。
 
 ### 问题排查
@@ -28,9 +26,7 @@
 
 鉴于是公司项目，我就省略掉业务逻辑了，这里的代码按照开发者的意图是当RecyclerView第一个item如果已经是noteItem这种类型的时候，我们就将这个位置item替换成最新的，如果这个位置的item不是noteItem这个数据的话，我们需要手动把它添加到第一个位置去，到这里实际上都没有什么问题。
 
-但是，当我看到``mAdapter.notifyItemChanged(0)``这个方法，我突然灵光一闪。
-
-![](https://raw.githubusercontent.com/JasonGaoH/Images/master/6feacd37-abef-49d7-a79a-7f6e7a1369b7.jpg)
+但是，当我看到``mAdapter.notifyItemChanged(0)``这个方法，直觉告诉我这里好像有点问题。
 
 这个notifyItemChanged明显是刷新这个item的方法，即当这个item里的数据有变化时，调用这个方法去刷新这个item区域的UI，但是如果我们在adapter中add了一个新的item，再调用这个方法明显是不行的，这里是导致重复的原因嘛，我其实也不太确定。
 
