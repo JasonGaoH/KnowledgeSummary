@@ -1,7 +1,4 @@
-<div align="center">  
-<img src="./Docs/img/logo.png" width=""/> 
-<br/>
-</div>
+## KnowledgeSummary
 
 > `KnowledgeSummary`：Android开发知识总结系列(一份涵盖大部分Android程序员所需要掌握的核心知识).
 
@@ -38,7 +35,7 @@
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
-* [浅析CoordinatorLayout工作机制](./Docs/Android/UI/浅析CoordinatorLayout工作机制.md)
+* [浅析CoordinatorLayout工作机制](./Docs/Android/UI/解决CoordinatorLayout的动画抖动以及回弹问题.md)
 * [从assets目录和drawable加载的Bitmap的区别](./Docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)
 * [RecyclerView中出现item重复的问题分析](./Docs/Android/UI/RecyclerView中出现item重复的问题分析.md)
 

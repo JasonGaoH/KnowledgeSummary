@@ -71,7 +71,7 @@
 #### 第一，抖动问题
 该问题场景描述：我们触摸AppBarLayout使AppBarLayout整体向上滑动，，即手指上滑，当AppBarLayout fling的同时，我们触摸下部ViewPager中的RecycleView区域，使RecycleView区域整体向下滑动，即手指下滑，这个时候会发现一个明显页面动画现象，这个问题几乎是必现。
 
-来看下gif效果：![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_1.gif)
+来看下gif效果：![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_resize_1.gif)
 
 接下来我们来看问题的原因，其实这个要搞清楚原因需要对CoordinatorLayout的工作机制有个比较清晰的理解，然而CoordinatorLayout这里牵扯到嵌套滚动以及Behavior这些，
 
@@ -410,7 +410,7 @@ coordinatorLayout.setOnInterceptTouchListener {
 
 问题场景描述，我们反复上下滑动AppBarLayout的时候，可以看到AppBarLayout在滑出屏幕外之后又反弹回去了，而且当你滑动的加速度很大的时候，这个反弹的幅度也会跟着变大。
 
-![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_2.gif)
+![image](https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_resize_2.gif)
 
 这个问题造成的原因是因为在手指向上滑动后造成RecyclerView的fling操作执行，具体的代码在RecyclerView内部类ViewFlinger中。
 

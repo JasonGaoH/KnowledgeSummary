@@ -8,6 +8,10 @@
 
 红黑树的特性是为了让红黑树保持相对平衡，从而提升树的检索效率。
 
+[Java提高篇--TreeMap](https://blog.csdn.net/chenssy/article/details/26668941)
+
+[浅谈算法和数据结构--平衡查找树之红黑树](https://www.cnblogs.com/yangecnu/p/Introduce-Red-Black-Tree.html)
+
 [TreeMap源码解析](https://www.jianshu.com/p/fc5e16b5c674)
 
 [红黑树深入剖析及Java实现](https://tech.meituan.com/2016/12/02/redblack-tree.html)
