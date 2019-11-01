@@ -63,7 +63,11 @@ RealInterceptorChain.java
     return response;
   }
 ```
-
+[你猜一个TCP连接上面能发多少个HTTP请求](https://zhuanlan.zhihu.com/p/61423830)
 [OkHttp相关](https://juejin.im/post/5d450c3e6fb9a06af92b863e?utm_source=gold_browser_extension)
 
-[优秀博客](https://blog.piasy.com/2016/07/11/Understand-OkHttp/)
+[拆OkHttp](https://blog.piasy.com/2016/07/11/Understand-OkHttp/index.html)
+
+[OkHttp里的设计模式](https://www.jianshu.com/p/5cd6775cbb51​)
+[OkHttp的源码过程](https://juejin.im/post/5a704ed05188255a8817f4c9)
+[OkHttp的系列文章](https://www.jianshu.com/p/82f74db14a18​)
