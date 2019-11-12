@@ -40,6 +40,8 @@ class Node {
 
 > 思考，二分查找和正常的排序二叉树的时间复杂度都是O(log n)，那么为什么是O(log n)？
 
+[二分查找的时间复杂度](https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO(log%20n).md)
+
 为了解决这个问题，于是就有了``平衡二叉树``。
 
 ## 平衡二叉树
@@ -279,7 +281,7 @@ put方法。
 private void fixAfterInsertion(Entry<K,V> x) {
     x.color = RED;
 
-    //直到x节点的父节点不是根，且x的父节点不是红色
+    //直到x节点的父节点不是根，且x的父节点是红色
     while (x != null && x != root && x.parent.color == RED) {
         //如果x的父节点是其父节点的左子节点
         if (parentOf(x) == leftOf(parentOf(parentOf(x)))) {
@@ -297,6 +299,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
             }
             //如果x的父节点的兄弟节点是黑色
             else {   
+                //TODO 对应情况第二种，左右节点旋转
                 //如果x是其父节点的右子节点
                 if (x == rightOf(parentOf(x))) {
                     //将x的父节点设为x
@@ -304,6 +307,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
                     //右旋转
                     rotateLeft(x);
                 }
+                //TODO 对应情况第一种，左左节点旋转
                 //把x的父节点设置为黑色
                 setColor(parentOf(x), BLACK);
                 //把x的父节点父节点设为红色
@@ -315,7 +319,8 @@ private void fixAfterInsertion(Entry<K,V> x) {
         else {
             //获取x的父节点的兄弟节点
             Entry<K,V> y = leftOf(parentOf(parentOf(x)));
-            //如果x的父节点的兄弟节点是红色
+            //只着色的情况对应的是最开始例子，没有旋转操作，但是要对应多次变换
+            //如果x的父节点的兄弟节点是红色  
             if (colorOf(y) == RED) {
                 //将x的父节点设置为黑色
                 setColor(parentOf(x), BLACK);
@@ -328,6 +333,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
             }
             //如果x的父节点的兄弟节点是黑色
             else {
+                //TODO 对应右左节点旋转
                 //如果x是其父节点的左子节点
                 if (x == leftOf(parentOf(x))) {
                     //将x的父节点设为x
@@ -335,6 +341,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
                     //右旋转
                     rotateRight(x);
                 }
+                //TODO 对应右右节点旋转的情况
                 //将x的父节点设为黑色
                 setColor(parentOf(x), BLACK);
                 //把x的父节点的父节点设为红色
@@ -343,7 +350,7 @@ private void fixAfterInsertion(Entry<K,V> x) {
             }
         }
     }
-    //将根节点G强制设置为黑色
+    //将根节点强制设置为黑色
     root.color = BLACK;
 }
 ```
