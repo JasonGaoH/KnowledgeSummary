@@ -206,9 +206,16 @@ Java 中的红黑树实现类是 TreeMap，我们后面再结合 TreeMap 的源�
 
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_code_1.png)
 
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_2.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_3.png)
+
+
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_4.png)
 
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_5.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_6.png)
 
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_7.png)
 
