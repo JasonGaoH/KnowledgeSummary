@@ -29,6 +29,8 @@ class Node {
 ### 排序二叉树退化成链表
 对于排序二叉树来说，为了保证二叉树是有序的，也就是它的左子树上所有节点的值小于根节点的值，右子树上所有节点的值大于根节点的值，在往树中添加节点或者删除节点的时候，需要对树的结构进行调整，这个时候可能会使排序二叉树退化成链表。
 
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_15.png)
+
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_search_tree_v1.png)
 
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_search_link_tree.png)
@@ -129,10 +131,18 @@ Java中实现红黑树大概结构图如下所示：
 现在我们要在下面这颗红黑树上加入节点65。
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_2.png)
 
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_1.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/rec_black_tree_new_2.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_3.png)
+
 插入节点65后进行以下步骤
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_6.png)
 
 这个时候，你会发现对于节点64无论是红色节点还是黑色节点，都会违反规则5，路径中的黑色节点始终无法达成一致，这个时候仅通过【变色】已经无法达成目的。我们需要通过旋转操作，当然【旋转】操作一般还需要搭配【变色】操作。
+
+Java 中的红黑树实现类是 TreeMap，我们后面再结合 TreeMap 的源码来演示红黑树平衡过程，以便加深我们对红黑树源码的理解。
 
 旋转包括【左旋】和【右旋】
 
@@ -174,7 +184,7 @@ Java中实现红黑树大概结构图如下所示：
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_3.png)
 
 * 右左节点旋转
-这种情况下，父节点是右节点，插入的节点是左节点，如下图这种情况，我们要插入节点68。
+这种情况下，父节点是右节点，插入的节点是左节点，    
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_4.png)
 
 按照规则，步骤如下:
@@ -194,6 +204,27 @@ Java中实现红黑树大概结构图如下所示：
 
 ### TreeMap
 
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_code_1.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_4.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_5.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_7.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_8.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_9.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_10.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_11.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_12.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_13.png)
+
+![](https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_14.png)
 ```java
 // TreeMap中使用Entry来描述每个节点
  static final class Entry<K,V> implements Map.Entry<K,V> {
@@ -307,7 +338,6 @@ private void fixAfterInsertion(Entry<K,V> x) {
                     //右旋转
                     rotateLeft(x);
                 }
-                //TODO 对应情况第一种，左左节点旋转
                 //把x的父节点设置为黑色
                 setColor(parentOf(x), BLACK);
                 //把x的父节点父节点设为红色
@@ -333,7 +363,6 @@ private void fixAfterInsertion(Entry<K,V> x) {
             }
             //如果x的父节点的兄弟节点是黑色
             else {
-                //TODO 对应右左节点旋转
                 //如果x是其父节点的左子节点
                 if (x == leftOf(parentOf(x))) {
                     //将x的父节点设为x
@@ -341,7 +370,6 @@ private void fixAfterInsertion(Entry<K,V> x) {
                     //右旋转
                     rotateRight(x);
                 }
-                //TODO 对应右右节点旋转的情况
                 //将x的父节点设为黑色
                 setColor(parentOf(x), BLACK);
                 //把x的父节点的父节点设为红色
