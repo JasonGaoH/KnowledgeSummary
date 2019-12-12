@@ -1,8 +1,4 @@
-
-* HashMap实现原理和如何解决散列碰撞，HashMap底层为什么是线程不安全的
-* java8对hashmap的优化
-* hashmap和hashset区别，hash怎么散列的
-* HashMap的rehash扩容是怎么操作的
+> 文章已同步发表于微信公众号JasonGaoH，[关于HashMap你需要知道的一些细节](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483757&idx=1&sn=f8cf2e5f82b6cf0e64aab6febf7e7584&chksm=fa237985cd54f0937f9c3c2d3df40b1136602b00d253d2104452ef72319bae6ca7ffcc4f1183&token=1938879438&lang=zh_CN#rd)
 
 在官方文档中的描述：
 > Hash table based implementation of the Map interface. This implementation provides all of the optional map operations, and permits null values and the null key. (The HashMap class is roughly equivalent to Hashtable, except that it is unsynchronized and permits nulls.) This class makes no guarantees as to the order of the map; in particular, it does not guarantee that the order will remain constant over time.

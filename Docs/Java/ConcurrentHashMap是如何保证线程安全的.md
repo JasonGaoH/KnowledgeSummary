@@ -1,4 +1,6 @@
 # ConcurrentHashMap是如何保证线程安全的
+> 文章已同步发表于微信公众号JasonGaoH，[ConcurrentHashMap是如何保证线程安全的](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483797&idx=1&sn=cb28703e574bbf5df4563d3aef65be01&chksm=fa23797dcd54f06b34b405d4eef74a14df420fcc16b6b1e42fb16060972ea20c8695ee8c5f29&token=1938879438&lang=zh_CN#rd)
+
 之前分析过HashMap的一些实现细节，[关于HashMap你需要知道的一些细节](https://blog.csdn.net/H_Gao/article/details/90746413), 今天我们从源码角度来看看ConcurrentHashMap是如何实现线程安全的，其实网上这类文章分析特别多，秉着”纸上得来终觉浅，绝知此事要躬行“的原则，我们尝试自己去分析下，希望这样对于ConcurrentHashMap有一个更深刻的理解。
 
 ### 为什么说HashMap线程不安全，而ConcurrentHashMap就线程安全

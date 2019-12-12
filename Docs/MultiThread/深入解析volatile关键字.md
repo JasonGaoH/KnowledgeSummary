@@ -1,3 +1,5 @@
+> 文章已同步发表于微信公众号JasonGaoH，[深入解析volatile关键字](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483805&idx=1&sn=a6240f582ec81d047a59f206f8d5ba54&chksm=fa237975cd54f063470a8eb7d68774c474ddab37cf88ff16ac873b47f0ac1b514b8be8254344&token=1938879438&lang=zh_CN#rd)
+
 `volatile关键字`和`synchronized关键字`一样，在Java多线程开发中，是一道必须要跨越的槛。之前有篇文章已经分析过`synchronized关键字`的原理，[synchronized关键字的原理](https://blog.csdn.net/H_Gao/article/details/98593198)，这一次，我们来一步一步分析下`volatile关键字`的工作原理。
 
 本文篇幅稍微有点长，希望您能耐心看下去，并有所收获。

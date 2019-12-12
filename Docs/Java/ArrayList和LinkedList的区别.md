@@ -1,3 +1,5 @@
+> 文章已同步发表于微信公众号JasonGaoH，[从源码角度分析ArrayList和LinkedList的区别](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483748&idx=1&sn=059c9292bf06e6d9652a203dfb09dcaa&chksm=fa23798ccd54f09a78f23c45bca28f84e5bc4c650fec188174dc828cc24aec8b24a306120252&token=1938879438&lang=zh_CN#rd)
+
 List代表一种线性表的数据结构，ArrayList则是一种顺序存储的线性表。ArrayList底层采用数组来保存每个集合的元素，LinkedList则是一种链式存储的线性表。其本质上就是一个双向链表，但它不仅实现了List接口，还是想了Deque接口。也就是说LinkedList既可以当成双向链表使用，也可以当成队列使用，还可以当成栈来适用于（Deque代表双端队列，即具有队列的特征，也具有栈的特征）。
 
 在[从源码角度分析ArrayList和Vector的区别](./从源码角度分析ArrayList和Vector的区别.md)中已经分析过，ArrayList底层采用一个elementData数组来保存所有集合的元素，因此ArrayList在插入元素时需要完成下面两件事情。

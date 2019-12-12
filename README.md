@@ -18,11 +18,12 @@
   * [Java中的集合框架](./Docs/Java/Java中的集合框架.md)
   * [ArrayList和Vector的区别](./Docs/Java/ArrayList和Vector的区别.md)
   * [ArrayList和LinkedList的区别](./Docs/Java/ArrayList和LinkedList的区别.md)
-  * [HashMap的原理与实现](./Docs/Java/HashMap的原理与实现.md)
+  * [关于HashMap你需要知道的一些细节](./Docs/Java/关于HashMap你需要知道的一些细节.md)
   * [ConcurrentHashMap是如何保证线程安全的](./Docs/Java/ConcurrentHashMap是如何保证线程安全的.md)
+  * [Java中的红黑树解析](./Docs/Java/我画了近百张图来理解红黑树.md)
   * [Java中的注解](./Docs/Java/Java中的注解.md)
   * [Java中的泛型](./Docs/Java/Java中的泛型.md)
-  * [Java中的红黑树解析](./Docs/Java/Java中的红黑树解析.md)
+  
 
 ### JVM
   * [Java的内存区域](./Docs/JVM/1_Java的内存区域.md)

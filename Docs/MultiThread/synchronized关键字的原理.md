@@ -1,3 +1,5 @@
+> 文章已同步发表于微信公众号JasonGaoH，[synchronized关键字的原理](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483807&idx=1&sn=3bdf01201a329fe98a98c045f5387e1b&chksm=fa237977cd54f061e46fee3727e51208c01931ef704a83526d0fe5e5a15eab386376927888ae&token=1938879438&lang=zh_CN#rd)
+
 # synchronized关键字
 
 ### 什么是synchronized

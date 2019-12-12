@@ -1,3 +1,5 @@
+> 文章已同步发表于微信公众号JasonGaoH，[Java基础知识总结](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483714&idx=1&sn=d8ff6baf229c463802687e4d79751106&chksm=fa2379aacd54f0bc808dd6a929c3d571f780367a140c6fd30c5b86a9e708692003aa3d197a7b&token=1938879438&lang=zh_CN#rd)
+
 - [1. Java 面向对象编程三大特性: 封装 继承 多态](#1-java-面向对象编程三大特性-封装-继承-多态)    
   - [封装](#封装)    
   - [继承](#继承)    
@@ -7,7 +9,7 @@
 -  [抽象类与接口：](#抽象类与接口)
    - [常用关键字this、super、static和final](#常用关键字thissuperstatic和final)  
      - [this: 代表对象。就是所在函数所属对象的引用。](#this-代表对象就是所在函数所属对象的引用)    
-     - [super关键字](#super关键字)    -
+     - [super关键字](#super关键字)
      - [static：关键字，是一个修饰符，用于修饰成员(成员变量和成员函数)。](#static关键字是一个修饰符用于修饰成员成员变量和成员函数)    
      - [静态代码块：就是一个有静态关键字标示的一个代码块区域。定义在类中。](#静态代码块就是一个有静态关键字标示的一个代码块区域定义在类中)    
      - [final：关键字](#final关键字)

@@ -1,5 +1,7 @@
 ## ArrayList和Vector的区别
 
+> 文章已同步发表于微信公众号JasonGaoH， [ArrayList和Vector的区别](https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&mid=2247483726&idx=1&sn=0fa987066009e2e8c347a7310f5701fe&chksm=fa2379a6cd54f0b0464108f0d82ddea6de723cc181c0a3d873fd1078985c4ac9d007a7a0395d&token=1938879438&lang=zh_CN#rd)
+
 ArrayList和Vector这两个集合本质上并没有什么太大的不停，他们都实现了List接口，而且底层都是基于Java数组来存储集合元素。
 
 在ArrayList集合类的源代码中也可以看到下面一行：
