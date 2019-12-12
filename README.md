@@ -40,6 +40,7 @@
 * [浅析CoordinatorLayout工作机制](./Docs/Android/UI/解决CoordinatorLayout的动画抖动以及回弹问题.md)
 * [从assets目录和drawable加载的Bitmap的区别](./Docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)
 * [RecyclerView中出现item重复的问题分析](./Docs/Android/UI/RecyclerView中出现item重复的问题分析.md)
+* [仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果](./Docs/Android/UI/仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果.md)
 
 #### Android面试
 * [Android中面试题总结](./Docs/Android/Android中面试题总结.md)
