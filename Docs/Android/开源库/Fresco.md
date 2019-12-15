@@ -1,6 +1,9 @@
 # Frsco
 
+## Fresco一些高级使用技巧
 
+1. 使用RGB_565
+2. 区域解码
 
 ##### 相关问题：
 1. Fresco 下载模块如何设计？<br>
@@ -29,8 +32,6 @@
 当然如果你必须要使用wrap_content，那么你可以参考StackOverflow上的一个回答。但是我们以后会移除这个功能，Ugly things should look ugly。
 
 1. DraweeView多层结构？<br>
-
-
 
 ##### 模块结构
 ```
