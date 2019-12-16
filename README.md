@@ -41,22 +41,33 @@
   * [JVM的GC和内存分配](./Docs/JVM/2_JVM的GC和内存分配.md)
   
   * [JVM类加载机制](./Docs/JVM/3_JVM类加载机制.md)
+  * 
   * [JVM类加载器](./Docs/JVM/JVM类加载器.md)
 
 ### Android
 
 * [浅析CoordinatorLayout工作机制](./Docs/Android/UI/解决CoordinatorLayout的动画抖动以及回弹问题.md)
+
 * [从assets目录和drawable加载的Bitmap的区别](./Docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)
+
 * [RecyclerView中出现item重复的问题分析](./Docs/Android/UI/RecyclerView中出现item重复的问题分析.md)
+
 * [仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果](./Docs/Android/UI/仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果.md)
+
 * [深入分析AsyncTask](./Docs/Android/深入分析AsyncTask.md)
+
 * [从源码角度剖析Handler机制](./Docs/Android/从源码角度剖析Handler机制.md)
+
 * [Android启动流程分析](./Docs/Android/android启动流程分析.md)
 
 * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
+
 * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
+
 * [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
+
 * [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
+
 * [Android中的IPC机制](./Docs/Android/IPC/Android中的IPC机制.md)
 
 
