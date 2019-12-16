@@ -45,3 +45,6 @@
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_search_10.png)
 
 ![](https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_search_11.png)
+
+
+[What does the time complexity O(log n) actually mean?](https://hackernoon.com/what-does-the-time-complexity-o-log-n-actually-mean-45f94bb5bfbf)
