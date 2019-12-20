@@ -31,6 +31,8 @@ public void dispatchMessage(Message msg) {
    *  Handler实现机制（很多细节需要关注：如线程如何建立和退出消息循环等等
    *  Handler发消息给子线程，looper怎么启动
    *  Handler postDelay这个延迟是怎么实现的
+   *  MessageQueue.IdleHandler 你了解嘛
+   *  Handler 造成内存泄漏，是什么东西造成的泄漏
 
 [Android 消息处理机制（Looper、Handler、MessageQueue,Message）](https://www.jianshu.com/p/02962454adf7)
 
