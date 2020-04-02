@@ -36,7 +36,6 @@
 
 > [Android系统工作机制分析](./Docs/Android/Android系统工作机制分析.md)
 
-
 #### Android面试
 
 > [Android中面试题总结](./Docs/Android/面试题收集/Android中面试题总结.md)
@@ -47,21 +46,7 @@
 
 ### 性能优化
 
-> [绘制优化](./Docs/PerformanceOptimization/绘制优化.md)
-
-> [启动优化](./Docs/PerformanceOptimization/启动优化.md)	
-
-> [内存优化](./Docs/PerformanceOptimization/内存优化.md)
-
-> [稳定性优化](./Docs/PerformanceOptimization/稳定性优化.md)
-
-> [ANR分析](./Docs/PerformanceOptimization/ANR分析.md)
-
-> [耗电优化](./Docs/PerformanceOptimization/耗电优化.md)
-
-> [安装包优化](./Docs/PerformanceOptimization/安装包优化.md)
-
-> [图片优化](./Docs/PerformanceOptimization/图片优化.md)
+> [App的性能优化系列文章](./Docs/PerformanceOptimization/App的性能优化系列文章.md)
 
 ### 多线程
 
