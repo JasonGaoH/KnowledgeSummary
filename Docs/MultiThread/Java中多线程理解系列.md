@@ -16,3 +16,5 @@
 
 > [ReentrantLock](./ReentrantLock.md)
 
+>[使用单一线程维持对象状态的一致性](./使用单一线程维持对象状态的一致性.md) 
+
