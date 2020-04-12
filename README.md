@@ -36,13 +36,11 @@
 
 > [Android系统工作机制分析](./Docs/Android/Android系统工作机制分析.md)
 
-<<<<<<< HEAD
 > [RxJava相关文章](./Docs/Android/开源库/RxJava相关文章.md)
-=======
-* [通过事务支持加快sqlite数据库批量操作的效率](./Docs/Android/其他/通过事务支持加快sqlite数据库批量操作的效率.md)
 
-* [怎么做牛逼的动画](./Docs/Android/其他/怎么做牛逼的动画.md)
->>>>>>> fix:整理笔记
+> [通过事务支持加快sqlite数据库批量操作的效率](./Docs/Android/其他/通过事务支持加快sqlite数据库批量操作的效率.md)
+
+> [怎么做牛逼的动画](./Docs/Android/其他/怎么做牛逼的动画.md)
 
 #### Android面试
 
@@ -54,25 +52,7 @@
 
 ### 性能优化
 
-* [App的性能优化系列文章](./Docs/PerformanceOptimization/App的性能优化系列文章.md)
-
-* [性能分析相关命令和工具介绍](./Docs/PerformanceOptimization/性能分析相关命令和工具介绍.md)
-
-* [绘制优化](./Docs/PerformanceOptimization/绘制优化.md)
-
-* [启动优化](./Docs/PerformanceOptimization/启动优化.md)	
-
-* [内存优化](./Docs/PerformanceOptimization/内存优化.md)
-
-* [稳定性优化](./Docs/PerformanceOptimization/稳定性优化.md)
-
-* [ANR分析](./Docs/PerformanceOptimization/ANR分析.md)
-
-* [耗电优化](./Docs/PerformanceOptimization/耗电优化.md)
-
-* [安装包优化](./Docs/PerformanceOptimization/安装包优化.md)
-
-* [图片优化](./Docs/PerformanceOptimization/图片优化.md)
+> [App的性能优化系列文章](./Docs/PerformanceOptimization/App的性能优化系列文章.md)
 
 ### 多线程
 
