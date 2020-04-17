@@ -1,3 +1,5 @@
+
+
 Alpha 是图形界面开发中常用的特效，通常我们会使用以下代码来实现 Alpha 特效:
 ```java
 view.setAlpha(0.5f);
@@ -68,3 +70,8 @@ public boolean hasOverlappingRendering() {
 
 最后引用 Chet Haase 的一句话作为总结
 “You know what your view is doing, so do the right thing for your situation.”
+
+
+> 参考
+
+[给 App 提速：Android 性能优化总结](https://juejin.im/entry/5aa24187518825557207f8e2)
