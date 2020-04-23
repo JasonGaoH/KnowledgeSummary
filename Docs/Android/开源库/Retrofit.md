@@ -20,5 +20,13 @@ OkHttpClient client = new OkHttpClient.Builder()
 .connectionPool(pool)
 .build();
 
+RxJava+Retrofit进行网络请求; Header里如何添加通用参数， Response里如何解析，只返回业务层result，不需要每个Bean都有code ?
+
+问题一：
+Header里如何添加通用参数，如果是自己封装的代码，可以在封装Request中可以解决，也可以增加拦截器，通过拦截器去做。
+
+问题二：
+Retrofit中通过addConverterFactory来自定义一个Convert类，在convert方法里面做转换。
+
 
 [拆轮子系列：拆 Retrofit](https://blog.piasy.com/2016/06/25/Understand-Retrofit/index.html)
