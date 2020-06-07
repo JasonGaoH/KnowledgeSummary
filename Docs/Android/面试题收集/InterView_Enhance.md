@@ -305,6 +305,7 @@ rose -> ros (remove 'e'
 - 乐观锁与悲观锁
 - volatile原理
 - 读写锁的应用
+  PublishSubject
 - RecyclerView与ListView的区别
 - RecyclerView为什么这么设计
 - 应用
@@ -331,7 +332,10 @@ rose -> ros (remove 'e'
   - 无穷递归方法引发的问题
 - GC机制
   - GC roots是什么
+  
   - Handler造成内存泄漏的整个引用链
+  Message对象有个target字段，该字段是Handler类型，引用了当前Handler对象。一句话就是：你通过Handler发往消息队列的Message对象持有了Handler对象的引用。假如Message对象一直在消息队列中未被处理释放掉，你的Handler对象就不会被释放，进而你的Activity也不会被释放。
+  这种现象很常见，当消息队列中含有大量的Message等待处理，你发的Message需要等几秒才能被处理，而此时你关闭Activity，就会引起内存泄露。如果你经常send一些delay的消息，即使消息队列不繁忙，在delay到达之前关闭Activity也会造成内存泄露。
   - 什么情况会产生ANR
 - 广播
   - onReceive方法调用线程
