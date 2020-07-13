@@ -222,7 +222,7 @@ imagePipeline.clearCaches();
 ```
 DraweeView			--	View
 DraweeController	-- Controller
-DraweeHierarchy		-- Model
+DataSource			-- Model
 ```
 
 作用：

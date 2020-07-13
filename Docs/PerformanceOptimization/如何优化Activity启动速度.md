@@ -15,7 +15,7 @@
 
 ```java
 
-publicclassBaseActivityextendsActivity { 
+public class BaseActivity extends Activity { 
     private boolean mDelayFinished = false;
 
 @Override
