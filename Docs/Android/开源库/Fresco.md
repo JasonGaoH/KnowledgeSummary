@@ -14,7 +14,9 @@
 
 3. 硬盘缓存如何设计？<br>
 
-4. SimpleDraweeView layout_width/height 为何不支持 wrap_content?<br>
+4. Fresco的缓存和其他有什么不一样？ 
+
+5. SimpleDraweeView layout_width/height 为何不支持 wrap_content?<br>
    > [wrap_content的限制](https://www.fresco-cn.org/docs/wrap-content.html)
 
 人们经常会问，为什么Fresco中不可以使用wrap_content？
