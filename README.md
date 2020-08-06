@@ -1,10 +1,10 @@
 ## KnowledgeSummary
 
-> `KnowledgeSummary`：Android开发知识总结系列.
+> `KnowledgeSummary`：中高级Android开发知识总结系列.
 
 # 目录
 
-| ☕️ | 🚍 | 🤖 | 🔐 |  👀  | 🧶 |
+| ☕️ | 🚍 | 🤖 | 📚 |  👍  | 🔐 |
 | :--------: | :---------: | :---------: | :---------: | :---------: | :---------: | 
 | [Java](#Java) | [JVM](#JVM) | [Android](#Android) | [开源库](#开源库) | [性能优化](#性能优化)   | [多线程](#多线程) |
 
@@ -37,8 +37,6 @@
 > [Android系统工作机制分析](./Docs/Android/Android系统工作机制分析.md)
 
 > [RxJava相关文章](./Docs/Android/开源库/RxJava相关文章.md)
-
-> [通过事务支持加快sqlite数据库批量操作的效率](./Docs/Android/其他/通过事务支持加快sqlite数据库批量操作的效率.md)
 
 > [怎么做牛逼的动画](./Docs/Android/其他/怎么做牛逼的动画.md)
 
