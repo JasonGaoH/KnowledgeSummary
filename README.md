@@ -32,5 +32,4 @@ Icon | Title | Detail
 
 
 ## 欢迎关注我的公众号，查看更多干货。
-![](https://raw.githubusercontent.com/JasonGaoH/Images/master/uPic/扫码_搜索联合传播样式-标准色版.png)
-
+![wx.jpg](https://i.loli.net/2020/08/07/EzP8QZNwdOgWRni.jpg)
