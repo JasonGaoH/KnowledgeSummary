@@ -1,13 +1,11 @@
-site_name: My Docs
+- 开始
 
-theme: material
+  - [概述](/README.md)
 
-nav:
-- Home: index.md
 - Algorighm:
-   - Algorithm/为什么说二分查找的时间复杂度是O(log n).md
+    - [为什么说二分查找的时间复杂度是O(logn)](/docs/Algorithm/为什么说二分查找的时间复杂度是O(logn).md)
 - Android:
-    - Android/Android系统工作机制分析.md
+    - [Android系统工作机制分析](/docs/Android/Android系统工作机制分析.md)
     - Android/Handler.md
     - Android/SharedPreference和ContentProvider.md
     - Android/android启动流程分析.md
