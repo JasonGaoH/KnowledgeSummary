@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "mkdocs.yml",
+        "use": "@vercel/static-build",
+        "config": { "distDir": "site" }
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/$1" }
+    ]
+  }
+  
