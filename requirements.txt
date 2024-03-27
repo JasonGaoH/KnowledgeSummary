@@ -1,1 +1,3 @@
-mkdocs==1.5.3
+1mkdocs-material==9.4.5
+2mkdocs==1.5.3
+
