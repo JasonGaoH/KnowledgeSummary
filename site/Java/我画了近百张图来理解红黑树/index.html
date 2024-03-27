@@ -1,0 +1,2263 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>我画了近百张图来理解红黑树 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              我画了近百张图来理解红黑树
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorighm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorighm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO%28log%20n%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么说二分查找的时间复杂度是O(log n)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Android%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android系统工作机制分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/SharedPreference%E5%92%8CContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SharedPreference和ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android启动流程分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%B8%BA%E4%BB%80%E4%B9%88RxJava%E7%9A%84observeOn%E4%B8%8D%E8%83%BD%E9%9A%8F%E4%BE%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么RxJava的observeOn不能随便用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90Handler%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从源码角度剖析Handler机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深入分析AsyncTask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/Activity
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Android/Activity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%AF%8A%E6%96%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity泄露发现与诊断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity的生命周期和启动模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/IPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Android/IPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/Android%E4%B8%AD%E7%9A%84IPC%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的IPC机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用进程完成后台任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9B%E7%A8%8B%E6%98%AF%E8%A2%ABAndroid_low_memory_killer%E6%9D%80%E6%AD%BB%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何判断自己的进程是被Android low memory killer杀死的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/UI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Android/UI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E4%B8%AD%E5%87%BA%E7%8E%B0item%E9%87%8D%E5%A4%8D%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView中出现item重复的问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E5%92%8CDiffUtils%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView和DiffUtils使用问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E8%A7%A3%E5%86%B3CoordinatorLayout%E7%9A%84%E5%8A%A8%E7%94%BB%E6%8A%96%E5%8A%A8%E4%BB%A5%E5%8F%8A%E5%9B%9E%E5%BC%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Android/其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APK打包及安装过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android7.0%E4%B8%8A%E7%9A%84%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android7.0上的混合编译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的事件传递
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/BroadcastReceiver%E5%92%8CLocalBroadcastReceiver%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver和LocalBroadcastReceiver的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IntentFilter匹配规则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%80%8E%E4%B9%88%E5%81%9A%E7%89%9B%E9%80%BC%E7%9A%84%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化 VirtualAPK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%83%AD%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    热修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E8%AF%A6%E8%A7%A3APT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解APT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%ABsqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%95%88%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过事务支持加快sqlite数据库批量操作的效率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/图片相关
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Android/图片相关
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Best_Practices_for_Using_Alpha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices for Using Alpha
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Bitmap%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitmap相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/DiskLruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiskLruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/LruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E4%BB%8Eassets%E7%9B%AE%E5%BD%95%E5%92%8Cdrawable%E5%8A%A0%E8%BD%BD%E7%9A%84Bitmap%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从assets目录和drawable加载的Bitmap的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像显示原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/开源库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Android/开源库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ARouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ARouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ActivityRouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActivityRouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/BlockCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frsco
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/LeakCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LeakCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/OKHTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OkHttp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/tinker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tinker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      二叉树
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      排序二叉树
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="排序二叉树">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      排序二叉树退化成链表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      平衡二叉树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      红黑树
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      红黑树的特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      红黑树的插入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      红黑树的旋转
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="红黑树的旋转">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      左旋
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      右旋
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      左左节点旋转（插入节点的父节点是左节点，插入节点也是左节点）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      左右节点旋转（插入节点的父节点是左节点，插入节点是右节点）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      右左节点旋转（插入节点的父节点是右节点，插入节点左节点）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      右右节点旋转（插入节点的父节点是右节点，插入节点也是右节点）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#java" class="md-nav__link">
+    <span class="md-ellipsis">
+      红黑树在 Java 中的实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一种场景：只需变色即可平衡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二种场景 旋转搭配变色来保持平衡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      红黑树的删除
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="红黑树的删除">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除节点是根节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      删掉节点的左子节点和右子节点都是为空
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除节点有一个子节点不为空
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除节点两个子节点都不为空
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="删除节点两个子节点都不为空">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一种，前驱节点为黑色节点，同时有一个非空节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二种，前驱节点为黑色节点，同时子节点都为空
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      第三种，前驱节点为红色节点，同时子节点都为空
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>我画了近百张图来理解红黑树</h1>
+
+<blockquote>
+<p>文章已同步发表于微信公众号JasonGaoH，<a href="https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&amp;mid=2247483855&amp;idx=1&amp;sn=673e581b766d6ec80ec6151e5d732a32&amp;chksm=fa237927cd54f031d5df25b8783551d889200ddab408d1cc5c12533b9d5ab85f99ba78d07b06&amp;token=1938879438&amp;lang=zh_CN#rd">我画了近百张图来理解红黑树</a>,文章略有修改。</p>
+</blockquote>
+<p>之前在公司组内分享了红黑树的工作原理，今天把它整理下发出来，希望能对大家有所帮助，对自己也算是一个知识点的总结。</p>
+<p>这篇文章算是我写博客写公众号以来画图最多的一篇文章了，没有之一，我希望尽可能多地用图片来形象地描述红黑树的各种操作的前后变换原理，帮助大家来理解红黑树的工作原理，下面，多图预警开始了。</p>
+<p>在讲红黑树之前，我们首先来了解下下面几个概念：二叉树，排序二叉树以及平衡二叉树。</p>
+<h2 id="_1">二叉树</h2>
+<p>二叉树指的是每个节点最多只能有两个字数的有序树。通常左边的子树称为<code>左子树</code> ，右边的子树称为<code>右子树</code> 。这里说的有序树强调的是二叉树的左子树和右子树的次序不能随意颠倒。</p>
+<p>二叉树简单的示意图如下：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_tree_node.png" /></p>
+<p>代码定义：</p>
+<pre><code class="language-java">class Node {
+    T data;
+    Node left;
+    Node right;
+}
+</code></pre>
+<h2 id="_2">排序二叉树</h2>
+<p>所谓排序二叉树，顾名思义，排序二叉树是有顺序的，它是一种特殊结构的二叉树，我们可以对树中所有节点进行排序和检索。</p>
+<blockquote>
+<p>性质
+* 若它的左子树不空，则左子树上所有节点的值均小于它的根节点的值；
+* 若她的右子树不空，则右子树上所有节点的值均大于它的根节点的值；
+* 具有递归性，排序二叉树的左子树、右子树也是排序二叉树。</p>
+</blockquote>
+<p>排序二叉树简单示意图：</p>
+<p><img alt="排序二叉树" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_search_tree.png" /></p>
+<h3 id="_3">排序二叉树退化成链表</h3>
+<p>排序二叉树的左子树上所有节点的值小于根节点的值，右子树上所有节点的值大于根节点的值，当我们插入一组元素正好是有序的时候，这时会让排序二叉树退化成链表。</p>
+<p>正常情况下，排序二叉树是如下图这样的：
+<img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_15.png" /></p>
+<p>但是，当插入的一组元素正好是有序的时候，排序二叉树就变成了下边这样了，就变成了普通的链表结构，如下图所示:
+<img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/binary_search_link_tree.png" /></p>
+<p>正常情况下的排序二叉树检索效率类似于二分查找，二分查找的时间复杂度为 O(log n)，但是如果排序二叉树退化成链表结构，那么检索效率就变成了线性的 O(n) 的，这样相对于 O(log n) 来说，检索效率肯定是要差不少的。</p>
+<blockquote>
+<p>思考，二分查找和正常的排序二叉树的时间复杂度都是 O(log n)，那么为什么是O(log n) ？</p>
+</blockquote>
+<p>关于 O(log n) 的分析下面这篇文章讲解的非常好，感兴趣的可以看下这篇文章 <a href="https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO(log%20n).md">二分查找的时间复杂度</a>，文章是拿二分查找来举例的，二分查找和平衡二叉树的时间复杂度是一样的，理解了二分查找的时间复杂度，再来理解平衡二叉树就不难了，这里就不赘述了。</p>
+<p>继续回到我们的主题上，为了解决排序二叉树在特殊情况下会退化成链表的问题（链表的检索效率是 O(n) 相对正常二叉树来说要差不少），所以有人发明了<code>平衡二叉树</code>和<code>红黑树</code>类似的平衡树。</p>
+<h3 id="_4">平衡二叉树</h3>
+<p>平衡二叉数又被称为 AVL 树，AVL 树的名字来源于它的发明作者 G.M. Adelson-Velsky 和 E.M. Landis，取自两人名字的首字母。</p>
+<p>官方定义：它或者是一颗空树，或者具有以下性质的排序二叉树：它的左子树和右子树的深度之差(平衡因子)的绝对值不超过1，且它的左子树和右子树都是一颗平衡二叉树。</p>
+<p>两个条件：
+* 平衡二叉树必须是排序二叉树，也就是说平衡二叉树他的左子树所有节点的值必须小于根节点的值，它的右子树上所有节点的值必须大于它的根节点的值。
+* 左子树和右子树的深度之差的绝对值不超过1。</p>
+<h3 id="_5">红黑树</h3>
+<p>讲了这么多概念，接下来主角红黑树终于要上场了。</p>
+<blockquote>
+<p>为什么有红黑树？</p>
+</blockquote>
+<p>其实红黑树和上面的平衡二叉树类似，本质上都是为了解决排序二叉树在极端情况下退化成链表导致检索效率大大降低的问题，红黑树最早是由 Rudolf Bayer 于 1972 年发明的。</p>
+<p>红黑树首先肯定是一个排序二叉树，它在每个节点上增加了一个存储位来表示节点的颜色，可以是 RED 或 BLACK 。</p>
+<p>Java 中实现红黑树大概结构图如下所示：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_13.png" /></p>
+<h3 id="_6">红黑树的特性</h3>
+<ul>
+<li>性质1：每个节点要么是红色，要么是黑色。</li>
+<li>性质2：根节点永远是黑色的。</li>
+<li>性质3：所有的叶子节点都是空节点（即null），并且是黑色的。</li>
+<li>性质4：每个红色节点的两个子节点都是黑色。（从每个叶子到根的路径上不会有两个连续的红色节点。）</li>
+<li>性质5：从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点。</li>
+</ul>
+<p>针对上面的 5 种性质，我们简单理解下，对于性质 1 和性质 2 ，相当于是对红黑树每个节点的约束，根节点是黑色，其他的节点要么是红色，要么是黑色。</p>
+<p>对于性质 3 中指定红黑树的每个叶子节点都是空节点，而且叶子节点都是黑色，但 Java 实现的红黑树会使用 null 来代表空节点，因此我们在遍历 Java里的红黑树的时候会看不到叶子节点，而看到的是每个叶子节点都是红色的，这一点需要注意。</p>
+<p>对于性质 5，这里我们需要注意的是，这里的描述是从任一节点，从任一节点到它的子树的每个叶子节点黑色节点的数量都是相同的，这个数量被称为这个节点的黑高。</p>
+<p>如果我们从根节点出发到每个叶子节点的路径都包含相同数量的黑色节点，这个黑色节点的数量被称为树的黑色高度。树的黑色高度和节点的黑色高度是不一样的，这里要注意区分。</p>
+<p>其实到这里有人可能会问了，红黑树的性质说了一大堆，那是不是说只要保证红黑树的节点是红黑交替就能保证树是平衡的呢？</p>
+<p>其实不是这样的，我们可以看来看下面这张图：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_14.png" /></p>
+<p>左边的子树都是黑色节点，但是这个红黑树依然是平衡的，5 条性质它都满足。</p>
+<p>这个树的黑色高度为 3，从根节点到叶子节点的最短路径长度是 2，该路径上全是黑色节点，包括叶子节点，从根节点到叶子节点最长路径为 4，每个黑色节点之间会插入红色节点。</p>
+<p>通过上面的性质 4 和性质 5，其实上保证了没有任何一条路径会比其他路径长出两倍，所以这样的红黑树是平衡的。</p>
+<p>其实这算是一个推论，红黑树在最差情况下，最长的路径都不会比最短的路径长出两倍。其实红黑树并不是真正的平衡二叉树，它只能保证大致是平衡的，因为红黑树的高度不会无限增高，在实际应用用，红黑树的统计性能要高于平衡二叉树，但极端性能略差。</p>
+<h3 id="_7">红黑树的插入</h3>
+<p>想要彻底理解红黑树，除了上面说到的理解红黑树的性质以外，就是理解红黑树的插入操作了。</p>
+<p>红黑树的插入和普通排序二叉树的插入基本一致，排序二叉树的要求是左子树上的所有节点都要比根节点小，右子树上的所有节点都要比跟节点大，当插入一个新的节点的时候，首先要找到当前要插入的节点适合放在排序二叉树哪个位置，然后插入当前节点即可。红黑树和排序二叉树不同的是，红黑树需要在插入节点调整树的结构来让树保持平衡。</p>
+<p>一般情况下，红黑树中新插入的节点都是红色的，那么，为什么说新加入到红黑树中的节点要是红色的呢？</p>
+<p>这个问题可以这样理解，我们从性质5中知道，当前红黑树中从根节点到每个叶子节点的黑色节点数量是一样的，此时假如新的黑色节点的话，必然破坏规则，但加入红色节点却不一定，除非其父节点就是红色节点，因此加入红色节点，破坏规则的可能性小一些。</p>
+<p>接下来我们重点来讲红黑树插入新节点后是如何保持平衡的。</p>
+<p>给定下面这样一颗红黑树：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_1.png" /></p>
+<p>当我们插入值为66的节点的时候，示意图如下：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_2.png" /></p>
+<p>很明显，这个时候结构依然遵循着上述5大特性，无需启动自动平衡机制调整节点平衡状态。</p>
+<p>如果再向里面插入值为51的节点呢，这个时候红黑树变成了这样。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_3.png" /></p>
+<p>这样的结构实际上是不满足性质4的，红色两个子节点必须是黑色的，而这里49这个红色节点现在有个51的红色节点与其相连。</p>
+<p>这个时候我们需要调整这个树的结构来保证红黑树的平衡。</p>
+<p>首先尝试将49这个节点设置为黑色，如下示意图。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_add_1.webp" /></p>
+<p>这个时候我们发现黑高是不对的，其中 60-56-45-49-51-null 这条路径有 4 个黑节点，其他路径的黑色节点是 3 个。</p>
+<p>接着调整红黑树，我们再次尝试把45这个节点设置为红色的，如下图所示：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_add_2.webp" /></p>
+<p>这个时候我们发现问题又来了，56-45-43 都是红色节点的，出现了红色节点相连的问题。</p>
+<p>于是我们需要再把 56 和 43 设置为黑色的，如下图所示。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_add_3.webp" /></p>
+<p>于是我们把 68 这个红色节点设置为黑色的。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_5.png" /></p>
+<p>对于这种红黑树插入节点的情况下，我们可以只需要通过变色就可以保持树的平衡了。但是并不是每次都是这么幸运的，当变色行不通的时候，我们需要考虑另一个手段就是旋转了。</p>
+<p>例如下面这种情况，同样还是拿这颗红黑树举例。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_2.png" /></p>
+<p>现在这颗红黑树，我们现在插入节点65。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_1.png" /></p>
+<p>我们尝试把 66 这个节点设置为黑色，如下图所示。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/rec_black_tree_new_2.png" /></p>
+<p>这样操作之后黑高又出现不一致的情况了，60-68-64-null 有 3 个黑色节点，而60-68-64-66-null 这条路径有 4 个黑色节点，这样的结构是不平衡的。</p>
+<p>或者我们把 68 设置为黑色，把 64 设置为红色，如下图所示：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_3.png" /></p>
+<p>但是，同样的问题，上面这颗红黑树的黑色高度还是不一致，60-68-64-null 和 60-68-64-66-null 这两条路径黑色高度还是不一致。</p>
+<p>这种情况如果只通过变色的情况是不能保持红黑树的平衡的。</p>
+<h3 id="_8">红黑树的旋转</h3>
+<p>接下来我们讲讲红黑树的旋转，旋转分为左旋和右旋。</p>
+<h4 id="_9">左旋</h4>
+<p>文字描述：逆时针旋转两个节点，让一个节点被其右子节点取代，而该节点成为右子节点的左子节点。</p>
+<p>文字描述太抽象，接下来看下图片展示。</p>
+<p>首先断开节点PL与右子节点G的关系，同时将其右子节点的引用指向节点C2；然后断开节点G与左子节点C2的关系，同时将G的左子节点的应用指向节点PL。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_left.png" /></p>
+<p>接下来再放下 gif 图，希望能帮助大家更好地理解左旋，图片来自网络。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_left.gif" /></p>
+<h4 id="_10">右旋</h4>
+<p>文字描述：顺时针旋转两个节点，让一个节点被其左子节点取代，而该节点成为左子节点的右子节点。</p>
+<p>右旋的图片展示：</p>
+<p>首先断开节点G与左子节点PL的关系，同时将其左子节点的引用指向节点C2；然后断开节点PL与右子节点C2的关系，同时将PL的右子节点的应用指向节点G。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_right.png" /></p>
+<p>右旋的gif展示（图片来自网络）:</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_right.gif" /></p>
+<p>介绍完了左旋和右旋基本操作，我们来详细介绍下红黑树的几种旋转场景。</p>
+<h4 id="_11">左左节点旋转（插入节点的父节点是左节点，插入节点也是左节点）</h4>
+<p>如下图所示的红黑树，我们插入节点是65。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_1.png" /></p>
+<p>操作步骤如下可以围绕祖父节点 69 右旋，再结合变色，步骤如下所示：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_2.png" /></p>
+<h4 id="_12">左右节点旋转（插入节点的父节点是左节点，插入节点是右节点）</h4>
+<p>还是上面这颗红黑树，我们再插入节点 67。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_1.png" /></p>
+<p>这种情况我们可以这样操作，先围绕父节点 66 左旋，然后再围绕祖父节点 69 右旋，最后再将 67 设置为黑色，把 69 设置为红色，如下图所示。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_3.png" /></p>
+<h4 id="_13">右左节点旋转（插入节点的父节点是右节点，插入节点左节点）</h4>
+<p>如下图这种情况，我们要插入节点68。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_4.png" /></p>
+<p>这种情况，我们可以先围绕父节点 69 右旋，接着再围绕祖父节点 66 左旋，最后把 68 节点设置为黑色，把 66 设置为红色，我们的具体操作步骤如下所示。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_5.png" /></p>
+<h4 id="_14">右右节点旋转（插入节点的父节点是右节点，插入节点也是右节点）</h4>
+<p>还是来上面的图来举例，我们在这颗红黑树上插入节点 70 。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_4.png" /></p>
+<p>我们可以这样操作围绕祖父节点 66 左旋，再把旋转后的根节点 69 设置为黑色，把 66 这个节点设置为红色。具体可以参看下图：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_rotate_6.png" /></p>
+<h3 id="java">红黑树在 Java 中的实现</h3>
+<p>Java 中的红黑树实现类是 TreeMap ，接下来我们尝试从源码角度来逐行解释 TreeMap 这一套机制是如何运作的。</p>
+<pre><code>// TreeMap中使用Entry来描述每个节点
+ static final class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+        K key;
+        V value;
+        Entry&lt;K,V&gt; left;
+        Entry&lt;K,V&gt; right;
+        Entry&lt;K,V&gt; parent;
+        boolean color = BLACK;
+        ...
+ }
+</code></pre>
+<p>TreeMap 的put方法。</p>
+<pre><code> public V put(K key, V value) {
+        //先以t保存链表的root节点
+        Entry&lt;K,V&gt; t = root;
+        //如果t=null,表明是一个空链表，即该TreeMap里没有任何Entry作为root
+        if (t == null) {
+            compare(key, key); // type (and possibly null) check
+            //将新的key-value创建一个Entry，并将该Entry作为root
+            root = new Entry&lt;&gt;(key, value, null);
+            size = 1;
+            //记录修改次数加1
+            modCount++;
+            return null;
+        }
+        int cmp;
+        Entry&lt;K,V&gt; parent;
+        // split comparator and comparable paths
+        Comparator&lt;? super K&gt; cpr = comparator;
+        //如果比较器cpr不为null，即表明采用定制排序
+        if (cpr != null) {
+            do {
+                //使用parent上次循环后的t所引用的Entry
+                parent = t;
+                 //将新插入的key和t的key进行比较
+                cmp = cpr.compare(key, t.key);
+                //如果新插入的key小于t的key，t等于t的左边节点
+                if (cmp &lt; 0)
+                    t = t.left;
+                //如果新插入的key大于t的key，t等于t的右边节点    
+                else if (cmp &gt; 0)
+                    t = t.right;
+                else
+                //如果两个key相等，新value覆盖原有的value，并返回原有的value
+                    return t.setValue(value);
+            } while (t != null);
+        }
+        else {
+            if (key == null)
+                throw new NullPointerException();
+            @SuppressWarnings(&quot;unchecked&quot;)
+                Comparable&lt;? super K&gt; k = (Comparable&lt;? super K&gt;) key;
+            do {
+                parent = t;
+                cmp = k.compareTo(t.key);
+                if (cmp &lt; 0)
+                    t = t.left;
+                else if (cmp &gt; 0)
+                    t = t.right;
+                else
+                    return t.setValue(value);
+            } while (t != null);
+        }
+        //将新插入的节点作为parent节点的子节点
+        Entry&lt;K,V&gt; e = new Entry&lt;&gt;(key, value, parent);
+        //如果新插入key小于parent的key,则e作为parent的左子节点
+        if (cmp &lt; 0)
+            parent.left = e;
+        //如果新插入key小于parent的key，则e作为parent的右子节点
+        else
+            parent.right = e;
+        //修复红黑树
+        fixAfterInsertion(e);
+        size++;
+        modCount++;
+        return null;
+    }
+</code></pre>
+<pre><code>//插入节点后修复红黑树
+private void fixAfterInsertion(Entry&lt;K,V&gt; x) {
+    x.color = RED;
+
+    //直到x节点的父节点不是根，且x的父节点是红色
+    while (x != null &amp;&amp; x != root &amp;&amp; x.parent.color == RED) {
+        //如果x的父节点是其父节点的左子节点
+        if (parentOf(x) == leftOf(parentOf(parentOf(x)))) {
+            //获取x的父节点的兄弟节点
+            Entry&lt;K,V&gt; y = rightOf(parentOf(parentOf(x)));
+            //如果x的父节点的兄弟节点是红色
+            if (colorOf(y) == RED) {     
+                //将x的父节点设置为黑色
+                setColor(parentOf(x), BLACK);
+                //将x的父节点的兄弟节点设置为黑色
+                setColor(y, BLACK);
+                //将x的父节点的父节点设为红色
+                setColor(parentOf(parentOf(x)), RED);
+                x = parentOf(parentOf(x));
+            }
+            //如果x的父节点的兄弟节点是黑色
+            else {   
+                //TODO 对应情况第二种，左右节点旋转
+                //如果x是其父节点的右子节点
+                if (x == rightOf(parentOf(x))) {
+                    //将x的父节点设为x
+                    x = parentOf(x);
+                    //右旋转
+                    rotateLeft(x);
+                }
+                //把x的父节点设置为黑色
+                setColor(parentOf(x), BLACK);
+                //把x的父节点父节点设为红色
+                setColor(parentOf(parentOf(x)), RED);
+                rotateRight(parentOf(parentOf(x)));
+            }
+        }
+        //如果x的父节点是其父节点的右子节点
+        else {
+            //获取x的父节点的兄弟节点
+            Entry&lt;K,V&gt; y = leftOf(parentOf(parentOf(x)));
+            //只着色的情况对应的是最开始例子，没有旋转操作，但是要对应多次变换
+            //如果x的父节点的兄弟节点是红色  
+            if (colorOf(y) == RED) {
+                //将x的父节点设置为黑色
+                setColor(parentOf(x), BLACK);
+                //将x的父节点的兄弟节点设为黑色
+                setColor(y, BLACK);
+                //将X的父节点的父节点（G）设置红色
+                setColor(parentOf(parentOf(x)), RED);
+                //将x设为x的父节点的节点
+                x = parentOf(parentOf(x));
+            }
+            //如果x的父节点的兄弟节点是黑色
+            else {
+                //如果x是其父节点的左子节点
+                if (x == leftOf(parentOf(x))) {
+                    //将x的父节点设为x
+                    x = parentOf(x);
+                    //右旋转
+                    rotateRight(x);
+                }
+                //将x的父节点设为黑色
+                setColor(parentOf(x), BLACK);
+                //把x的父节点的父节点设为红色
+                setColor(parentOf(parentOf(x)), RED);
+                rotateLeft(parentOf(parentOf(x)));
+            }
+        }
+    }
+    //将根节点强制设置为黑色
+    root.color = BLACK;
+}
+</code></pre>
+<p>TreeMap的插入节点和普通的排序二叉树没啥区别，唯一不同的是，在TreeMap 插入节点后会调用方法fixAfterInsertion(e)来重新调整红黑树的结构来让红黑树保持平衡。</p>
+<p>我们重点关注下红黑树的fixAfterInsertion(e)方法，接下来我们来分别介绍两种场景来演示fixAfterInsertion(e)方法的执行流程。</p>
+<h3 id="_15">第一种场景：只需变色即可平衡</h3>
+<p>同样是拿这颗红黑树举例，现在我们插入节点 51。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_2.png" /></p>
+<p>当我们需要插入节点51的时候，这个时候TreeMap 的 put 方法执行后会得到下面这张图。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_insert_3.png" /></p>
+<p>接着调用fixAfterInsertion(e)方法，如下代码流程所示。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_code_1.png" /></p>
+<p>当第一次进入循环后，执行后会得到下面的红黑树结构。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_4.png" /></p>
+<p>在把 x 重新赋值后，重新进入 while 循环，此时的 x 节点为 45 。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_5.png" /></p>
+<p>执行上述流程后，得到下面所示的红黑树结构。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_6.png" /></p>
+<p>这个时候x被重新赋值为60，因为60是根节点，所以会退出 while 循环。在退出循序后，会再次把根节点设置为黑色，得到最终的结构如下图所示。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_7.png" /></p>
+<p>最后经过两次执行while循环后，我们的红黑树会调整成现在这样的结构，这样的红黑树结构是平衡的，所以路径的黑高一致，并且没有红色节点相连的情况。</p>
+<h3 id="_16">第二种场景 旋转搭配变色来保持平衡</h3>
+<p>接下来我们再来演示第二种场景，需要结合变色和旋转一起来保持平衡。</p>
+<p>给定下面这样一颗红黑树：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_8.png" /></p>
+<p>现在我们插入节点66，得到如下树结构。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_9.png" /></p>
+<p>同样地，我们进入fixAfterInsertion(e)方法。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_10.png" /></p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_11.png" /></p>
+<p>最终我们得到的红黑树结构如下图所示：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_new_12.png" /></p>
+<p>调整成这样的结构我们的红黑树又再次保持平衡了。</p>
+<p>演示 TreeMap 的流程就拿这两种场景举例了，其他的就不一一举例了。</p>
+<h3 id="_17">红黑树的删除</h3>
+<p>因为之前的分享只整理了红黑树的插入部分，本来想着红黑树的删除就不整理了，有人跟我反馈说红黑树的删除相对更复杂，于是索性还是把红黑树的删除再整理下。</p>
+<p>删除相对插入来说，的确是要复杂一点，但是复杂的地方是因为在删除节点的这个操作情况有很多种，但是插入不一样，插入节点的时候实际上这个节点的位置是确定的，在节点插入成功后只需要调整红黑树的平衡就可以了。</p>
+<p>但是删除不一样的是，删除节点的时候我们不能简单地把这个节点设置为null，因为如果这个节点有子节点的情况下，不能简单地把当前删除的节点设置为null，这个被删除的节点的位置需要有新的节点来填补。这样一来，需要分多种情况来处理了。</p>
+<h4 id="_18">删除节点是根节点</h4>
+<p>直接删除根节点即可。</p>
+<h4 id="_19">删掉节点的左子节点和右子节点都是为空</h4>
+<p>直接删除当前节点即可。</p>
+<h4 id="_20">删除节点有一个子节点不为空</h4>
+<p>这个时候需要使用子节点来代替当前需要删除的节点，然后再把子节点删除即可。</p>
+<p>给定下面这棵树，当我们需要删除节点69的时候。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_del_1.png" /></p>
+<p>首先用子节点代替当前待删除节点，然后再把子节点删除。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_del_2.png" /></p>
+<p>最终的红黑树结构如下面所示，这个结构的红黑树我们是不需要通过变色+旋转来保持红黑树的平衡了，因为将子节点删除后树已经是平衡的了。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_del_3.png" /></p>
+<p>还有一种场景是当我们待删除节点是黑色的，黑色的节点被删除后，树的黑高就会出现不一致的情况，这个时候就需要重新调整结构。</p>
+<p>还是拿上面这颗删除节点后的红黑树举例，我们现在需要删除节点67。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_del_4.png" /></p>
+<p>因为67 这个节点的两个子节点都是null，所以直接删除,得到如下图所示结构：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_del_5.png" /></p>
+<p>这个时候我们树的黑高是不一致的，左边黑高是3，右边是2，所以我们需要把64节点设置为红色来保持平衡。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_del_6.png" /></p>
+<h4 id="_21">删除节点两个子节点都不为空</h4>
+<p>删除节点两个子节点都不为空的情况下，跟上面有一个节点不为空的情况下也是有点类似，同样是需要找能替代当前节点的节点，找到后，把能替代删除节点值复制过来，然后再把替代节点删除掉。</p>
+<ul>
+<li>先找到替代节点，也就是前驱节点或者后继节点</li>
+<li>然后把前驱节点或者后继节点复制到当前待删除节点的位置，然后在删除前驱节点或者后继节点。</li>
+</ul>
+<p>那么什么叫做前驱，什么叫做后继呢？
+前驱是左子树中最大的节点，后继则是右子树中最小的节点。</p>
+<p>前驱或者后继都是最接近当前节点的节点，当我们需要删除当前节点的时候，也就是找到能替代当前节点的节点，能够替代当前节点肯定是最接近当前节点。</p>
+<p>在当前删除节点两个子节点不为空的场景下，我们需要再进行细分，主要分为以下三种情况。</p>
+<h5 id="_22">第一种，前驱节点为黑色节点，同时有一个非空节点</h5>
+<p>如下面这样一棵树，我们需要删除节点64：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_1.jpg" /></p>
+<p>首先找到前驱节点，把前驱节点复制到当前节点：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_2.jpg" /></p>
+<p>接着删除前驱节点。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_3.jpg" /></p>
+<p>这个时候63和60这个节点都是红色的，我们尝试把60这个节点设置为红色即可使整个红黑树达到平衡。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_4.jpg" /></p>
+<h5 id="_23">第二种，前驱节点为黑色节点，同时子节点都为空</h5>
+<p>前驱节点是黑色的，子节点都为空，这个时候操作步骤与上面基本类似。</p>
+<p>如下操作步骤：</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_5.png" /></p>
+<p>因为要删除节点64，接着找到前驱节点63，把63节点复制到当前位置，然后将前驱节点63删除掉，变色后出现黑高不一致的情况下，最后把63节点设置为黑色，把65节点设置为红色，这样就能保证红黑树的平衡。</p>
+<h5 id="_24">第三种，前驱节点为红色节点，同时子节点都为空</h5>
+<p>给定下面这颗红黑树，我们需要删除节点64的时候。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_6.jpg" /></p>
+<p>同样地，我们找到64的前驱节点63，接着把63赋值到64这个位置。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_7.jpg" /></p>
+<p>然后删除前驱节点。</p>
+<p><img alt="" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/red_black_tree_delete_8.jpg" /></p>
+<p>删除节点后不需要变色也不需要旋转即可保持树的平衡。</p>
+<p>终于把红黑树的基本原理部分写完了，用了很多示意图，这篇文章是在之前分享的 ppt 上再整理出来，我觉得自己应该算是把基本操作讲明白了，整理这篇文章前前后后用了近一周左右，因为平时上班，基本上只有周末有时间才有时间整理，如有问题请留言讨论。</p>
+<p>如果您觉得写得还可以，请您帮忙点个好看，您的点赞真的是对我最大的支持，也是我能继续写下去的动力，感谢。</p>
+<p><a href="https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/Java/%E6%88%91%E7%94%BB%E4%BA%86%E8%BF%91%E7%99%BE%E5%BC%A0%E5%9B%BE%E6%9D%A5%E7%90%86%E8%A7%A3%E7%BA%A2%E9%BB%91%E6%A0%91.md">原文链接</a></p>
+<p>文章中很多参考了下面文章的一些示意图，非常感谢以下文章。</p>
+<p><a href="https://hackernoon.com/what-does-the-time-complexity-o-log-n-actually-mean-45f94bb5bfbf">What does the time complexity O(log n) actually mean?</a></p>
+<p><a href="https://blog.csdn.net/chenssy/article/details/26668941">Java提高篇--TreeMap</a></p>
+<p><a href="https://www.cnblogs.com/LiaHon/p/11203229.html">关于红黑树(R-B tree)原理，看这篇如何</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

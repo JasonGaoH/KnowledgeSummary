@@ -1,0 +1,1899 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/">
+      
+      
+        <link rel="next" href="../%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>怎么做牛逼的动画 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              怎么做牛逼的动画
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorighm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorighm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO%28log%20n%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么说二分查找的时间复杂度是O(log n)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android系统工作机制分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SharedPreference%E5%92%8CContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SharedPreference和ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android启动流程分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%BA%E4%BB%80%E4%B9%88RxJava%E7%9A%84observeOn%E4%B8%8D%E8%83%BD%E9%9A%8F%E4%BE%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么RxJava的observeOn不能随便用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90Handler%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从源码角度剖析Handler机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深入分析AsyncTask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/Activity
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Android/Activity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Activity/Activity%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%AF%8A%E6%96%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity泄露发现与诊断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Activity/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity的生命周期和启动模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/IPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Android/IPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IPC/Android%E4%B8%AD%E7%9A%84IPC%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的IPC机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IPC/%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用进程完成后台任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IPC/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9B%E7%A8%8B%E6%98%AF%E8%A2%ABAndroid_low_memory_killer%E6%9D%80%E6%AD%BB%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何判断自己的进程是被Android low memory killer杀死的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/UI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Android/UI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UI/RecyclerView%E4%B8%AD%E5%87%BA%E7%8E%B0item%E9%87%8D%E5%A4%8D%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView中出现item重复的问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UI/RecyclerView%E5%92%8CDiffUtils%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView和DiffUtils使用问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UI/RecyclerView%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UI/%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UI/%E8%A7%A3%E5%86%B3CoordinatorLayout%E7%9A%84%E5%8A%A8%E7%94%BB%E6%8A%96%E5%8A%A8%E4%BB%A5%E5%8F%8A%E5%9B%9E%E5%BC%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Android/其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APK打包及安装过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Android7.0%E4%B8%8A%E7%9A%84%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android7.0上的混合编译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的事件传递
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BroadcastReceiver%E5%92%8CLocalBroadcastReceiver%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver和LocalBroadcastReceiver的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IntentFilter匹配规则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      动画基础
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘图API
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化 VirtualAPK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8F%92%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%83%AD%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    热修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%A6%E8%A7%A3APT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解APT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E8%BF%87%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%ABsqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%95%88%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过事务支持加快sqlite数据库批量操作的效率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/图片相关
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Android/图片相关
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Best_Practices_for_Using_Alpha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices for Using Alpha
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Bitmap%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitmap相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/DiskLruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiskLruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/LruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E4%BB%8Eassets%E7%9B%AE%E5%BD%95%E5%92%8Cdrawable%E5%8A%A0%E8%BD%BD%E7%9A%84Bitmap%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从assets目录和drawable加载的Bitmap的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像显示原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/开源库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Android/开源库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/ARouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ARouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/ActivityRouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActivityRouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/BlockCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frsco
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/LeakCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LeakCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/OKHTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OkHttp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/Retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/RxJava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/RxJava%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/tinker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tinker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      动画基础
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      绘图API
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>怎么做牛逼的动画</h1>
+
+<h2 id="_1">动画基础</h2>
+<ul>
+<li>
+<p>本质
+每帧绘制不同的内容</p>
+</li>
+<li>
+<p>基本过程
+开始动画后，调用 View 的 invalidate 触发重绘。重绘后检查动画是否停止，若未停止则继续调用 invalidate 触发下一帧(下一次重绘)，直到动画结束。</p>
+</li>
+</ul>
+<p>重绘时 View 的 draw 方法会被调用，根据动画的进行绘制不同的内容，如某个被绘制元素的大小变化、角 度旋转、透明度变化等，这样即会产生动画。</p>
+<p>动画的推进过程一般都会有一个变化量，这个变量会被用到 draw 方法内元素的绘制。一般的变量都是时 间，也可以是手指移动、传感器等任何其他的变量。</p>
+<ul>
+<li>Android中的动画支持</li>
+</ul>
+<p><a href="http://developer.android.com/reference/android/view/animation/Animation.html">Animation:</a>早期实现的让 View 整体做动画的类。能让 View 做 Matrix(移动、缩放、旋转、3D 旋转)和 Alpha(透明)的动画。
+<a href="http://developer.android.com/reference/android/animation/Animator.html">Animator:</a>有硬件加速后为做动画实现的类。能方便的让 View 整体做动画;也可以只产生随时间变化的变 量，用来在 onDraw 里做绘图级的动画。比 Animation 灵活很多。
+<a href="http://developer.android.com/reference/android/graphics/drawable/AnimationDrawable.html">AnimationDrawable</a>图片逐帧动画。主要用来播放提前制作好的动画。</p>
+<ul>
+<li>在哪个级别做动画</li>
+</ul>
+<p>让整个 View 做动画(比如整个 View 平移、旋转等)很简单方便，一般调用几行代码就行。我把它称作 View 级的动画。</p>
+<p>在 View 的 draw/onDraw 里通过 Canvas 来绘制时做动画更灵活，更精细，能力更强大。我把它称作绘图 级的动画。(View 级的动画本质上也是这么做的，只是 Android 系统帮我们做了大部分工作)</p>
+<ul>
+<li>绘图级的动画
+下面来一段绘图级动画的典型实现:</li>
+</ul>
+<pre><code class="language-java">class MyView extends View { 
+    void startAnimator() {
+        ValueAnimator animator = ValueAnimator.ofFloat(1f, 0f);
+        animator.start(); 
+        invalidate();
+        }
+
+protected void onDraw(Canvas canvas) {
+    if (animator.isRunning()) {
+        float ratio = (Float)animator.getAnimatedValue(); 
+        canvas.rotate(ratio*360); 
+        canvas.drawBitmap(bitmap, 0, 0, null);
+        invalidate(); 
+        }
+        ... 
+    }
+}
+</code></pre>
+<p>有了不断变化的 ratio 变量，绘图级动画就可以大展身手了。 绘图级动画的强大能力来自绘图 API 的强大能力，下面主要讲绘图 API。</p>
+<h2 id="api">绘图API</h2>
+<ul>
+<li>Matrix</li>
+</ul>
+<p><a href="http://developer.android.com/reference/android/graphics/Canvas.html">Canvas</a>.[translate,scale,rotate,skew]方法</p>
+<p><a href="http://developer.android.com/reference/android/graphics/Matrix.html">Matrix</a>.set/pre/post[translate,scale,rotate,skew]方法</p>
+<p>平移、缩放、旋转、斜切</p>
+<p>从使用 API 的角度来看，我们通过调用 Canvas.translate 等方法，可以使后续在此 Canvas 上绘制操作的 绘制区域变化，如 translate(5,0)，则后续所有绘制操作的绘制区域都会向右移动 5 个像素。</p>
+<p>原理:Canvas 里有一个 Matrix，Canvas 上的这几个调用都会最终调用到 Matrix.pre*。这个 Matrix 保存整 个变换过程。当有 Canvas.draw 时，要绘制的点都会经过 Matrix.mapPoints 方法做一个映射。于是产生我 们期望的变换效果。(事实上映射的时候只需要映射关键点，其他的是插值来的)</p>
+<p>关于 Matrix 的更多信息</p>
+<p>set/pre/post 的区别:set 是设置，冲掉以前的数据。pre 是前乘，post 是后乘，根本上讲就是生效顺 序不同。具体表现效果可在网上搜索资料。</p>
+<p>setPolyToPoly:与 mapPoints 方法相反，mapPoints 是通过矩阵把原始点映射为目标点。 
+setPolyToPoly 是输入原始点和映射后的目标点，计算出这个矩阵。</p>
+<p><a href="http://developer.android.com/reference/android/graphics/Camera.html">Camera</a>:有透视效果的 3D 旋转。Camera 是一个生成 Matrix 的工具类。可用来生成有透视效果的 3D 旋转。</p>
+<p>Canvas.draw*方法</p>
+<pre><code class="language-java">Canvas.draw-Point/s
+Canvas.draw-Line/s 
+Canvas.draw-Rect,RoundRect,Circle,Oval,Arc,Path 
+Canvas.draw-Text 
+Canvas.draw-Bitmap,BitmapMesh 
+Canvas.draw-Color,Paint
+</code></pre>
+<p>这些方法都表示绘制一个区域。绘制的区域中究竟填充什么颜色，由 Paint 决定。</p>
+<p>Color,Paint,Bitmap,BitmapMesh 这几个则除了指定绘制区域外，还指定了填充内容。</p>
+<p>Path 功能比较强大，可自行组织成任何形状，还可以用贝塞尔曲线。</p>
+<p>这些方法基本上都很好理解，从名字上即可看出其功能。这里重点提一下 drawBitmapMesh。</p>
+<p>drawBitmapMesh 是输入一个网格模型，绘制出的图片内容将依据这个网格来扭曲。可以想像成把图片画
+在一块有弹性的布上，当我们把布的某些区域扯动的时候，会形成画面扭曲效果。</p>
+<p>示例:假设有个 30x30 大小的图片，我们建立这样的网格输入:</p>
+<table>
+<thead>
+<tr>
+<th>0,0</th>
+<th style="text-align: center;">15,0</th>
+<th style="text-align: center;">30,0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0,15</td>
+<td style="text-align: center;">15,15</td>
+<td style="text-align: center;">30,15</td>
+</tr>
+<tr>
+<td>0,30</td>
+<td style="text-align: center;">15,30</td>
+<td style="text-align: center;">30,30</td>
+</tr>
+</tbody>
+</table>
+<p>则图片会原样输出，没有任何扭曲。</p>
+<p>如果我们建立这样的网格输入:</p>
+<table>
+<thead>
+<tr>
+<th>0,0</th>
+<th style="text-align: center;">15,12</th>
+<th style="text-align: center;">30,0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0,15</td>
+<td style="text-align: center;">15,15</td>
+<td style="text-align: center;">30,15</td>
+</tr>
+<tr>
+<td>0,30</td>
+<td style="text-align: center;">15,30</td>
+<td style="text-align: center;">30,30</td>
+</tr>
+</tbody>
+</table>
+<p>则原本[15,0]的点会被绘制到[15,12]的位置上去。图片绘制出来后，上面部分会缺一块，形成用手把图片从 上边中间位置往下拉的扭曲效果。但很锐利，上面缺的一块是个三角形而不会是半圆型，通常我们希望的 是半圆型，这就需要我们把这个网格建得密一些。</p>
+<ul>
+<li>Alpha 通道</li>
+</ul>
+<p>每个 Color 里可以有四个通道 ARGB，其中 RGB 是红绿蓝，A 即 Alpha 通道，它通常的作用是用来作为此 颜色的透明度。</p>
+<p>因为我们的显示屏是没法透明的，因此最终显示在屏幕上的颜色里可以认为没有 Alpha 通道。Alpha 通道 主要在两个图像混合的时候生效。</p>
+<p>默认情况下，当一个颜色绘制到 Canvas 上时的混合模式是这样计算的:(RGB 通道) 最终颜色 = 绘制的颜 色 + (1 - 绘制颜色的透明度) × Canvas 上的原有颜色。</p>
+<blockquote>
+<p>注意:
+1. 这里我们一般把每个通道的取值从 0 到 255 映射到 0 到 1 的浮点数表示。
+2. 这里等式右边的“绘制的颜色"、“Canvas 上的原有颜色”都是经过预乘了自己的 Alpha 通道的值。如 绘制颜色:0x88ffffff，那么参与运算时的每个颜色通道的值不是 1.0，而是(1.0 * 0.53125 = 0.53125)。</p>
+</blockquote>
+<p>使用这种方式的混合，就会造成后绘制的内容以半透明的方式叠在上面的视觉效果。</p>
+<p>其实还可以有不同的混合模式供我们选择，用 Paint.setXfermode，指定不同的 <a href="http://developer.android.com/intl/zh-CN/reference/android/graphics/PorterDuff.Mode.html">PorterDuff.Mode</a>。</p>
+<p>下表是各个 PorterDuff 模式的混合计算公式:(D 指原本在 Canvas 上的内容 dst，S 指绘制输入的内容 src，a 指 alpha 通道，c 指 RGB 各个通道)</p>
+<p>ADD | Saturate(S + D) 
+-| :-: | 
+CLEAR | [0, 0]
+DARKEN | [Sa + Da - Sa<em>Da, Sc</em>(1 - Da) + Dc<em>(1 - Sa) + min(Sc, Dc)]
+DST | [Da, Dc]
+DST_ATOP | [Sa,Sa</em>Dc+Sc<em>(1-Da)]
+DST_IN | [Sa * Da, Sa * Dc]
+DST_OUT | [Da * (1 - Sa), Dc * (1 - Sa)]
+DST_OVER | [Sa + (1 - Sa)</em>Da, Rc = Dc + (1 - Da)<em>Sc]
+LIGHTEN | [Sa + Da - Sa</em>Da, Sc<em>(1 - Da) + Dc</em>(1 - Sa) + max(Sc, Dc)]
+MULTIPLY | [Sa * Da, Sc * Dc]
+SCREEN | [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc]
+SRC | [Sa, Sc]
+SRC_ATOP | [Da,Sc<em>Da+(1-Sa)</em>Dc]
+SRC_IN | [Sa * Da, Sc * Da]
+SRC_OUT | [Sa<em>(1-Da),Sc</em>(1-Da)]
+SRC_OVER | [Sa + (1 - Sa)<em>Da, Rc = Sc + (1 - Sa)</em>Dc]
+XOR | [Sa + Da - 2 * Sa * Da, Sc * (1 - Da) + (1 - Sa) * Dc]</p>
+<p>可以发现，我们之前的默认混合模式其实就是 SRC_OVER。</p>
+<p>通过选择其他的 PorterDuff 模式，我们可以达到一些特殊的效果:</p>
+<p>使用 DST_OVER 的话，相当于后绘制的内容作为背景在底下。</p>
+<p>使用 DST_IN/DST_OUT 的话，可以裁剪 Canvas 里的内容，或用一张带 alpha 的图片 mask 指定哪
+些区域显示/不显示。</p>
+<p>通过选择 SRC_ATOP 可以只在 Canvas 上有内容(不透明)的地方绘制。</p>
+<p>用一张示例图来查看使用不同模式时的混合效果(src 表示输入的图，dst 表示原 Canvas 上的内容):</p>
+<p><img alt="image" src="../../../img/PorterDuff_Mode.png" /></p>
+<ul>
+<li>填充颜色</li>
+</ul>
+<p>之前说过 Canvas.draw*指定了绘制的区域。而区域里的填充颜色是由 <a href="http://developer.android.com/reference/android/graphics/Paint.html">Paint</a> 来指定的。 Paint.setColor 指定纯色。</p>
+<p>Paint.setColor 指定纯色。</p>
+<p>Paint.setShader 可指定: <a href="http://developer.android.com/reference/android/graphics/BitmapShader.html">BitmapShader</a>, <a href="http://developer.android.com/reference/android/graphics/LinearGradient.html">LinearGradient</a>, <a href="http://developer.android.com/reference/android/graphics/RadialGradient.html">RadialGradient</a>, <a href="http://developer.android.com/reference/android/graphics/SweepGradient.html">SweepGradient</a>, <a href="http://developer.android.com/reference/android/graphics/ComposeShader.html">ComposeShader</a></p>
+<ul>
+<li>BitmapShader:图片填充。</li>
+<li>LinearGradient, RadialGradient, </li>
+<li>SweepGradient:渐变填充。</li>
+<li>ComposeShader:叠加前面的某两种。可选择 PorterDuff 混合模式。</li>
+</ul>
+<p>如果既调用了 setColor，又调用了 setShader，则 setShader 生效。如果同时用 setColor 或 setAlpha 设置 了透明度，则透明度也会生效。(会和 Shader 的透明度叠加)</p>
+<p>如果使用 drawBitmap 输入一个只有 alpha 的图片(可用 Bitmap.extractAlpha 方法获得)，则会以 alpha 图片为 mask，绘制出 shader/color 的颜色。</p>
+<ul>
+<li>ColorFilter</li>
+</ul>
+<p>通过 ColorFilter 可以对一次绘制的所有像素做一个通用处理。</p>
+<p>Paint.setColorFilter: <a href="http://developer.android.com/reference/android/graphics/LightingColorFilter.html">LightingColorFilter</a>, <a href="http://developer.android.com/reference/android/graphics/PorterDuffColorFilter.html">PorterDuffColorFilter</a>, <a href="http://developer.android.com/reference/android/graphics/ColorMatrixColorFilter.html">ColorMatrixColorFilter</a></p>
+<p>这可以整体上改变这一次 draw 的内容，比如让颜色更暗、更亮等。</p>
+<p>这里重点介绍下 ColorMatrixColorFilter。</p>
+<p><a href="http://developer.android.com/reference/android/graphics/ColorMatrixColorFilter.html">ColorMatrixColorFilter</a> 是 4x5 矩阵，定义其每个元素如下:</p>
+<p>{ a, b, c, d, e, </p>
+<p>f, g, h, i, j,</p>
+<p>k, l, m, n, o,</p>
+<p>p, q, r, s, t }</p>
+<p>则 ColorMatrix 的最终运算方式如下:</p>
+<p>R' = a<em>R + b</em>G + c<em>B + d</em>A + e; </p>
+<p>G' = f<em>R + g</em>G + h<em>B + i</em>A + j; </p>
+<p>B' = k<em>R + l</em>G + m<em>B + n</em>A + o; </p>
+<p>A' = p<em>R + q</em>G + r<em>B + s</em>A + t;</p>
+<ul>
+<li>绘图 API 架构</li>
+</ul>
+<p>整个绘制流水线大概如下:(我们能定义的部分用蓝色表示)</p>
+<p><img alt="image" src="../../../img/draw_arc.png" /></p>
+<p>考虑动画实现的时候一般从两个角度来思考: </p>
+<p>宏观角度:有几个变化量，分别是什么。动画从开始到结束的流程。 </p>
+<p>微观角度:从某一帧上去想，在变化量为某个数值时的图像，该怎么绘制。
+把这两者分开去想，就会比较清晰。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

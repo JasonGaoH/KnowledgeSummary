@@ -1,0 +1,2407 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>Java基础知识总结 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-java" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Java基础知识总结
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorighm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorighm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO%28log%20n%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么说二分查找的时间复杂度是O(log n)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Android%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android系统工作机制分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/SharedPreference%E5%92%8CContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SharedPreference和ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android启动流程分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%B8%BA%E4%BB%80%E4%B9%88RxJava%E7%9A%84observeOn%E4%B8%8D%E8%83%BD%E9%9A%8F%E4%BE%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么RxJava的observeOn不能随便用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90Handler%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从源码角度剖析Handler机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深入分析AsyncTask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/Activity
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Android/Activity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%AF%8A%E6%96%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity泄露发现与诊断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity的生命周期和启动模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/IPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Android/IPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/Android%E4%B8%AD%E7%9A%84IPC%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的IPC机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用进程完成后台任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9B%E7%A8%8B%E6%98%AF%E8%A2%ABAndroid_low_memory_killer%E6%9D%80%E6%AD%BB%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何判断自己的进程是被Android low memory killer杀死的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/UI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Android/UI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E4%B8%AD%E5%87%BA%E7%8E%B0item%E9%87%8D%E5%A4%8D%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView中出现item重复的问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E5%92%8CDiffUtils%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView和DiffUtils使用问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E8%A7%A3%E5%86%B3CoordinatorLayout%E7%9A%84%E5%8A%A8%E7%94%BB%E6%8A%96%E5%8A%A8%E4%BB%A5%E5%8F%8A%E5%9B%9E%E5%BC%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Android/其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APK打包及安装过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android7.0%E4%B8%8A%E7%9A%84%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android7.0上的混合编译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的事件传递
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/BroadcastReceiver%E5%92%8CLocalBroadcastReceiver%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver和LocalBroadcastReceiver的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IntentFilter匹配规则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%80%8E%E4%B9%88%E5%81%9A%E7%89%9B%E9%80%BC%E7%9A%84%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化 VirtualAPK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%83%AD%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    热修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E8%AF%A6%E8%A7%A3APT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解APT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%ABsqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%95%88%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过事务支持加快sqlite数据库批量操作的效率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/图片相关
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Android/图片相关
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Best_Practices_for_Using_Alpha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices for Using Alpha
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Bitmap%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitmap相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/DiskLruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiskLruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/LruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E4%BB%8Eassets%E7%9B%AE%E5%BD%95%E5%92%8Cdrawable%E5%8A%A0%E8%BD%BD%E7%9A%84Bitmap%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从assets目录和drawable加载的Bitmap的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像显示原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/开源库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Android/开源库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ARouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ARouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ActivityRouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActivityRouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/BlockCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frsco
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/LeakCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LeakCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/OKHTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OkHttp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/tinker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tinker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Java 面向对象编程三大特性: 封装 继承 多态
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Java 面向对象编程三大特性: 封装 继承 多态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      封装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      继承
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      多态
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Java对象的生命周期
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 抽象类和接口的区别
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 抽象类和接口的区别">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      抽象类与接口：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thissuperstaticfinal" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用关键字this、super、static和final
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="常用关键字this、super、static和final">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#this" class="md-nav__link">
+    <span class="md-ellipsis">
+      this: 代表对象。就是所在函数所属对象的引用。
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super" class="md-nav__link">
+    <span class="md-ellipsis">
+      super关键字
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static" class="md-nav__link">
+    <span class="md-ellipsis">
+      static：关键字，是一个修饰符，用于修饰成员(成员变量和成员函数)。
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      静态代码块：就是一个有静态关键字标示的一个代码块区域。定义在类中。
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final" class="md-nav__link">
+    <span class="md-ellipsis">
+      final：关键字
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-stringbufferstringbuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. StringBuffer和StringBuilder的区别
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-objectequalhashcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Object类的equal和hashcode方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Object类的equal和hashcode方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hashcodeequals" class="md-nav__link">
+    <span class="md-ellipsis">
+      hashCode（）与equals（）的相关规定
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-equals" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. == 与 equals
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. String为什么要设计成不可变的
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8try-catchoom" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.可否用try-catch捕获OOM以避免其发生
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. 单例设计模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.内部类
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. 多线程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12runnable" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.为什么要有Runnable接口的出现
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.线程间通信：思路：多个线程在操作同一个资源，但是操作的动作却不一样。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.线程间通信：思路：多个线程在操作同一个资源，但是操作的动作却不一样。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      等待唤醒机制：涉及的方法：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waitsleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      wait和sleep区别： 分析这两个方法：从执行权和锁上来分析：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14lock" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.Lock接口
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. 对象的序列化
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. 对象的序列化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transienttransient" class="md-nav__link">
+    <span class="md-ellipsis">
+      transient使用细节——被transient关键字修饰的变量真的不能被序列化吗？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Java基础知识总结</h1>
+
+<blockquote>
+<p>文章已同步发表于微信公众号JasonGaoH，<a href="https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&amp;mid=2247483714&amp;idx=1&amp;sn=d8ff6baf229c463802687e4d79751106&amp;chksm=fa2379aacd54f0bc808dd6a929c3d571f780367a140c6fd30c5b86a9e708692003aa3d197a7b&amp;token=1938879438&amp;lang=zh_CN#rd">Java基础知识总结</a></p>
+</blockquote>
+<ul>
+<li><a href="#1-java-面向对象编程三大特性-封装-继承-多态">1. Java 面向对象编程三大特性: 封装 继承 多态</a>    </li>
+<li><a href="#封装">封装</a>    </li>
+<li><a href="#继承">继承</a>    </li>
+<li><a href="#多态">多态</a></li>
+<li><a href="#2-java对象的生命周期">2. Java对象的生命周期</a></li>
+<li><a href="#3-抽象类和接口的区别">3. 抽象类和接口的区别</a>   </li>
+<li><a href="#抽象类与接口">抽象类与接口：</a></li>
+<li><a href="#常用关键字thissuperstatic和final">常用关键字this、super、static和final</a>  <ul>
+<li><a href="#this-代表对象就是所在函数所属对象的引用">this: 代表对象。就是所在函数所属对象的引用。</a>    </li>
+<li><a href="#super关键字">super关键字</a></li>
+<li><a href="#static关键字是一个修饰符用于修饰成员成员变量和成员函数">static：关键字，是一个修饰符，用于修饰成员(成员变量和成员函数)。</a>    </li>
+<li><a href="#静态代码块就是一个有静态关键字标示的一个代码块区域定义在类中">静态代码块：就是一个有静态关键字标示的一个代码块区域。定义在类中。</a>    </li>
+<li><a href="#final关键字">final：关键字</a></li>
+</ul>
+</li>
+<li><a href="#4-stringbuffer和stringbuilder的区别">4. StringBuffer和StringBuilder的区别</a></li>
+<li><a href="#5-object类的equal和hashcode方法">5. Object类的equal和hashcode方法</a>    - <a href="#hashcode与equals的相关规定">hashCode（）与equals（）的相关规定</a></li>
+<li><a href="#6--与-equals">6. == 与 equals</a></li>
+<li><a href="#7-string为什么要设计成不可变的">7. String为什么要设计成不可变的</a></li>
+<li><a href="#8可否用try-catch捕获oom以避免其发生">8.可否用try-catch捕获OOM以避免其发生</a></li>
+<li><a href="#9-单例设计模式">9. 单例设计模式</a></li>
+<li><a href="#10内部类">10.内部类</a></li>
+<li><a href="#11-多线程">11. 多线程</a></li>
+<li><a href="#12为什么要有runnable接口的出现">12.为什么要有Runnable接口的出现</a></li>
+<li><a href="#13线程间通信思路多个线程在操作同一个资源但是操作的动作却不一样">13.线程间通信：思路：多个线程在操作同一个资源，但是操作的动作却不一样。</a>    </li>
+<li><a href="#等待唤醒机制涉及的方法">等待唤醒机制：涉及的方法：</a>   </li>
+<li><a href="#wait和sleep区别-分析这两个方法从执行权和锁上来分析">wait和sleep区别： 分析这两个方法：从执行权和锁上来分析：</a></li>
+<li><a href="#14lock接口">14.Lock接口</a></li>
+<li><a href="#15-对象的序列化">15. 对象的序列化</a>    </li>
+<li><a href="#transient使用细节被transient关键字修饰的变量真的不能被序列化吗">transient使用细节——被transient关键字修饰的变量真的不能被序列化吗？</a></li>
+</ul>
+<h2 id="1-java">1. Java 面向对象编程三大特性: 封装 继承 多态</h2>
+<h3 id="_1">封装</h3>
+<p>是指隐藏对象的属性和实现细节，仅对外提供公共访问方式。
+- 好处：
+  - 将变化隔离
+  - 便于使用
+  - 提高重用性
+  - 安全性
+- 封装原则：
+  - 将不需要对外提供的内容都隐藏起来，把属性都隐藏，提供公共方法对其访问。</p>
+<h3 id="_2">继承</h3>
+<p>好处：
+1. 提高了代码的复用性。
+2. 让类与类之间产生了关系，提供了另一个特征多态的前提。</p>
+<p>父类的由来：其实是由多个类不断向上抽取共性内容而来的。
+java中对于继承，java只支持单继承。java虽然不直接支持多继承，但是保留了这种多继承机制，进行改良。</p>
+<ul>
+<li>单继承：一个类只能有一个父类。</li>
+<li>多继承：一个类可以有多个父类。</li>
+</ul>
+<p>为什么不支持多继承呢？</p>
+<blockquote>
+<p>因为当一个类同时继承两个父类时，两个父类中有相同的功能，那么子类对象调用该功能时，运行哪一个呢？因为父类中的方法中存在方法体。
+但是java支持多重继承。A继承B  B继承C  C继承D。
+多重继承的出现，就有了继承体系。体系中的顶层父类是通过不断向上抽取而来的。它里面定义的该体系最基本最共性内容的功能。
+所以，一个体系要想被使用，直接查阅该系统中的父类的功能即可知道该体系的基本用法。那么想要使用一个体系时，需要建立对象。建议建立最子类对象，因为最子类不仅可以使用父类中的功能。还可以使用子类特有的一些功能。</p>
+</blockquote>
+<h3 id="_3">多态</h3>
+<p>函数本身就具备多态性，某一种事物有不同的具体的体现。</p>
+<ul>
+<li>体现：父类引用或者接口的引用指向了自己的子类对象。//Animal a = new Cat();</li>
+<li>多态的好处：提高了程序的扩展性。</li>
+<li>多态的弊端：当父类引用指向子类对象时，虽然提高了扩展性，但是只能访问父类中具备的方法，不可以访问子类中特有的方法。(前期不能使用后期产生的功能，即访问的局限性)</li>
+<li>多态的前提：<ul>
+<li>1：必须要有关系，比如继承、或者实现。</li>
+<li>2：通常会有覆盖操作。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-java">2. Java对象的生命周期</h2>
+<p>Java对象在虚拟机上运行有7阶段：创建、应用、不可见、不可达、收集、终结、对象空间重新分配。</p>
+<p><img src="../img/java_object_lifecycle.jpeg" style="zoom:100%"/></p>
+<ol>
+<li>创建阶段(Created)</li>
+</ol>
+<p>创建Java对象阶段的具体步骤如下：<br/>
+①　为对象分配存储空间；<br/>
+②　构造对象；<br/>
+③　从超类到子类对static成员进行初始化，类的static成员的初始化在ClassLoader加载该类时进行；<br/>
+④　超类成员变量按顺序初始化，递归调用超类的构造方法；<br/>
+⑤　子类成员变量按顺序初始化，一旦对象被创建，子类构造方法就调用该对象并为某些变量赋值，完成后这个对象的状态就切换到了应用阶段。</p>
+<ol>
+<li>应用阶段(InUse)</li>
+</ol>
+<p>对象至少被一个强引用持有。除非在系统中显式地使用了软引用、弱引用或虚引用。</p>
+<ol>
+<li>不可见阶段(Invisible)</li>
+</ol>
+<p>处于不可见阶段的对象在虚拟机的对象引用根集合中再也找不到直接或间接的强引用，这些对象一般是所有线程栈中的临时变量。所有已经装载的静态变量或是对本地代码接口的引用。</p>
+<p>当一个对象处于不可见阶段时，说明程序本身不再持有该对象的任何强引用，虽然该对象仍然存在。该对象可能被虚拟机中的某些已装载的静态变量线程或JNI等强引用持有，这些特殊的强引用称为“GC Root”。存在这些GC Root会导致对象的内存泄漏，无法被回收。</p>
+<ol>
+<li>不可达阶段(Unreachable)</li>
+</ol>
+<p>对象处于不可达阶段是指该对象不再被任何强引用持有，回收器发现该对象已经不可达。</p>
+<ol>
+<li>收集阶段(Collected)</li>
+</ol>
+<p>当垃圾回收器发现该对象已经处于“不可达阶段”并且垃圾回收器已经对该对象的内存空间重新分配做好准备时，对象进入“收集阶段”如果该对象已经重写了finalize()方法，则执行该方法的操作。</p>
+<ol>
+<li>终结阶段(Finalized)</li>
+</ol>
+<p>当对象执行完finalize()方法后仍然处于不可达状态时，该对象进入终结阶段。在该阶段，等待垃圾回收器回收该对象空间。</p>
+<ol>
+<li>对象空间重新分配阶段(Deallocated)</li>
+</ol>
+<p>若垃圾回收器对该对象占用的内存空间进行回收或者再分配，则该对象彻底消失，这个阶段称为“对象空间重新分配阶段”。</p>
+<h2 id="3">3. 抽象类和接口的区别</h2>
+<blockquote>
+<p>从设计层面来说，抽象是对类的抽象，是一种模板设计，接口是行为的抽象，是一种行为的规范。</p>
+</blockquote>
+<h3 id="_4">抽象类与接口：</h3>
+<ul>
+<li>抽象类：一般用于描述一个体系单元，将一组共性内容进行抽取，特点：可以在类中定义抽象内容让子类实现，可以定义非抽象内容让子类直接使用。它里面定义的都是一些体系中的基本内容。</li>
+<li>接口：一般用于定义对象的扩展功能，是在继承之外还需这个对象具备的一些功能。</li>
+</ul>
+<p>抽象类和接口的共性：都是不断向上抽取的结果。</p>
+<ol>
+<li>接口的方法默认是public，所有方法在接口中不能有实现，抽象类可以有非抽象的方法</li>
+<li>接口中的实例变量默认是final类型的，而抽象类中则不一定</li>
+<li>一个类可以实现多个接口，但最多只能实现一个抽象类</li>
+<li>一个类实现接口的话要实现接口的所有方法，而抽象类不一定</li>
+<li>接口不能用new实例化，但可以声明，但是必须引用一个实现该接口的对象</li>
+</ol>
+<h2 id="thissuperstaticfinal">常用关键字this、super、static和final</h2>
+<h3 id="this">this: 代表对象。就是所在函数所属对象的引用。</h3>
+<p>this到底代表什么呢？哪个对象调用了this所在的函数，this就代表哪个对象，就是哪个对象的引用。
+开发时，什么时候使用this呢？
+在定义功能时，如果该功能内部使用到了调用该功能的对象，这时就用this来表示这个对象。</p>
+<p>this 还可以用于构造函数间的调用。
+调用格式：this(实际参数)；
+this对象后面跟上 .  调用的是成员属性和成员方法(一般方法)；
+this对象后面跟上 () 调用的是本类中的对应参数的构造函数。</p>
+<p>注意：用this调用构造函数，必须定义在构造函数的第一行。因为构造函数是用于初始化的，所以初始化动作一定要执行。否则编译失败。</p>
+<h3 id="super">super关键字</h3>
+<p>super：代表是子类所属的父类中的内存空间引用。
+     注意：子父类中通常是不会出现同名成员变量的，因为父类中只要定义了，子类就不用在定义了，直接继承过来用就可以了。</p>
+<p>java中子类的所有构造函数中的第一行，其实都有一条隐身的语句super()，super(): 表示父类的构造函数，并会调用于参数相对应的父类中的构造函数。而super():是在调用父类中空参数的构造函数。</p>
+<h3 id="static">static：关键字，是一个修饰符，用于修饰成员(成员变量和成员函数)。</h3>
+<p>特点：
+  1. 想要实现对象中的共性数据的对象共享。可以将这个数据进行静态修饰。
+  2. 被静态修饰的成员，可以直接被类名所调用。也就是说，静态的成员多了一种调用方式。类名.静态方式。
+  3. 静态随着类的加载而加载。而且优先于对象存在。</p>
+<p>弊端：
+1. 有些数据是对象特有的数据，是不可以被静态修饰的。因为那样的话，特有数据会变成对象的共享数据。这样对事物的描述就出了问题。所以，在定义静态时，必须要明确，这个数据是否是被对象所共享的。
+2. 静态方法只能访问静态成员，不可以访问非静态成员。
+因为静态方法加载时，优先于对象存在，所以没有办法访问对象中的成员。
+3.静态方法中不能使用this，super关键字。
+因为this代表对象，而静态在时，有可能没有对象，所以this无法使用。</p>
+<h3 id="_5">静态代码块：就是一个有静态关键字标示的一个代码块区域。定义在类中。</h3>
+<p>作用：可以完成类的初始化。静态代码块随着类的加载而执行，而且只执行一次（new 多个对象就只执行一次）。如果和主函数在同一类中，优先于主函数执行。</p>
+<p>静态代码块、构造代码块、构造函数同时存在时的执行顺序：静态代码块 -&gt; 构造代码块 -&gt; 构造函数。</p>
+<h3 id="final">final：关键字</h3>
+<p>在Java中，final关键字可以用来修饰类、方法和变量（包括成员变量和局部变量）。</p>
+<ul>
+<li>修饰类</li>
+</ul>
+<p>当用final修饰一个类时，表明这个类不能被继承。也就是说，如果一个类你永远不会让他被继承，就可以用final进行修饰。</p>
+<ul>
+<li>修饰方法</li>
+</ul>
+<p>下面这段话摘自《Java编程思想》第四版第143页：</p>
+<p>“使用final方法的原因有两个。第一个原因是把方法锁定，以防任何继承类修改它的含义；第二个原因是效率。在早期的Java实现版本中，会将final方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升。在最近的Java版本中，不需要使用final方法进行这些优化了。“</p>
+<p>因此，如果只有在想明确禁止 该方法在子类中被覆盖的情况下才将方法设置为final的。</p>
+<p>注：类的private方法会隐式地被指定为final方法。</p>
+<ul>
+<li>修饰变量</li>
+</ul>
+<p>对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。
+　　</p>
+<h2 id="4-stringbufferstringbuilder">4. StringBuffer和StringBuilder的区别</h2>
+<p>1、StringBuffer 与 StringBuilder 中的方法和功能完全是等价的，</p>
+<p>2、只是StringBuffer 中的方法大都采用了 synchronized 关键字进行修饰，因此是线程安全的，而 StringBuilder 没有这个修饰，可以被认为是线程不安全的。 </p>
+<p>3、在单线程程序下，StringBuilder效率更快，因为它不需要加锁，不具备多线程安全，而StringBuffer则每次都需要判断锁，效率相对更低</p>
+<ul>
+<li>StringBuffer初始化及扩容机制</li>
+</ul>
+<p>1.StringBuffer()的初始容量可以容纳16个字符，当该对象的实体存放的字符的长度大于16时，实体容量就自动增加。StringBuffer对象可以通过length()方法获取实体中存放的字符序列长度，通过capacity()方法来获取当前实体的实际容量。</p>
+<p>2.StringBuffer(int size)可以指定分配给该对象的实体的初始容量参数为参数size指定的字符个数。当该对象的实体存放的字符序列的长度大于size个字符时，实体的容量就自动的增加。以便存放所增加的字符。</p>
+<p>3.StringBuffer(String s)可以指定给对象的实体的初始容量为参数字符串s的长度额外再加16个字符。当该对象的实体存放的字符序列长度大于size个字符时，实体的容量自动的增加，以便存放所增加的字符。</p>
+<h2 id="5-objectequalhashcode">5. Object类的equal和hashcode方法</h2>
+<p>因为hashCode()并不是完全可靠，有时候不同的对象他们生成的hashcode也会一样（生成hash值得公式可能存在的问题），所以hashCode()只能说是大部分时候可靠，并不是绝对可靠，所以我们可以得出：
+- equal()相等的两个对象他们的hashCode()肯定相等，也就是用equal()对比是绝对可靠的。
+- hashCode()相等的两个对象他们的equal()不一定相等，也就是hashCode()不是绝对可靠的。</p>
+<p>boolean equals(Object obj)：用于比较两个对象是否相等，其实内部比较的就是两个对象地址。
+而根据对象的属性不同，判断对象是否相同的具体内容也不一样。所以在定义类时，一般都会复写equals方法，建立本类特有的判断对象是否相同的依据。</p>
+<p>int hashCode()：返回该对象的哈希码值。支持此方法是为了提高哈希表的性能。</p>
+<h3 id="hashcodeequals">hashCode（）与equals（）的相关规定</h3>
+<ul>
+<li>如果两个对象相等，则hashcode一定也是相同的</li>
+<li>两个对象相等,对两个对象分别调用equals方法都返回true</li>
+<li>两个对象有相同的hashcode值，它们也不一定是相等的
+因此，equals 方法被覆盖过，则 hashCode 方法也必须被覆盖</li>
+<li>hashCode() 的默认行为是对堆上的对象产生独特值。如果没有重写 hashCode()，则该 class 的两个对象无论如何都不会相等（即使这两个对象指向相同的数据）</li>
+</ul>
+<h2 id="6-equals">6. == 与 equals</h2>
+<p><strong>==</strong> : 它的作用是判断两个对象的地址是不是相等。即，判断两个对象是不是同一个对象(“==”基本数据类型比较的是值，引用数据类型比较的是内存地址)。</p>
+<p><strong>equals()</strong> : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：
+-  情况1：类没有覆盖 equals() 方法。则通过 equals() 比较该类的两个对象时，等价于通过“==”比较这两个对象。
+- 情况2：类覆盖了 equals() 方法。一般，我们都覆盖 equals() 方法来两个对象的内容相等；若它们的内容相等，则返回 true (即，认为这两个对象相等)。</p>
+<p><strong>举个例子：</strong></p>
+<pre><code class="language-java">public class Test {
+    public static void main(String[] args) {
+        String a = new String(&quot;ab&quot;); // a 为一个引用
+        String b = new String(&quot;ab&quot;); // b为另一个引用,对象的内容一样
+        String aa = &quot;ab&quot;; // 放在常量池中
+        String bb = &quot;ab&quot;; // 从常量池中查找
+        if (aa == bb) // true
+            System.out.println(&quot;aa==bb&quot;);
+        if (a == b) // false，非同一对象
+            System.out.println(&quot;a==b&quot;);
+        if (a.equals(b)) // true
+            System.out.println(&quot;aEQb&quot;);
+        if (42 == 42.0) { // true
+            System.out.println(&quot;true&quot;);
+        }
+    }
+}
+</code></pre>
+<p><strong>说明：</strong>
+- String 中的 equals 方法是被重写过的，因为 object 的 equals 方法是比较的对象的内存地址，而 String 的 equals 方法比较的是对象的值。
+- 当创建 String 类型的对象时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用。如果没有就在常量池中重新创建一个 String 对象。</p>
+<h2 id="7-string">7. String为什么要设计成不可变的</h2>
+<ol>
+<li>字符串常量池的需要</li>
+</ol>
+<p>字符串常量池(String pool, String intern pool, String保留池) 是Java堆内存中一个特殊的存储区域, 当创建一个String对象时,假如此字符串值已经存在于常量池中,则不会创建一个新的对象,而是引用已经存在的对象。</p>
+<ol>
+<li>允许String对象缓存HashCode
+Java中String对象的哈希码被频繁地使用, 比如在hashMap 等容器中。</li>
+</ol>
+<p>字符串不变性保证了hash码的唯一性,因此可以放心地进行缓存.这也是一种性能优化手段,意味着不必每次都去计算新的哈希码. 在String类的定义中有如下代码:</p>
+<pre><code class="language-java">private int hash;//用来缓存HashCode
+</code></pre>
+<ol>
+<li>安全性
+String被许多的Java类(库)用来当做参数,例如 网络连接地址URL,文件路径path,还有反射机制所需要的String参数等, 假若String不是固定不变的,将会引起各种安全隐患。</li>
+</ol>
+<h2 id="8try-catchoom">8.可否用try-catch捕获OOM以避免其发生</h2>
+<p>在try语句中声明了很大的对象，导致OOM，并且可以确认OOM是由try语句中的对象声明导致的，那么在catch语句中，可以释放掉这些对象，解决OOM的问题，继续执行剩余语句。但是这通常不是合适的做法。Java中管理内存除了显式地catch OOM之外还有更多有效的方法：比如SoftReference, WeakReference, 硬盘缓存等。在JVM用光内存之前，会多次触发GC，这些GC会降低程序运行的效率。如果OOM的原因不是try语句中的对象（比如内存泄漏），那么在catch语句中会继续抛出OOM</p>
+<h2 id="9">9. 单例设计模式</h2>
+<p>解决的问题：保证一个类在内存中的对象唯一性。</p>
+<blockquote>
+<p>比如：多程序读取一个配置文件时，建议配置文件封装成对象。会方便操作其中数据，又要保证多个程序读到的是同一个配置文件对象，就需要该配置文件对象在内存中是唯一的。</p>
+</blockquote>
+<p>如何保证对象唯一性呢？</p>
+<p>思想：
+- 1. 不让其他程序创建该类对象。
+- 2. 在本类中创建一个本类对象。
+- 3. 对外提供方法，让其他程序获取这个对象。</p>
+<pre><code class="language-java">    //饿汉式
+class Single{
+    private Single(){} //私有化构造函数。
+        private static Single s = new Single(); //创建私有并静态的本类对象。
+        public static Single getInstance(){ //定义公有并静态的方法，返回该对象。
+            return s;
+        }
+}
+
+</code></pre>
+<pre><code class="language-java">    //懒汉式:延迟加载方式。
+class Single2{
+    private Single2(){}
+        private static Single2 s = null;
+            public static Single2 getInstance(){
+                if(s==null)
+                    s = new Single2();
+                return s;
+            }
+}
+
+</code></pre>
+<h2 id="10">10.内部类</h2>
+<p>如果A类需要直接访问B类中的成员，而B类又需要建立A类的对象。这时,为了方便设计和访问，直接将A类定义在B类中。就可以了。A类就称为内部类。内部类可以直接访问外部类中的成员。而外部类想要访问内部类，必须要建立内部类的对象。</p>
+<pre><code class="language-java">class Outer{
+    int num = 4;    
+    class  Inner {
+        void show(){
+            System.out.println(&quot;inner show run &quot;+num);          
+        }
+    }
+    public void method(){
+        Inner in = new Inner();//创建内部类的对象。
+        in.show();//调用内部类的方法。 
+    }
+}
+</code></pre>
+<p>当内部类定义在外部类中的成员位置上，可以使用一些成员修饰符修饰 private、static。
+- 1：默认修饰符。
+直接访问内部类格式：外部类名.内部类名 变量名 =  外部类对象.内部类对象;
+Outer.Inner in = new Outer.new Inner();//这种形式很少用。
+    但是这种应用不多见，因为内部类之所以定义在内部就是为了封装。想要获取内部类对象通常都通过外部类的方法来获取。这样可以对内部类对象进行控制。
+- 2：私有修饰符。
+    通常内部类被封装，都会被私有化，因为封装性不让其他程序直接访问。 
+- 3：静态修饰符。
+    如果内部类被静态修饰，相当于外部类，会出现访问局限性，只能访问外部类中的静态成员。
+    注意；如果内部类中定义了静态成员，那么该内部类必须是静态的。</p>
+<p>内部类编译后的文件名为：“外部类名$内部类名.java”；</p>
+<p>为什么内部类可以直接访问外部类中的成员呢？</p>
+<blockquote>
+<p>那是因为内部中都持有一个外部类的引用。这个是引用是 外部类名.this 
+内部类可以定义在外部类中的成员位置上，也可以定义在外部类中的局部位置上。
+当内部类被定义在局部位置上，只能访问局部中被final修饰的局部变量。</p>
+</blockquote>
+<h2 id="11">11. 多线程</h2>
+<p>进程：正在进行中的程序。其实进程就是一个应用程序运行时的内存分配空间。
+线程：其实就是进程中一个程序执行控制单元，一条执行路径。
+进程负责的是应用程序的空间的标示。线程负责的是应用程序的执行顺序。</p>
+<p>一个进程至少有一个线程在运行，当一个进程中出现多个线程时，就称这个应用程序是多线程应用程序，每个线程在栈区中都有自己的执行空间，自己的方法区、自己的变量。
+jvm在启动的时，首先有一个主线程，负责程序的执行，调用的是main函数。主线程执行的代码都在main方法中。
+当产生垃圾时，收垃圾的动作，是不需要主线程来完成，因为这样，会出现主线程中的代码执行会停止，会去运行垃圾回收器代码，效率较低，所以由单独一个线程来负责垃圾回收。 </p>
+<p>随机性的原理：因为cpu的快速切换造成，哪个线程获取到了cpu的执行权，哪个线程就执行。</p>
+<p>返回当前线程的名称：Thread.currentThread().getName()
+线程的名称是由：Thread-编号定义的。编号从0开始。
+线程要运行的代码都统一存放在了run方法中。</p>
+<p>线程要运行必须要通过类中指定的方法开启。start方法。（启动后，就多了一条执行路径）
+start方法：1）、启动了线程；2）、让jvm调用了run方法。</p>
+<h2 id="12runnable">12.为什么要有Runnable接口的出现</h2>
+<ul>
+<li>
+<p>1：通过继承Thread类的方式，可以完成多线程的建立。但是这种方式有一个局限性，如果一个类已经有了自己的父类，就不可以继承Thread类，因为java单继承的局限性。
+可是该类中的还有部分代码需要被多个线程同时执行。这时怎么办呢？
+只有对该类进行额外的功能扩展，java就提供了一个接口Runnable。这个接口中定义了run方法，其实run方法的定义就是为了存储多线程要运行的代码。
+所以，通常创建线程都用第二种方式。
+因为实现Runnable接口可以避免单继承的局限性。</p>
+</li>
+<li>
+<p>2：其实是将不同类中需要被多线程执行的代码进行抽取。将多线程要运行的代码的位置单独定义到接口中。为其他类进行功能扩展提供了前提。
+所以Thread类在描述线程时，内部定义的run方法，也来自于Runnable接口。</p>
+</li>
+</ul>
+<p>实现Runnable接口可以避免单继承的局限性。而且，继承Thread，是可以对Thread类中的方法，进行子类复写的。但是不需要做这个复写动作的话，只为定义线程代码存放位置，实现Runnable接口更方便一些。所以Runnable接口将线程要执行的任务封装成了对象。</p>
+<h2 id="13">13.线程间通信：思路：多个线程在操作同一个资源，但是操作的动作却不一样。</h2>
+<p>1：将资源封装成对象。
+2：将线程执行的任务(任务其实就是run方法。)也封装成对象。</p>
+<h3 id="_6">等待唤醒机制：涉及的方法：</h3>
+<p>wait:将同步中的线程处于冻结状态。释放了执行权，释放了资格。同时将线程对象存储到线程池中。
+notify：唤醒线程池中某一个等待线程。
+notifyAll:唤醒的是线程池中的所有线程。</p>
+<p>注意：
+1：这些方法都需要定义在同步中。 
+2：因为这些方法必须要标示所属的锁。
+    你要知道 A锁上的线程被wait了,那这个线程就相当于处于A锁的线程池中，只能A锁的notify唤醒。
+3：这三个方法都定义在Object类中。为什么操作线程的方法定义在Object类中？
+    因为这三个方法都需要定义同步内，并标示所属的同步锁，既然被锁调用，而锁又可以是任意对象，那么能被任意对象调用的方法一定定义在Object类中。</p>
+<h3 id="waitsleep">wait和sleep区别： 分析这两个方法：从执行权和锁上来分析：</h3>
+<ul>
+<li>wait：可以指定时间也可以不指定时间。不指定时间，只能由对应的notify或者notifyAll来唤醒。</li>
+<li>sleep：必须指定时间，时间到自动从冻结状态转成运行状态(临时阻塞状态)。</li>
+<li>wait：线程会释放执行权，而且线程会释放锁。</li>
+<li>sleep：线程会释放执行权，但不是不释放锁。</li>
+</ul>
+<p>线程的停止：通过stop方法就可以停止线程。但是这个方式过时了。
+停止线程：原理就是：让线程运行的代码结束，也就是结束run方法。</p>
+<p>怎么结束run方法？一般run方法里肯定定义循环。所以只要结束循环即可。
+- 第一种方式：定义循环的结束标记。
+- 第二种方式：如果线程处于了冻结状态，是不可能读到标记的，这时就需要通过Thread类中的interrupt方法，将其冻结状态强制清除。让线程恢复具备执行资格的状态，让线程可以读到标记，并结束。</p>
+<h2 id="14lock">14.Lock接口</h2>
+<blockquote>
+<p>多线程在JDK1.5版本升级时，推出一个接口Lock接口。
+解决线程安全问题使用同步的形式，(同步代码块，要么同步函数)其实最终使用的都是锁机制。</p>
+</blockquote>
+<p>到了后期版本，直接将锁封装成了对象。线程进入同步就是具备了锁，执行完，离开同步，就是释放了锁。
+在后期对锁的分析过程中，发现，获取锁，或者释放锁的动作应该是锁这个事物更清楚。所以将这些动作定义在了锁当中，并把锁定义成对象。</p>
+<p>所以同步是隐示的锁操作，而Lock对象是显示的锁操作，它的出现就替代了同步。</p>
+<p>在之前的版本中使用Object类中wait、notify、notifyAll的方式来完成的。那是因为同步中的锁是任意对象，所以操作锁的等待唤醒的方法都定义在Object类中。</p>
+<p>现在锁是指定对象Lock。所以查找等待唤醒机制方式需要通过Lock接口来完成。而Lock接口中并没有直接操作等待唤醒的方法，而是将这些方式又单独封装到了一个对象中。这个对象就是Condition，将Object中的三个方法进行单独的封装。并提供了功能一致的方法 await()、signal()、signalAll()体现新版本对象的好处。</p>
+<pre><code class="language-java">class BoundedBuffer {
+   final Lock lock = new ReentrantLock();
+   final Condition notFull  = lock.newCondition(); 
+   final Condition notEmpty = lock.newCondition(); 
+   final Object[] items = new Object[100];
+   int putptr, takeptr, count;
+   public void put(Object x) throws InterruptedException {
+        lock.lock();
+        try {
+            while (count == items.length) 
+                notFull.await();
+            items[putptr] = x; 
+            if (++putptr == items.length) putptr = 0;
+            ++count;
+            notEmpty.signal();
+        } 
+        finally {
+            lock.unlock();
+        }
+   }
+   public Object take() throws InterruptedException {
+        lock.lock();
+        try {
+            while (count == 0) 
+                notEmpty.await();
+            Object x = items[takeptr]; 
+            if (++takeptr == items.length) takeptr = 0;
+            --count;
+            notFull.signal();
+            return x;
+        } 
+        finally {
+            lock.unlock();
+        }
+   } 
+ }
+
+</code></pre>
+<h2 id="15">15. 对象的序列化</h2>
+<ul>
+<li>目的：将一个具体的对象进行持久化，写入到硬盘上。</li>
+<li>注意：静态数据不能被序列化，因为静态数据不在堆内存中，是存储在静态方法区中。</li>
+</ul>
+<p>如何将非静态的数据不进行序列化？
+- 用transient 关键字修饰此变量即可。
+- transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的</p>
+<p>Serializable：用于启动对象的序列化功能，可以强制让指定类具备序列化功能，该接口中没有成员，这是一个标记接口。这个标记接口用于给序列化类提供UID。这个uid是依据类中的成员的数字签名进行运行获取的。如果不需要自动获取一个uid，可以在类中，手动指定一个名称为serialVersionUID id号。依据编译器的不同，或者对信息的高度敏感性。最好每一个序列化的类都进行手动显示的UID的指定。</p>
+<pre><code class="language-java">import java.io.*;
+class ObjectStreamDemo {
+    public static void main(String[] args) throws Exception{
+        writeObj();
+        readObj();
+    }
+    public static void readObj()throws Exception{
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(&quot;obj.txt&quot;));
+        Object obj = ois.readObject();//读取一个对象。
+        System.out.println(obj.toString());
+    }
+    public static void writeObj()throws IOException{
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;obj.txt&quot;));
+        oos.writeObject(new Person(&quot;lisi&quot;,25)); //写入一个对象。
+        oos.close();
+    }
+}
+class Person implements Serializable{
+    private static final long serialVersionUID = 42L;
+    private transient String name;//用transient修饰后name将不会进行序列化
+    public int age;
+    Person(String name,int age){
+        this.name = name;
+        this.age = age;
+    }
+    public String toString(){
+        return name+&quot;::&quot;+age;
+    }
+}
+</code></pre>
+<h3 id="transienttransient">transient使用细节——被transient关键字修饰的变量真的不能被序列化吗？</h3>
+<p>注意下面例子实现Externalizable接口，而不是Serilizable或Parcelable。</p>
+<pre><code class="language-java">public class ExternalizableTest implements Externalizable {
+
+    private transient String content = &quot;是的，我将会被序列化，不管我是否被transient关键字修饰&quot;;
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(content);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException,
+            ClassNotFoundException {
+        content = (String) in.readObject();
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        ExternalizableTest et = new ExternalizableTest();
+        ObjectOutput out = new ObjectOutputStream(new FileOutputStream(
+                new File(&quot;test&quot;)));
+        out.writeObject(et);
+
+        ObjectInput in = new ObjectInputStream(new FileInputStream(new File(
+                &quot;test&quot;)));
+        et = (ExternalizableTest) in.readObject();
+        System.out.println(et.content);
+
+        out.close();
+        in.close();
+    }
+}
+
+</code></pre>
+<p>content变量会被序列化吗？好吧，我把答案都输出来了，是的，运行结果就是：</p>
+<blockquote>
+<p>是的，我将会被序列化，不管我是否被transient关键字修饰</p>
+</blockquote>
+<p>这是为什么呢，不是说类的变量被transient关键字修饰以后将不能序列化了吗？</p>
+<p>我们知道在Java中，对象的序列化可以通过实现两种接口来实现，若实现的是Serializable接口，则所有的序列化将会自动进行，
+- 若实现的是Externalizable接口，则没有任何东西可以自动序列化，需要在writeExternal方法中进行手工指定所要序列化的变量，这与是否被transient修饰无关。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

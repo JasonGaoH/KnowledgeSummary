@@ -1,0 +1,2119 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/">
+      
+      
+        <link rel="next" href="../../%E5%85%B6%E4%BB%96/APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>解决CoordinatorLayout的动画抖动以及回弹问题 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              解决CoordinatorLayout的动画抖动以及回弹问题
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorighm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorighm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO%28log%20n%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么说二分查找的时间复杂度是O(log n)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android系统工作机制分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SharedPreference%E5%92%8CContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SharedPreference和ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android启动流程分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%BA%E4%BB%80%E4%B9%88RxJava%E7%9A%84observeOn%E4%B8%8D%E8%83%BD%E9%9A%8F%E4%BE%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么RxJava的observeOn不能随便用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90Handler%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从源码角度剖析Handler机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深入分析AsyncTask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/Activity
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Android/Activity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Activity/Activity%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%AF%8A%E6%96%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity泄露发现与诊断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Activity/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity的生命周期和启动模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/IPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Android/IPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IPC/Android%E4%B8%AD%E7%9A%84IPC%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的IPC机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IPC/%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用进程完成后台任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IPC/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9B%E7%A8%8B%E6%98%AF%E8%A2%ABAndroid_low_memory_killer%E6%9D%80%E6%AD%BB%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何判断自己的进程是被Android low memory killer杀死的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/UI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Android/UI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RecyclerView%E4%B8%AD%E5%87%BA%E7%8E%B0item%E9%87%8D%E5%A4%8D%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView中出现item重复的问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RecyclerView%E5%92%8CDiffUtils%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView和DiffUtils使用问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RecyclerView%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一，抖动问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinatorlayoutbehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoordinatorLayout中Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appbarlayoutbehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      AppBarLayout中的Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recycleviewbehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      RecycleView中的Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二，回弹问题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Android/其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APK打包及安装过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Android7.0%E4%B8%8A%E7%9A%84%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android7.0上的混合编译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的事件传递
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/BroadcastReceiver%E5%92%8CLocalBroadcastReceiver%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver和LocalBroadcastReceiver的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IntentFilter匹配规则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E6%80%8E%E4%B9%88%E5%81%9A%E7%89%9B%E9%80%BC%E7%9A%84%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化 VirtualAPK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E7%83%AD%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    热修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E8%AF%A6%E8%A7%A3APT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解APT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%ABsqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%95%88%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过事务支持加快sqlite数据库批量操作的效率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/图片相关
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Android/图片相关
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Best_Practices_for_Using_Alpha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices for Using Alpha
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Bitmap%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitmap相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/DiskLruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiskLruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/LruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E4%BB%8Eassets%E7%9B%AE%E5%BD%95%E5%92%8Cdrawable%E5%8A%A0%E8%BD%BD%E7%9A%84Bitmap%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从assets目录和drawable加载的Bitmap的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像显示原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/开源库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Android/开源库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/ARouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ARouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/ActivityRouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActivityRouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/BlockCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frsco
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/LeakCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LeakCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/OKHTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OkHttp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/Retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/RxJava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/RxJava%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%BC%80%E6%BA%90%E5%BA%93/tinker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tinker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      第一，抖动问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinatorlayoutbehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoordinatorLayout中Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appbarlayoutbehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      AppBarLayout中的Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recycleviewbehavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      RecycleView中的Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      第二，回弹问题
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>解决CoordinatorLayout的动画抖动以及回弹问题</h1>
+
+<p>在使用CoordinatorLayout来实现Android中的一种吸顶的时候，遇到了两个CoordinatorLayout的滑动问题，这里做下记录。</p>
+<p>这里使用CoordinatorLayout实现的是一个tab吸顶的效果，类似淘宝，京东首页的一个效果。
+头部区域展示各种类型banner卡片，中间是类似TabLayout的可点击tab，下面是feed卡片，可以一直下拉加载，并且feed卡片区域使用ViewPager可以支持左右横滑切换tab，另外，就是tab滚动到顶部之后会有个吸顶的效果。</p>
+<p>我们在项目中也要实现的效果，一开始我的想法是使用嵌套RecycleView的形式来实现，因为我去调研了下京东和淘宝的首页布局都是这么实现的，京东和淘宝首页实现方式和下面的图类似，外部的整个RecycleView嵌套ViewPager，ViewPager中再有多个RecycleView，这个实现起来稍微有点麻烦，难点是要处理好外部的RecycleView和ViewPager中内部RecycleView的滑动事件传递，这里我们只是简单介绍下，后面我会专门来介绍类似这样的嵌套RecycleView如何实现。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/nested_recycler_view.png" /></p>
+<p>接下来是如何采用其他方便的方式来实现类似需求？我想到了CoordinatorLayout，CoordinatorLayout在处理吸顶是有一套已经成熟的方案的。</p>
+<p>网上关于CoordinatorLayout的使用有很多不错的文章，这里就不介绍如何使用，关于CoordinatorLayout和Behavior我推荐看看这篇文章<a href="https://blog.csdn.net/briblue/article/details/73076458">针对 CoordinatorLayout 及 Behavior 的一次细节较真</a></p>
+<p>而我们这篇文章主要是讲使用CoordinatorLayout中遇到的问题，问题如何解决以及CoordinatorLayout为什么会有这样的问题。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/CoordinatorLayout.png" /></p>
+<p>实现这个大概是像上面这样类似的布局结构，来看下布局文件。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.design.widget.CoordinatorLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+        app:layout_scrollFlags=&quot;scroll&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;&gt;
+
+        &lt;android.support.design.widget.CollapsingToolbarLayout
+            app:layout_scrollFlags=&quot;scroll&quot;
+            app:scrimVisibleHeightTrigger=&quot;45dp&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;&gt;
+
+            &lt;ImageView
+                android:background=&quot;@drawable/header&quot;
+                app:layout_scrollFlags=&quot;scroll&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;450dp&quot; /&gt;
+
+        &lt;/android.support.design.widget.CollapsingToolbarLayout&gt;
+
+        &lt;android.support.design.widget.TabLayout
+            android:id=&quot;@+id/tabs&quot;
+            app:layout_collapseMode=&quot;pin&quot;
+            app:tabMode=&quot;scrollable&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;/&gt;
+
+    &lt;/android.support.design.widget.AppBarLayout&gt;
+
+
+    &lt;android.support.v4.view.ViewPager
+        android:id=&quot;@+id/view_pager&quot;
+        app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;/&gt;
+
+&lt;/android.support.design.widget.CoordinatorLayout&gt;
+</code></pre>
+<p>这样的布局，接着填充数据基本上就能实现tab吸顶效果，feed卡片区采用RecycleView实现，可以一直下拉，并且能够支持左右横滑，基本实现了类似京东，淘宝首页的一个效果。</p>
+<p>但是在使用这种方式来实现发现两个很明显的问题。</p>
+<h4 id="_1">第一，抖动问题</h4>
+<p>该问题场景描述：我们触摸AppBarLayout使AppBarLayout整体向上滑动，，即手指上滑，当AppBarLayout fling的同时，我们触摸下部ViewPager中的RecycleView区域，使RecycleView区域整体向下滑动，即手指下滑，这个时候会发现一个明显页面动画现象，这个问题几乎是必现。</p>
+<p>来看下gif效果：<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_resize_1.gif" /></p>
+<p>接下来我们来看问题的原因，其实这个要搞清楚原因需要对CoordinatorLayout的工作机制有个比较清晰的理解，然而CoordinatorLayout这里牵扯到嵌套滚动以及Behavior这些，</p>
+<p>我们这里尝试简单地介绍下CoordinatorLayout的工作机制。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinatorLayout_analysis.png" /></p>
+<ul>
+<li>CoordinatorLayout实现NestedScrollingParent2接口，用于处理与滑动子View的联动交互，实际上交由Behavior进行处理。</li>
+<li>AppBarLayout中默认使用了AppBarLayout.Behavior，主要功能是接收CoordinatorLayout传输过来的滑动事件，并且相对应的进行处理，如RecycleView往上滑动到头时候，继续滑动移动AppBarLayout到头。</li>
+<li>RecycleView实现了NestedScrollingChild2接口，用于传输给CoordinatorLayout，并且消费CoordinatorLayout不消费的触摸事件，其中还是使用了AppBarLayout.ScrollingViewBehavior，功能是进行监听AppBarLayout的位移变化，从而进行相对应的变化，最明显的例子就是AppBarLayout上移过程中，RecycleView一起上移。</li>
+</ul>
+<h4 id="coordinatorlayoutbehavior">CoordinatorLayout中Behavior</h4>
+<p>其实CoordinatorLayout就是通过Behavior这个机制来协调各个子View的滚动。比如我们来看CoordinatorLayout的onStartNestedScroll方法，这个其实是NestedScrollingParent2中的方法。</p>
+<p>当CoordinatorLayout子view的调用NestedScrollingChild2的方法startNestedScroll时,会调用到该方法
+该方法决定了当前控件是否能接收到其内部View（并非是直接子View）滑动时的参数。</p>
+<pre><code>//CoordinatorLayout中的onStartNestedScroll方法：
+ @Override
+    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+        return onStartNestedScroll(child, target, nestedScrollAxes, ViewCompat.TYPE_TOUCH);
+    }
+
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int axes, int type) {
+        boolean handled = false;
+
+        final int childCount = getChildCount();
+        for (int i = 0; i &lt; childCount; i++) {
+            final View view = getChildAt(i);
+            if (view.getVisibility() == View.GONE) {
+                // If it's GONE, don't dispatch
+                continue;
+            }
+            final LayoutParams lp = (LayoutParams) view.getLayoutParams();
+            final Behavior viewBehavior = lp.getBehavior();
+            if (viewBehavior != null) {
+                final boolean accepted = viewBehavior.onStartNestedScroll(this, view, child,
+                        target, axes, type);
+                handled |= accepted;
+                lp.setNestedScrollAccepted(type, accepted);
+            } else {
+                lp.setNestedScrollAccepted(type, false);
+            }
+        }
+        return handled;
+    }
+</code></pre>
+<p>CoordinatorLayout中的onStartNestedScroll方法基本都会调用到每个子View的Behavior中相应的方法中去。</p>
+<p>关于Nested嵌套滚动机制可以看看下面这篇博客。</p>
+<p><a href="https://blog.csdn.net/aishang5wpj/article/details/78873343">事件分发和NestedScrolling</a></p>
+<p>嵌套滚动机制NestedScrollingParent2和NestedScrollingChild2的各个回调方法调用流程如下图所示：
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/nested.jpeg" /></p>
+<p>上图列出来手指从按下到抬起时的整个流程，当然这些都是在子View的onTouchEvent()中完成的，所以父View一定不能拦截子View的事件，否则这套机制就失效了。</p>
+<p>除此之外，箭头的左边分别都是NestedScrollingChild2中的各种方法，右边则是NestedScrollingParent2对应的方法。使用时，一般是子View通过dispatchXXX()来通知父View，然后父View通过onXXX()来进行回应。</p>
+<p>方法调用的先后时机也有区别，对应到上图中，图越往下，调用的时机越晚。</p>
+<h4 id="appbarlayoutbehavior">AppBarLayout中的Behavior</h4>
+<p>接着我们来看看AppBarLayout中的Behavior，ApprBarLayout的默认Behavior就是AppBarLayout.Behavior这个类，而AppBarLayout.Behavior继承自HeaderBehavior，HeaderBehavior又继承自ViewOffsetBehavior，这里先总结一下两个类的作用。
+- ViewOffsetBehavior：该Behavior主要运用于View的移动，从名字就可以看出来，该类中提供了上下移动，左右移动的方法。
+- HeaderBehavior：该类主要用于View处理触摸事件以及触摸后的fling事件。</p>
+<p>由于上面两个类功能的实现，使得AppBarLayout.Behavior具有了同时移动本身以及处理触摸事件的功能。</p>
+<pre><code>public boolean onTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
+       ...
+        switch (ev.getActionMasked()) {
+            ...
+            case MotionEvent.ACTION_MOVE: {
+                final int activePointerIndex = ev.findPointerIndex(mActivePointerId);
+                if (activePointerIndex == -1) {
+                    return false;
+                }
+
+                final int y = (int) ev.getY(activePointerIndex);
+                int dy = mLastMotionY - y;
+
+                if (!mIsBeingDragged &amp;&amp; Math.abs(dy) &gt; mTouchSlop) {
+                    mIsBeingDragged = true;
+                    if (dy &gt; 0) {
+                        dy -= mTouchSlop;
+                    } else {
+                        dy += mTouchSlop;
+                    }
+                }
+
+                if (mIsBeingDragged) {
+                    mLastMotionY = y;
+                    // We're being dragged so scroll the ABL
+                    scroll(parent, child, dy, getMaxDragOffset(child), 0);
+                }
+                break;
+            }
+
+            case MotionEvent.ACTION_UP:
+                if (mVelocityTracker != null) {
+                    mVelocityTracker.addMovement(ev);
+                    mVelocityTracker.computeCurrentVelocity(1000);
+                    float yvel = mVelocityTracker.getYVelocity(mActivePointerId);
+                    fling(parent, child, -getScrollRangeForDragFling(child), 0, yvel);
+                }
+         ...
+        return true;
+    }
+</code></pre>
+<p>我们来看onTouchEvent的方法，主要逻辑还是在ACTION_MOVE中，可以看到在滑动过程中调用了scroll(...)方法，scroll(...)方法在HeaderBehavior中进行实现，最终调用到了额setHeaderTopBottomOffset(...)方法，该方法在AppBarLayout.Behavior中进行了重写，所以，我们直接看AppBarLayout.Behavior中的源码即可：</p>
+<pre><code>@Override
+   //newOffeset传入了dy，也就是我们手指移动距离上一次移动的距离，
+   //minOffset等于AppBarLayout的负的height，maxOffset等于0。
+        int setHeaderTopBottomOffset(CoordinatorLayout coordinatorLayout,
+                AppBarLayout appBarLayout, int newOffset, int minOffset, int maxOffset) {
+            final int curOffset = getTopBottomOffsetForScrollingSibling();//获取当前的滑动Offset
+            int consumed = 0;
+            //AppBarLayout滑动的距离如果超出了minOffset或者maxOffset，则直接返回0
+            if (minOffset != 0 &amp;&amp; curOffset &gt;= minOffset &amp;&amp; curOffset &lt;= maxOffset) {
+               //矫正newOffset，使其minOffset&lt;=newOffset&lt;=maxOffset
+                newOffset = MathUtils.clamp(newOffset, minOffset, maxOffset);
+                //由于默认没设置Interpolator，所以interpolatedOffset=newOffset;
+                if (curOffset != newOffset) {
+                    final int interpolatedOffset = appBarLayout.hasChildWithInterpolator()
+                            ? interpolateOffset(appBarLayout, newOffset)
+                            : newOffset;
+                    //调用ViewOffsetBehvaior的方法setTopAndBottomOffset(...)，最终通过
+                    //ViewCompat.offsetTopAndBottom()移动AppBarLayout
+                    final boolean offsetChanged = setTopAndBottomOffset(interpolatedOffset);
+
+                    //记录下消费了多少的dy。
+                    consumed = curOffset - newOffset;
+                   //没设置Interpolator的情况， mOffsetDelta永远=0
+                    mOffsetDelta = newOffset - interpolatedOffset;
+                    ....
+                     //分发回调OnOffsetChangedListener.onOffsetChanged(...)
+                    appBarLayout.dispatchOffsetUpdates(getTopAndBottomOffset());
+
+
+                    updateAppBarLayoutDrawableState(coordinatorLayout, appBarLayout, newOffset,
+                            newOffset &lt; curOffset ? -1 : 1, false);
+                }
+           ...
+            return consumed;
+        }
+</code></pre>
+<p>AppBarLayout中移动主要就是这部分逻辑了，通过setTopAndBottomOffset()来达到了移动我们的AppBarLayout，那么这里AppBarLayout就可以跟着手上下移动了。</p>
+<h4 id="recycleviewbehavior">RecycleView中的Behavior</h4>
+<p>那么接下来我们看看RecycleView在CoordinatorLayout中如何是移动的？</p>
+<p>上面讲了AppBarLayout是如何通过Behavior来移动的，我们在上面布局文件中指定了ViewPager的Behavior。</p>
+<pre><code>app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+</code></pre>
+<p>这个"appbar_scrolling_view_behavior"其实就是ScrollingViewBehavior，ScrollingViewBehavior也继承自ViewOffsetBehavior，我们在上下移动AppBarLayout的时候，下面的RecycleView也是需要跟着移动的，它上下移动就是靠这个来ScrollingViewBehavior来实现的。</p>
+<p>在阅读ScrollingViewBehavior源码中发现其实现了如下方法：</p>
+<pre><code>@Override
+public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
+    // We depend on any AppBarLayouts
+    return dependency instanceof AppBarLayout;
+}
+
+@Override
+public boolean onDependentViewChanged(CoordinatorLayout parent, View child,
+        View dependency) {
+    offsetChildAsNeeded(parent, child, dependency);
+    return false;
+}
+</code></pre>
+<p>这样我们这个RecycleView依赖于AppBarLayout，在AppBarLayout移动的过程中，RecycleView会随着AppBarLayout的移动回调onDependentViewChanged(...)方法，进而调用offsetChildAsNeeded(parent, child, dependency)。</p>
+<p>用这么多篇幅主要讲了CoordinatorLayout如何协调AppBarLayout和RecycleView来上下滚动的，接着回到刚开始我们要讨论那个动画抖动问题。</p>
+<p>其实造成这个的原因主要是AppBarLayout的fling操作和RecycleView联动造成的问题。</p>
+<p>在AppBarLayout的Behavior中的onTouchEvent()事件中处理了fling事件：</p>
+<pre><code>public boolean onTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
+    ...
+    case MotionEvent.ACTION_UP:
+        if (mVelocityTracker != null) {
+            mVelocityTracker.addMovement(ev);
+            mVelocityTracker.computeCurrentVelocity(1000);
+            float yvel = mVelocityTracker.getYVelocity(mActivePointerId);
+            fling(parent, child, -getScrollRangeForDragFling(child), 0, yvel);
+        }
+    ...
+    return true;
+}
+</code></pre>
+<p>在fling的方法中使用OverScroller来模拟进行fling操作，最终会调到setHeaderTopBottomOffset(...)来使AppBarLayout进行fling的滑动操作。</p>
+<p>在绝大部分滑动逻辑中，这样处理是正确的，但是如果在AppBarLayout在fling的时候主动滑动RecyclerView，那么就会造成动画抖动的问题了。</p>
+<p>在当前情况下，RecyclerView滑动到头了，那么就会把未消费的事件通过NestedScrollingChild2交付由CoordinatorLayout(实现了NestedScrollingParent2)处理，parent又最终交付由AppBarLayout.Behavior进行处理的，其中调用的方法如下：</p>
+<pre><code>@Override
+public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child,
+        View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed,
+        int type) {
+    if (dyUnconsumed &lt; 0) {
+        // If the scrolling view is scrolling down but not consuming, it's probably be at
+        // the top of it's content
+        scroll(coordinatorLayout, child, dyUnconsumed,
+                -child.getDownNestedScrollRange(), 0);
+    }
+}
+</code></pre>
+<p>这里的scroll方法最终会调用setHeaderTopBottomOffset(...)，由于两次分别触摸在AppBarLayout和RecyclerView的方向不一致，导致了最终的抖动的效果。</p>
+<p>解决方式也很简单,只要在CoordinatorLayout的onInterceptedTouchEvent()中停止AppBarLayout的fling操作就可以了，直接操作的对象就是AppBarLayout中的Behavior，该Behavior继承自HeaderBehavior，而fling操作由OverScroller产生，所以自定义一个FixedBehavior：</p>
+<pre><code>public class FixedBehavior extends AppBarLayout.Behavior {
+    private OverScroller mOverScroller;
+
+    public FixedBehavior() {
+        super();
+    }
+
+    public FixedBehavior(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    public void onAttachedToLayoutParams(@NonNull CoordinatorLayout.LayoutParams params) {
+        super.onAttachedToLayoutParams(params);
+    }
+
+    @Override
+    public void onDetachedFromLayoutParams() {
+        super.onDetachedFromLayoutParams();
+    }
+
+    @Override
+    public boolean onTouchEvent(CoordinatorLayout parent, AppBarLayout child, MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            reflectOverScroller();
+        }
+        return super.onTouchEvent(parent, child, ev);
+    }
+
+    /**
+     *
+     */
+    public void stopFling() {
+        if (mOverScroller != null) {
+            mOverScroller.abortAnimation();
+        }
+    }
+
+    /**
+     * 解决AppbarLayout在fling的时候，再主动滑动RecyclerView导致的动画错误的问题
+     */
+    private void reflectOverScroller() {
+        if (mOverScroller == null) {
+            Field field = null;
+            try {
+                field = getClass().getSuperclass()
+                        .getSuperclass().getDeclaredField(&quot;mScroller&quot;);
+                field.setAccessible(true);
+                Object object = field.get(this);
+                mOverScroller = (OverScroller) object;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+}
+</code></pre>
+<p>然后在重写CoordinatorLayout，暴露一个接口：</p>
+<pre><code>public class CustomCoordinatorLayout extends CoordinatorLayout {
+    private OnInterceptTouchListener mListener;
+
+    public void setOnInterceptTouchListener(OnInterceptTouchListener listener) {
+        mListener = listener;
+    }
+
+    public CustomCoordinatorLayout(Context context) {
+        super(context);
+    }
+
+    public CustomCoordinatorLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public CustomCoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (mListener != null) {
+            mListener.onIntercept();
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+
+    public interface OnInterceptTouchListener {
+        void onIntercept();
+    }
+}
+</code></pre>
+<p>接着在接口中处理滑动问题即可：</p>
+<pre><code>coordinatorLayout.setOnInterceptTouchListener {
+    //RecyclerView滑动的时候禁止AppBarLayout的滑动
+    if (customBehavior != null) {
+        customBehavior!!.stopFling()
+    }
+}
+</code></pre>
+<h4 id="_2">第二，回弹问题</h4>
+<p>问题场景描述，我们反复上下滑动AppBarLayout的时候，可以看到AppBarLayout在滑出屏幕外之后又反弹回去了，而且当你滑动的加速度很大的时候，这个反弹的幅度也会跟着变大。</p>
+<p><img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_resize_2.gif" /></p>
+<p>这个问题造成的原因是因为在手指向上滑动后造成RecyclerView的fling操作执行，具体的代码在RecyclerView内部类ViewFlinger中。</p>
+<p>我使用Android Studio中的Profiler抓取了一下当出现反弹问题的时候出现的方法调用堆栈如下所示：
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/coordinator_bugs_method_call.jpg" /></p>
+<p>发现RecyclerView中ViewFlinger调用后，接着触发了HeaderBehavior中的FlingRunnable。而ViewFling中会调用dispatchNestedScroll(...)方法，RecyclerView作为CoordinatorLayout的子View，它通过嵌套滚动的机制又会调用到CoordinatorLayout中的onNestedScroll，这里主要就是通过AppBarLayout的Behavior中的方法setHeaderTopBottomOffset来实现AppBarLayout的滚动，后面会发现多次setHeaderTopBottomOffset的调用，其实目前看到这里，并不太确定造成这个问题的具体原因是啥，感觉上是因为RecyclerView的滑动和CoordinatorLayout的滑动冲突导致了反弹效果的出现。</p>
+<p>于是尝试了下面的解决方法：</p>
+<pre><code>coordinatorLayout.setOnInterceptTouchListener {
+    mRecyclerView.stopScroll()
+}
+</code></pre>
+<p>试了这个方法发现果然有效。</p>
+<p>另外，我在写demo的时候发现，这个问题在support-27是存在的，在support-28 Google已经修复过了。</p>
+<p>我尝试过看看support-28里面的都有哪些改动，想看看Google是如何修复的。看了下Google的release note并没有提及，如果从Google的commit history来看实在页看不出来啥，暂时也没有个具体的原因。</p>
+<p>后面可以将support-27和support-28的source下载下来，然后使用Beyond Compare来看看具体的diff改动是在哪。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2098 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>一次搞懂sleep、wait、yield、join和interrupted线程相关方法 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sleepwaityieldjoininterrupted" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              一次搞懂sleep、wait、yield、join和interrupted线程相关方法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorighm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorighm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO%28log%20n%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么说二分查找的时间复杂度是O(log n)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Android%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android系统工作机制分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/SharedPreference%E5%92%8CContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SharedPreference和ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android启动流程分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%B8%BA%E4%BB%80%E4%B9%88RxJava%E7%9A%84observeOn%E4%B8%8D%E8%83%BD%E9%9A%8F%E4%BE%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么RxJava的observeOn不能随便用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90Handler%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从源码角度剖析Handler机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深入分析AsyncTask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/Activity
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Android/Activity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%AF%8A%E6%96%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity泄露发现与诊断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity的生命周期和启动模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/IPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Android/IPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/Android%E4%B8%AD%E7%9A%84IPC%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的IPC机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用进程完成后台任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9B%E7%A8%8B%E6%98%AF%E8%A2%ABAndroid_low_memory_killer%E6%9D%80%E6%AD%BB%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何判断自己的进程是被Android low memory killer杀死的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/UI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Android/UI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E4%B8%AD%E5%87%BA%E7%8E%B0item%E9%87%8D%E5%A4%8D%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView中出现item重复的问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E5%92%8CDiffUtils%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView和DiffUtils使用问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E8%A7%A3%E5%86%B3CoordinatorLayout%E7%9A%84%E5%8A%A8%E7%94%BB%E6%8A%96%E5%8A%A8%E4%BB%A5%E5%8F%8A%E5%9B%9E%E5%BC%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Android/其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APK打包及安装过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android7.0%E4%B8%8A%E7%9A%84%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android7.0上的混合编译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的事件传递
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/BroadcastReceiver%E5%92%8CLocalBroadcastReceiver%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver和LocalBroadcastReceiver的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IntentFilter匹配规则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%80%8E%E4%B9%88%E5%81%9A%E7%89%9B%E9%80%BC%E7%9A%84%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化 VirtualAPK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%83%AD%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    热修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E8%AF%A6%E8%A7%A3APT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解APT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%ABsqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%95%88%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过事务支持加快sqlite数据库批量操作的效率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/图片相关
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Android/图片相关
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Best_Practices_for_Using_Alpha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices for Using Alpha
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Bitmap%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitmap相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/DiskLruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiskLruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/LruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E4%BB%8Eassets%E7%9B%AE%E5%BD%95%E5%92%8Cdrawable%E5%8A%A0%E8%BD%BD%E7%9A%84Bitmap%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从assets目录和drawable加载的Bitmap的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像显示原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/开源库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Android/开源库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ARouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ARouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ActivityRouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActivityRouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/BlockCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frsco
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/LeakCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LeakCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/OKHTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OkHttp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/tinker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tinker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#threadjava-sleepnative" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread.java -&gt;sleep，这是一个native方法。
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#threadc-jvm_sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread.c -&gt;JVM_Sleep
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jvmcpp-jvm_sleep" class="md-nav__link">
+    <span class="md-ellipsis">
+      jvm.cpp -&gt; JVM_Sleep
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sleeposhpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      sleep方法是在os.hpp头文件中定义：
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sleepthreadblockinvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      sleep方法中的ThreadBlockInVM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      wait方法的调用流程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interrupt" class="md-nav__link">
+    <span class="md-ellipsis">
+      interrupt方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interrupted" class="md-nav__link">
+    <span class="md-ellipsis">
+      interrupted
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="sleepwaityieldjoininterrupted">一次搞懂sleep、wait、yield、join和interrupted线程相关方法</h1>
+<ul>
+<li>sleep()方法 
+sleep方法会使当前线程进入指定毫秒数的休眠，暂停执行，虽然给定了一个休眠的时间，但是最终要以系统的定时器和调度器的精准度为准，休眠有一个非常重要的特性，那就是不会放弃monitor锁的所有权。
+sleep()使当前线程进入阻塞状态，在指定时间内不会执行。</li>
+</ul>
+<h4 id="threadjava-sleepnative">Thread.java -&gt;sleep，这是一个native方法。</h4>
+<pre><code>  public static native void sleep(long millis) throws InterruptedException;
+</code></pre>
+<h4 id="threadc-jvm_sleep">Thread.c -&gt;JVM_Sleep</h4>
+<pre><code>...
+static JNINativeMethod methods[] = {
+    {&quot;start0&quot;,           &quot;()V&quot;,        (void *)&amp;JVM_StartThread},
+    {&quot;stop0&quot;,            &quot;(&quot; OBJ &quot;)V&quot;, (void *)&amp;JVM_StopThread},
+    {&quot;isAlive&quot;,          &quot;()Z&quot;,        (void *)&amp;JVM_IsThreadAlive},
+    {&quot;suspend0&quot;,         &quot;()V&quot;,        (void *)&amp;JVM_SuspendThread},
+    {&quot;resume0&quot;,          &quot;()V&quot;,        (void *)&amp;JVM_ResumeThread},
+    {&quot;setPriority0&quot;,     &quot;(I)V&quot;,       (void *)&amp;JVM_SetThreadPriority},
+    {&quot;yield&quot;,            &quot;()V&quot;,        (void *)&amp;JVM_Yield},
+    {&quot;sleep&quot;,            &quot;(J)V&quot;,       (void *)&amp;JVM_Sleep},
+    {&quot;currentThread&quot;,    &quot;()&quot; THD,     (void *)&amp;JVM_CurrentThread},
+    {&quot;countStackFrames&quot;, &quot;()I&quot;,        (void *)&amp;JVM_CountStackFrames},
+    {&quot;interrupt0&quot;,       &quot;()V&quot;,        (void *)&amp;JVM_Interrupt},
+    {&quot;isInterrupted&quot;,    &quot;(Z)Z&quot;,       (void *)&amp;JVM_IsInterrupted},
+    {&quot;holdsLock&quot;,        &quot;(&quot; OBJ &quot;)Z&quot;, (void *)&amp;JVM_HoldsLock},
+    {&quot;getThreads&quot;,        &quot;()[&quot; THD,   (void *)&amp;JVM_GetAllThreads},
+    {&quot;dumpThreads&quot;,      &quot;([&quot; THD &quot;)[[&quot; STE, (void *)&amp;JVM_DumpThreads},
+    {&quot;setNativeName&quot;,    &quot;(&quot; STR &quot;)V&quot;, (void *)&amp;JVM_SetNativeThreadName},
+};
+...
+
+</code></pre>
+<h4 id="jvmcpp-jvm_sleep">jvm.cpp -&gt; JVM_Sleep</h4>
+<pre><code>JVM_ENTRY(void, JVM_Sleep(JNIEnv* env, jclass threadClass, jlong millis))
+  JVMWrapper(&quot;JVM_Sleep&quot;);
+
+  if (millis &lt; 0) {
+    THROW_MSG(vmSymbols::java_lang_IllegalArgumentException(), &quot;timeout value is negative&quot;);
+  }
+
+  if (Thread::is_interrupted (THREAD, true) &amp;&amp; !HAS_PENDING_EXCEPTION) {
+    THROW_MSG(vmSymbols::java_lang_InterruptedException(), &quot;sleep interrupted&quot;);
+  }
+
+  // Save current thread state and restore it at the end of this block.
+  // And set new thread state to SLEEPING.
+  JavaThreadSleepState jtss(thread);
+
+  HS_DTRACE_PROBE1(hotspot, thread__sleep__begin, millis);
+
+  if (millis == 0) {
+    // When ConvertSleepToYield is on, this matches the classic VM implementation of
+    // JVM_Sleep. Critical for similar threading behaviour (Win32)
+    // It appears that in certain GUI contexts, it may be beneficial to do a short sleep
+    // for SOLARIS
+    if (ConvertSleepToYield) {
+      os::yield();
+    } else {
+      ThreadState old_state = thread-&gt;osthread()-&gt;get_state();
+      thread-&gt;osthread()-&gt;set_state(SLEEPING);
+      os::sleep(thread, MinSleepInterval, false);
+      thread-&gt;osthread()-&gt;set_state(old_state);
+    }
+  } else {
+    ThreadState old_state = thread-&gt;osthread()-&gt;get_state();
+    thread-&gt;osthread()-&gt;set_state(SLEEPING);
+    if (os::sleep(thread, millis, true) == OS_INTRPT) {
+      // An asynchronous exception (e.g., ThreadDeathException) could have been thrown on
+      // us while we were sleeping. We do not overwrite those.
+      if (!HAS_PENDING_EXCEPTION) {
+        HS_DTRACE_PROBE1(hotspot, thread__sleep__end,1);
+        // TODO-FIXME: THROW_MSG returns which means we will not call set_state()
+        // to properly restore the thread state.  That's likely wrong.
+        THROW_MSG(vmSymbols::java_lang_InterruptedException(), &quot;sleep interrupted&quot;);
+      }
+    }
+    thread-&gt;osthread()-&gt;set_state(old_state);
+  }
+  HS_DTRACE_PROBE1(hotspot, thread__sleep__end,0);
+JVM_END 
+
+</code></pre>
+<p>在JVM_Sleep方法中，通过thread-&gt;osthread()-&gt;get_state()获取 OSThread 对象，并将其状态设置为SLEEPING等到 sleep 结束后设置回原来的状态。</p>
+<h4 id="sleeposhpp">sleep方法是在os.hpp头文件中定义：</h4>
+<pre><code>static int sleep(Thread* thread, jlong ms, bool interruptable);
+</code></pre>
+<p>sleep这个操作跟具体的操作系统实现有关，
+linux对应目录是：jdk-8-hotspot/src/os/linux/vm/os_linux.cpp；
+windows对应的目录是：jdk-8-hotspot/src/os/windows/vm/os_windows.cpp；</p>
+<p>来看下Linux下os_windowscpp中的sleep方法：</p>
+<pre><code>int os::sleep(Thread* thread, jlong ms, bool interruptable) {
+  jlong limit = (jlong) MAXDWORD;
+
+  while(ms &gt; limit) {
+    int res;
+    if ((res = sleep(thread, limit, interruptable)) != OS_TIMEOUT)
+      return res;
+    ms -= limit;
+  }
+
+  assert(thread == Thread::current(),  &quot;thread consistency check&quot;);
+  OSThread* osthread = thread-&gt;osthread();
+  OSThreadWaitState osts(osthread, false /* not Object.wait() */);
+  int result;
+  if (interruptable) {
+    assert(thread-&gt;is_Java_thread(), &quot;must be java thread&quot;);
+    JavaThread *jt = (JavaThread *) thread;
+    ThreadBlockInVM tbivm(jt);
+
+    jt-&gt;set_suspend_equivalent();
+    // cleared by handle_special_suspend_equivalent_condition() or
+    // java_suspend_self() via check_and_wait_while_suspended()
+
+    HANDLE events[1];
+    events[0] = osthread-&gt;interrupt_event();
+    HighResolutionInterval *phri=NULL;
+    if(!ForceTimeHighResolution)
+      phri = new HighResolutionInterval( ms );
+    if (WaitForMultipleObjects(1, events, FALSE, (DWORD)ms) == WAIT_TIMEOUT) {
+      result = OS_TIMEOUT;
+    } else {
+      ResetEvent(osthread-&gt;interrupt_event());
+      osthread-&gt;set_interrupted(false);
+      result = OS_INTRPT;
+    }
+    delete phri; //if it is NULL, harmless
+
+    // were we externally suspended while we were waiting?
+    jt-&gt;check_and_wait_while_suspended();
+  } else {
+    assert(!thread-&gt;is_Java_thread(), &quot;must not be java thread&quot;);
+    Sleep((long) ms);
+    result = OS_TIMEOUT;
+  }
+  return result;
+}
+</code></pre>
+<p>获取 OSThread 对象，然后通过 OSThreadWaitState 设置线程状态为等待，修改操作分别在构造函数和析构函数中实现。</p>
+<h4 id="sleepthreadblockinvm">sleep方法中的ThreadBlockInVM</h4>
+<p>前面说到 ThreadBlockInVM 会检查当前线程用不用进入 safepoint，它主要的逻辑如下：</p>
+<p>首先设置 Java 线程状态，将状态加一，由_thread_in_vm = 6变为_thread_in_vm_trans = 7，从“运行vm本身代码”到“相应的过度状态”。
+os::is_MP()用于判断计算机系统是否为多核系统，多核情况下需要做内存屏障处理，这是为了让每个线程都能实时同步状态。
+内存屏障有两种方式，一种是rderAccess::fence()，它的实现是直接通过CPU指令来实现，汇编指令为__asm__ volatile ("lock; addl $0,0(%%rsp)" : : : "cc", "memory");，这种方式代价比较大。而另外一种为InterfaceSupport::serialize_memory，由 JVM 模拟实现，效率高一点。
+调用SafepointSynchronize::block尝试在该安全点进行阻塞。
+设置 Java 线程状态为_thread_blocked，即阻塞。</p>
+<ul>
+<li>wait()方法
+在其他线程调用对象的 notify 或 notifyAll 方法前，导致当前线程等待。线程会释放掉它所占有的“锁标志”，从而使别的线程有机会抢占该锁。当前线程必须拥有当前对象锁。如果当前 线程不是此锁的拥有者，会抛出 IllegalMonitorStateException 异常。唤醒当前对象锁的等待 线程使用 notify 或 notifyAll 方法，也必须拥有相同的对象锁，否则也会抛出 IllegalMonitorStateException 异常。
+wait()和 notify()必须在 synchronized 函数或 synchronized block 中进行调用。如果在 non- synchronized 函数或 non-synchronized block 中进行调用，虽然能编译通过，但在运行时 会发生 IllegalMonitorStateException 的异常。</li>
+</ul>
+<h4 id="wait">wait方法的调用流程</h4>
+<p>wait是Java中Object.java中的方法,这个后面调用的是wait这个native方法。</p>
+<pre><code>public final void wait() throws InterruptedException {
+    wait(0);
+}
+
+public final native void wait(long timeout) throws InterruptedException;
+</code></pre>
+<p>Java层声明的这个wait方法在Object.c中，wait同样也是一个注册到JVM中的方法，具体的实现在JVM_MonitorWait中。</p>
+<pre><code>...
+static JNINativeMethod methods[] = {
+    {&quot;hashCode&quot;,    &quot;()I&quot;,                    (void *)&amp;JVM_IHashCode},
+    {&quot;wait&quot;,        &quot;(J)V&quot;,                   (void *)&amp;JVM_MonitorWait},
+    {&quot;notify&quot;,      &quot;()V&quot;,                    (void *)&amp;JVM_MonitorNotify},
+    {&quot;notifyAll&quot;,   &quot;()V&quot;,                    (void *)&amp;JVM_MonitorNotifyAll},
+    {&quot;clone&quot;,       &quot;()Ljava/lang/Object;&quot;,   (void *)&amp;JVM_Clone},
+};
+...
+
+</code></pre>
+<p>jvm.cpp中的JVM_MonitorWait  </p>
+<pre><code>JVM_ENTRY(void, JVM_MonitorWait(JNIEnv* env, jobject handle, jlong ms))
+  JVMWrapper(&quot;JVM_MonitorWait&quot;);
+  Handle obj(THREAD, JNIHandles::resolve_non_null(handle));
+  assert(obj-&gt;is_instance() || obj-&gt;is_array(), &quot;JVM_MonitorWait must apply to an object&quot;);
+  JavaThreadInObjectWaitState jtiows(thread, ms != 0);
+  if (JvmtiExport::should_post_monitor_wait()) {
+    JvmtiExport::post_monitor_wait((JavaThread *)THREAD, (oop)obj(), ms);
+  }
+  ObjectSynchronizer::wait(obj, ms, CHECK);
+JVM_END
+</code></pre>
+<p>接着调用objectMonitor.cpp中的void ObjectMonitor::wait(jlong millis, bool interruptible, TRAPS)方法。</p>
+<p>这个wait方法太长，就不贴代码了。</p>
+<ul>
+<li>yield 方法
+yield属于一种启发式方法，岂会提醒调度器我愿意放弃当前CPU资源，如果CPU资源不紧张，则会忽略这种提醒。</li>
+</ul>
+<pre><code>import java.util.function.IntFunction;
+import java.util.stream.IntStream;
+
+public class ThreadYield {
+    public static void main(String[] args) {
+        IntStream.range(0, 2).mapToObj(new IntFunction&lt;Thread&gt;(){
+            @Override
+            public Thread apply(int value) {
+                return ThreadYield.create(value);
+            }}).forEach(new Consumer&lt;Thread&gt;() {
+                @Override
+                public void accept(Thread t) {
+                    t.start();
+                }
+            });
+    }
+
+    private static Thread create(int index) {
+        return new Thread(){
+            @Override
+            public void run() {
+                //if(index == 0) Thread.yield();
+                System.out.println(index);
+            }
+        };
+    }
+}
+</code></pre>
+<p>上面的程序运行很多次,你会发现输出的结果不一致，有时候是0最先打印出来，有时候是1最先打印出来，但是当你打开代码的注释部分，你会发现，顺序始终是0，1。</p>
+<p>因为第一个线程如果先获得了CPU资源，它会比较谦虚，主动告诉CPU调度器释放了原本属于自己的资源，但是yield知识一个提示，CPU调度器并不会担保每次都能满足yield提示。</p>
+<p>调用 yield 方法并不会让线程进入阻塞状态，而是让线程重回就绪状态，它只需要等待重新 获取 CPU 执行时间，这一点是和 sleep 方法不一样的。</p>
+<ul>
+<li>join 方法
+join某个线程A，会使当前线程B进入等待，直到线程A结束生命周期，或者到达给定的时间，那么在此期间B线程是处于BLOCKED的，而不是A线程。</li>
+</ul>
+<pre><code>import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.IntFunction;
+import java.util.stream.IntStream;
+
+public class ThreadJoin {
+
+    public static void main(String[] args) throws InterruptedException {
+        List&lt;Thread&gt; threads = new ArrayList&lt;Thread&gt;();
+        IntStream.range(0, 2).mapToObj(new IntFunction&lt;Thread&gt;(){
+            @Override
+            public Thread apply(int value) {
+                return ThreadJoin.create(value);
+            }}).forEach(new Consumer&lt;Thread&gt;() {
+                @Override
+                public void accept(Thread t) {
+                    t.start();
+                    threads.add(t);
+                }
+            });
+
+        for(Thread thread:threads) {
+            thread.join();
+        }
+        for(int i =0;i&lt;3;i++) {
+            System.out.println(Thread.currentThread().getName() + &quot;#&quot; + i);
+            shortSleep();
+        }
+    }
+
+    private static Thread create(int seq) {
+        return new Thread(seq + &quot;&quot;){
+            @Override
+            public void run() {
+                for(int i=0;i&lt; 3;i++) {
+                    System.out.println(Thread.currentThread().getName() + &quot;#&quot; + i);
+                    shortSleep();
+                }
+            }
+        };
+    }
+
+    private static void shortSleep() {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>运行上面的程序你就会发现线程1和线程2交替地输出直到它们生命周期结束，main线程的循环才会开始执行，程序输出如下：</p>
+<pre><code>0#0
+1#0
+0#1
+1#1
+0#2
+1#2
+main#0
+main#1
+main#2
+</code></pre>
+<p>如果将join部分的代码注释掉，那么三个线程会交替地输出，输出如下：</p>
+<pre><code>0#0
+main#0
+1#0
+1#1
+0#1
+main#1
+0#2
+1#2
+main#2
+</code></pre>
+<h4 id="interrupt">interrupt方法</h4>
+<p>如下方法会使得当前线程进入阻塞状态，而调用线程的interrupt方法会打断阻塞。
+- Object的wait方法
+- Object的wait(long)方法
+- Thread的sleep(long)方法
+- Thread的join方法
+- InterruptibleChannel的io操作
+- Selector的wakeup方法
+- 其他方法</p>
+<p>上述若干方法都会使得当前线程进入阻塞状态，若另外的一个线程调用被阻塞线程的interrupt方法，则会打断这种阻塞，因此这种方法有时会被称为可中断方法，但是，打断一个线程并不等于该线程生命周期会结束，仅仅是打断了当前线程的阻塞状态。</p>
+<p>一旦线程在阻塞的情况下被打断，都会抛出一个称为InterruptException的异常，这个异常就像一个signal(信号)一样通知当前线程被打断了。</p>
+<p>interrupt这个方法到了做了什么样的事情呢？在一个线程内存存在着名为interrupt flag的标识，如果一个线程被interrupt，那么他的flag将被设置为true，但是如果当前线程正在执行可中断方法被阻塞时，调用interrupt方法将其中断，这个时候它的flag会被清除，清除即设置为false。</p>
+<p>具体可以看下面的程序代码：</p>
+<pre><code>import java.util.concurrent.TimeUnit;
+
+public class ThreadInterrupt {
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                while(true) {
+                    //loop
+                }
+            }
+        };
+        thread.start();
+        TimeUnit.MILLISECONDS.sleep(2);
+        System.out.println(&quot;Thread is interrupted:  &quot; + thread.isInterrupted());
+        thread.interrupt();
+        System.out.println(&quot;Thread is interrupted:  &quot; + thread.isInterrupted());
+    }
+}
+
+</code></pre>
+<p>输出结果如下：</p>
+<pre><code>Thread is interrupted:  false
+Thread is interrupted:  true
+
+</code></pre>
+<p>上面的run方法中我们写了个死循环，这里没有使用sleep方法，因为sleep是可中断方法，可中断方法在捕获InterruptException后会将线程interrupt复位。</p>
+<p>我们把程序改成下面这样。</p>
+<pre><code>import java.util.concurrent.TimeUnit;
+
+public class ThreadInterrupt {
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                while(true) {
+                    try {
+                        TimeUnit.MINUTES.sleep(2);
+                    } catch (InterruptedException e) {
+                        System.out.println(&quot;I am be interrupted:  &quot; + isInterrupted());
+                    }
+                }
+            }
+        };
+        thread.setDaemon(true);
+        thread.start();
+        TimeUnit.MILLISECONDS.sleep(2);
+        System.out.println(&quot;Thread is interrupted:  &quot; + thread.isInterrupted());
+        thread.interrupt();
+        System.out.println(&quot;Thread is interrupted:  &quot; + thread.isInterrupted());
+    }
+
+}
+
+</code></pre>
+<p>由于在run方法中使用了sleep这个可中断方法，它会捕获到中断信号，并且会擦除interrupt表示，因此程序的执行结果都会是false。</p>
+<pre><code>Thread is interrupted:  false
+I am be interrupted:  false
+Thread is interrupted:  false
+
+</code></pre>
+<h4 id="interrupted">interrupted</h4>
+<p>interrupted是一个静态方法，虽然其页用于判断当前线程是否被中断，但是它和成员方法isInterrupted还是有很大区别的，调用该方法会直接擦除的线程的interrupt标识，需要注意的是，如果当前线程被打断了那么第一次调用interrupted方法会返回true，并且立即擦除了interrupt标识，第二次包括以后的调用永远都会放回false，除非在此期间有一次地被打断。</p>
+<pre><code>import java.util.concurrent.TimeUnit;
+
+public class ThreadInterrupt {
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                while(true) {
+                    System.out.println(Thread.interrupted());
+                }
+            }
+        };
+        thread.setDaemon(true);
+        thread.start();
+        TimeUnit.MILLISECONDS.sleep(2);
+        thread.interrupt();         
+    }
+
+</code></pre>
+<p>由于不想要受到可中断方法如sleep的影响，在Thread的run方法中没有进行任何短暂的休眠。
+在很多false中出现了一个true，也就是interrupted方法判断到了其被中断，立即擦除了中断标识。</p>
+<pre><code>...
+false
+false
+true
+false
+false
+...
+
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

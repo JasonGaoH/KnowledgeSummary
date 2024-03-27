@@ -1,0 +1,2013 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>深入解析volatile关键字 - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#volatile" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              深入解析volatile关键字
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Algorighm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Algorighm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Algorithm/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFO%28log%20n%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么说二分查找的时间复杂度是O(log n)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Android
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Android%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android系统工作机制分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Handler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Handler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/SharedPreference%E5%92%8CContentProvider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SharedPreference和ContentProvider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/android%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android启动流程分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%B8%BA%E4%BB%80%E4%B9%88RxJava%E7%9A%84observeOn%E4%B8%8D%E8%83%BD%E9%9A%8F%E4%BE%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么RxJava的observeOn不能随便用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E5%89%96%E6%9E%90Handler%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从源码角度剖析Handler机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90AsyncTask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深入分析AsyncTask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/Activity
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Android/Activity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0%E4%B8%8E%E8%AF%8A%E6%96%AD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity泄露发现与诊断
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/Activity/Activity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Activity的生命周期和启动模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/IPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Android/IPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/Android%E4%B8%AD%E7%9A%84IPC%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的IPC机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%AE%8C%E6%88%90%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用进程完成后台任务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/IPC/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E8%87%AA%E5%B7%B1%E7%9A%84%E8%BF%9B%E7%A8%8B%E6%98%AF%E8%A2%ABAndroid_low_memory_killer%E6%9D%80%E6%AD%BB%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何判断自己的进程是被Android low memory killer杀死的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/UI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Android/UI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E4%B8%AD%E5%87%BA%E7%8E%B0item%E9%87%8D%E5%A4%8D%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView中出现item重复的问题分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E5%92%8CDiffUtils%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView和DiffUtils使用问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/RecyclerView%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RecyclerView缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E4%BB%BF%E4%BA%AC%E4%B8%9C%E3%80%81%E6%B7%98%E5%AE%9D%E9%A6%96%E9%A1%B5%EF%BC%8C%E9%80%9A%E8%BF%87%E4%B8%A4%E5%B1%82%E5%B5%8C%E5%A5%97%E7%9A%84RecyclerView%E5%AE%9E%E7%8E%B0tab%E7%9A%84%E5%90%B8%E9%A1%B6%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/UI/%E8%A7%A3%E5%86%B3CoordinatorLayout%E7%9A%84%E5%8A%A8%E7%94%BB%E6%8A%96%E5%8A%A8%E4%BB%A5%E5%8F%8A%E5%9B%9E%E5%BC%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决CoordinatorLayout的动画抖动以及回弹问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/其他
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Android/其他
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/APK%E6%89%93%E5%8C%85%E5%8F%8A%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    APK打包及安装过程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android7.0%E4%B8%8A%E7%9A%84%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android7.0上的混合编译
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BC%A0%E9%80%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android中的事件传递
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/BroadcastReceiver%E5%92%8CLocalBroadcastReceiver%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BroadcastReceiver和LocalBroadcastReceiver的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/IntentFilter%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IntentFilter匹配规则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%80%8E%E4%B9%88%E5%81%9A%E7%89%9B%E9%80%BC%E7%9A%84%E5%8A%A8%E7%94%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    怎么做牛逼的动画
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96-VirtualAPK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化 VirtualAPK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E6%8F%92%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    插件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%83%AD%E4%BF%AE%E5%A4%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    热修复
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E8%AF%A6%E8%A7%A3APT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解APT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%85%B6%E4%BB%96/%E9%80%9A%E8%BF%87%E4%BA%8B%E5%8A%A1%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%ABsqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%95%88%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过事务支持加快sqlite数据库批量操作的效率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/图片相关
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Android/图片相关
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Best_Practices_for_Using_Alpha/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices for Using Alpha
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/Bitmap%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitmap相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/DiskLruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiskLruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/LruCache/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LruCache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E4%BB%8Eassets%E7%9B%AE%E5%BD%95%E5%92%8Cdrawable%E5%8A%A0%E8%BD%BD%E7%9A%84Bitmap%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从assets目录和drawable加载的Bitmap的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%9B%BE%E7%89%87%E7%9B%B8%E5%85%B3/%E5%9B%BE%E5%83%8F%E6%98%BE%E7%A4%BA%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像显示原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Android/开源库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Android/开源库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ARouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ARouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/ActivityRouter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActivityRouter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/BlockCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/EventBus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EventBus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Fresco/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frsco
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/LeakCanary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LeakCanary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/OKHTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OkHttp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/Retrofit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Retrofit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/RxJava%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RxJava相关文章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Android/%E5%BC%80%E6%BA%90%E5%BA%93/tinker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tinker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#volatile" class="md-nav__link">
+    <span class="md-ellipsis">
+      volatile关键字的使用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      CPU缓存模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#java" class="md-nav__link">
+    <span class="md-ellipsis">
+      Java内存模型
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volatile_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      对于volatile变量的特殊规则
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volatile_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      volatile关键字深入解析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>深入解析volatile关键字</h1>
+
+<blockquote>
+<p>文章已同步发表于微信公众号JasonGaoH，<a href="https://mp.weixin.qq.com/s?__biz=MzUyNTE2OTAzMQ==&amp;mid=2247483805&amp;idx=1&amp;sn=a6240f582ec81d047a59f206f8d5ba54&amp;chksm=fa237975cd54f063470a8eb7d68774c474ddab37cf88ff16ac873b47f0ac1b514b8be8254344&amp;token=1938879438&amp;lang=zh_CN#rd">深入解析volatile关键字</a></p>
+</blockquote>
+<p><code>volatile关键字</code>和<code>synchronized关键字</code>一样，在Java多线程开发中，是一道必须要跨越的槛。之前有篇文章已经分析过<code>synchronized关键字</code>的原理，<a href="https://blog.csdn.net/H_Gao/article/details/98593198">synchronized关键字的原理</a>，这一次，我们来一步一步分析下<code>volatile关键字</code>的工作原理。</p>
+<p>本文篇幅稍微有点长，希望您能耐心看下去，并有所收获。</p>
+<h3 id="volatile">volatile关键字的使用</h3>
+<p>首先，我们从一个简单的程序来入手。</p>
+<pre><code class="language-java">public class VolatileFoo {
+    //init_value的最大值
+    final static int MAX = 5;
+    //init_value的初始值
+    static int init_value = 0;
+
+    public static void main(String[] args) {
+        //启动一个Reader线程，当发现local_value和init_value不同时，
+        //则输出init_value被修改的信息
+        new Thread(() -&gt; {
+            int localValue = init_value;
+            while(localValue &lt; MAX) {
+                if(init_value != localValue) {
+                    System.out.println(&quot;this init_value is updated to &quot; + init_value);
+                    //对local_value重新赋值
+                    localValue = init_value;
+                }
+            }
+        },&quot;Readder&quot;).start();
+
+        new Thread(() -&gt; {
+            int localValue = init_value;
+            while(localValue &lt; MAX) {
+                System.out.println(&quot;this init_value will be changed to &quot; + ++localValue);
+                //对local_value重新赋值
+                init_value = localValue;
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        },&quot;Updater&quot;).start();
+    }
+}
+</code></pre>
+<p>上面的程序分别启动了两个线程，一个线程负责对变量进行修改，一个线程负责对变量进行输出。</p>
+<p>运行程序，输出结果如下：</p>
+<pre><code class="language-java">this init_value will be changed to 1
+this init_value is updated to 1
+this init_value will be changed to 2
+this init_value will be changed to 3
+this init_value will be changed to 4
+this init_value will be changed to 5
+</code></pre>
+<p>从输出信息我们发现，Reader线程没有感知到init_value的变化，我们期望的是在Updater进程更新init_value的值之后，Reader进程能够打印出变化的init_value的值，但结果并不是我们期望的那样。</p>
+<p>我们尝试在init_value前面加上<code>volatile</code>。</p>
+<pre><code class="language-java">static volatile int init_value = 0;
+</code></pre>
+<p>接着我们再运行下这个程序，输出结果如下：</p>
+<pre><code class="language-java">this init_value will be changed to 1
+this init_value is updated to 1
+this init_value will be changed to 2
+this init_value is updated to 2
+this init_value will be changed to 3
+this init_value is updated to 3
+this init_value will be changed to 4
+this init_value is updated to 4
+this init_value will be changed to 5
+this init_value is updated to 5
+</code></pre>
+<p>这个时候Reader线程就能够感受到init_value的值的变化了，并且在条件不满足时程序就退出了运行。</p>
+<p>那么为什么加了个volatile就正常了呢， volatile关键字的作用到底是什么呢？</p>
+<p>想要彻底搞清楚<code>volatile关键字</code>，还需要具备Java内存模型、CPU缓存模型、汇编指令等相关知识的，接下来，我们接下来一步一步来拆解问题。</p>
+<h3 id="cpu">CPU缓存模型</h3>
+<p>要想对volatile有比较深刻的理解，首先我们需要对CPU的缓存模型有一定的认识。</p>
+<p>在计算机中，所有的运算操作都是由CPU的寄存器来完成的，CPU指令的执行过程需要涉及数据的读取和写入操作，CPU所能访问的所有数据只能是计算机的主存（通常是指RAM），虽然CPU的发展频率不断得到提升，但受制于制造工艺以及成本的限制，计算机的内存反倒在访问速度上没有多大的突破，因此CPU的处理速度和内存的访问速度之间的差距越拉越大，通常这种差距可以达到上千倍，极端情况下甚至会在上万倍以上。</p>
+<p>由于两边速度严重的不对等，通过传统FSB直连内存的访问方式会导致CPU资源受到极大的限制，降低CPU整体的吞吐量，于是就有了CPU和主内存直接增加缓存的设计，现在缓存数量都可以增加到3级了，最靠近CPU的缓存为L1,然后依次是L2,L3和主内存，CPU缓存模型图如下所示：
+<img alt="CPU缓存模型图" src="https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/cpu_cache.png" />
+Cache的出现是为了解决CPU直接访问内存效率低下的问题，程序在运行的过程中，会将运算所需要的数据从主内存复制一份到CPU Cache中，这样CPU计算时就可以直接对CPU Cache中的数据进行读取和写入，当运算结束之后，再将CPU Cache中最新的数据刷新到主内存当中，CPU通过直接访问Cache的方式提到直接访问主内存的方式极大地提高了CPU的吞吐能力，有个CPU Cache之后，整体的CPU和主内存之间的交互的架构大致如下图所示：
+<img alt="CPU与主内存交互图" src="https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/cpu_cache_framework.png" /></p>
+<h3 id="java">Java内存模型</h3>
+<p>由于缓存的出现，极大地提高了CPU的吞吐能力，但是同时也引入了缓存不一致的问题。在多处理器系统中，每个处理器都有自己的的高速缓存，而它们又共享同一主内存，当多个处理器的运算任务都设计到同一块内存区域时，将可能导致各自的缓存数据不一致，这个时候就需要通过<code>缓存一致性协议</code>来保证数据的正确性，不同的操作系统使用缓存一致性协议都各不相同。</p>
+<p>因为各种硬件和操作系统的内存访问是有差异的，Java为了程序能在各种平台下运行达到一致的内存访问效果，于是定义了Java内存模型（Java Memory Mode，JMM）来对特定内存或高速缓存的读写访问过程进行抽象。</p>
+<p>Java内存模型定义了线程和主内存之间的抽象关系，具体如下。
+- 共享变量存储于主内存之中，每个线程都可以访问。
+- 每个线程都有私有的工作内存和本地内存。
+- 工作内存值存储该线程对共享变量的副本。
+- 线程不能直接操作主内存，只有先操作了工作内存之后才能写入主内存。
+- 工作内存和Java内存模型一样也是一个抽象的概念，它其实并不存在，它涵盖了缓存、寄存器、编译优化以及硬件等。
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/java_memory_model.png" />
+<code>Java内存模型</code>定义了一套主内存和工作内存的交互协议，即一个变量如何从主内存拷贝到工作内存、如何从工作内存同步到主内存之类的实现细节。具体有8种操作来完成，分别为lock、unlock、read、load、use、assign、store和write。除此之外，<code>Java内存模型</code>还规定在执行这8种操作的时候必须满足8种规则，由于篇幅问题，这里就不一一列举了，具体可参看深入理解Java虚拟机第12章的Java内存模型与线程。</p>
+<p><code>Java内存模型</code>是一个抽象的概念，其与计算机硬件的结构并不完全一样，比如计算机物理内存不会存在栈内存和堆内存的划分，无论是堆内存还是虚拟机栈内存都会对应到物理的主内存，当然也有一部分堆栈内存数据可能会存入CPU Cache寄存器中。具体可参考下图：
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/cpu_hardware.png" /></p>
+<h3 id="volatile_1">对于volatile变量的特殊规则</h3>
+<p>介绍了<code>CPU缓存模型</code>以及<code>Java内存模型</code>之后，我们再来说<code>volatile关键字</code>，这样更能加深我们对于<code>volatile关键字</code>的理解。
+<code>volatile关键字</code>是Java虚拟机提供的最轻量级的同步机制，很多人由于对它理解不够，往往更愿意使用synchronized来做同步。</p>
+<p><code>Java内存模型</code>对<code>volatile关键字</code>定义了一些特殊的访问规则，当一个变量被volatile修饰后，它将具备两种特性，或者说volatile具有下列两层语义：</p>
+<ul>
+<li>第一、保证了不同线程对这个变量进行读取时的可见性， 即一个线程修改了某个变量的值， 这新值对其他线程来说是立即可见的。 (volatile 解决了线程间共享变量的可见性问题)。</li>
+<li>第二、禁止进行指令重排序， 阻止编译器对代码的优化。</li>
+</ul>
+<p>针对第一点，<code>volatile</code>保证了不同线程对这个变量进行读取时的可见性，具体表现为：
+- 第一： 使用 volatile 关键字会强制将在某个线程中修改的共享变量的值立即写入主内存。
+- 第二： 使用 volatile 关键字的话， 当线程 2 进行修改时， 会导致线程 1 的工作内存中变量的缓存行无效（反映到硬件层的话， 就是 CPU 的 L1或者 L2 缓存中对应的缓存行无效);
+- 第三： 由于线程 1 的工作内存中变量的缓存行无效， 所以线程 1再次读取变量的值时会去主存读取。</p>
+<p>基于这一点，所以我们经常会看到文章中或者书本中会说volatile 能够保证可见性。</p>
+<p>volatile 能够保证可见性，但是volatile不能保证程序的原子性。</p>
+<pre><code class="language-java">public class VolatileTest {
+    public static volatile int race = 0;
+
+    public static void increase() {
+        race ++;
+    }
+    private static final int THREAD_COUNT = 20;
+
+    public static void main(String[] args) {
+        Thread[] threads = new Thread[THREAD_COUNT];
+        for(int i =0 ;i&lt;THREAD_COUNT;i++) {
+            threads[i] = new Thread(() -&gt;{
+                for(int j =0;j&lt; 10000;j++) {
+                    increase();
+                }
+            });
+            threads[i].start();
+        }
+
+        while(Thread.activeCount() &gt; 1)
+            Thread.yield();
+
+        System.out.println(race);
+    }
+}
+</code></pre>
+<p>这段代码发起了20个线程，每个线程对race变量进行10000次自增操作，如果这段代码能够正确并发的话，最后输出的结果应该是200000。我们运行完这段代码之后，并没有获得期望的结果，而且发现每次运行程序。输出的结果都不一样，都是一个小于200000的数字。</p>
+<p>问题就出在自增运算”race++“之中，我们用javap反编译这段代码后发现只有一行代码的increase()方法在Class文件中是由4条字节码指令构成的。</p>
+<pre><code class="language-java">  public static void increase();
+    Code:
+       0: getstatic     #13                 // Field race:I
+       3: iconst_1
+       4: iadd
+       5: putstatic     #13                 // Field race:I
+       8: return
+</code></pre>
+<p>从字节码层面上很容易分析出原因了：当getstatic指令把race的值取到操作栈时，volatile关键字保证了race的值此时是正确的，但是在执行iconst_1、iAdd这些指令的时候，其他线程可能已经把race的值加大了，而在操作栈订的值就变成了过期的数据，所以putstati指令执行后就可能把较小的值同步回主内存中去了。</p>
+<p>其实这里我们通过字节码来分析这个问题是不严谨的，因为即使编译出来的只有一条字节指令，也并不意味执行这条指令就是一个原子操作。一条字节码指令在解释执行时，解释器将要运行许多行代码才能实现它的语义，如果是编译执行，一条字节码指令也可能转化成若干条本地机器码指令。关于解释执行和编译执行，我们还会再讲到。</p>
+<p>由于volatile变量只能保证可见性，在不符合以下两条规则的运算场景中，我们仍然要通过加锁（synchronized或java.util.concurrent中的原子类）来保证原子性。
+- 运输结果并不依赖变量的当前值，或者能够确保只有单一的线程修改变量的值。
+- 变量不需要与其他状态变量共同参与不变约束。</p>
+<p>类似下面的场景就时候采用volatile来控制并发。</p>
+<pre><code class="language-java">volatile boolean shutdownRequested;
+public void shutdown() {
+    shutdownRequested = true;
+}
+public void doWork() {
+    while(!shutdownRequested) {
+        //do stuff
+    }
+}
+</code></pre>
+<p>如果我们想让上面的那个自增操作保持原子性，我们可以使用AtomicInteger，具体程序如下，这里就不多做介绍了。</p>
+<pre><code class="language-java">import java.util.concurrent.atomic.AtomicInteger;
+
+public class VolatileTest {
+//  public static volatile int race = 0;
+    public static AtomicInteger race =new  AtomicInteger(0);
+
+    public static void increase() {
+//      race ++;
+        race.incrementAndGet();
+    }
+    private static final int THREAD_COUNT = 20;
+
+    public static void main(String[] args) {
+        Thread[] threads = new Thread[THREAD_COUNT];
+        for(int i =0 ;i&lt;THREAD_COUNT;i++) {
+            threads[i] = new Thread(() -&gt;{
+                for(int j =0;j&lt; 10000;j++) {
+                    increase();
+                }
+            });
+            threads[i].start();
+        }
+        while(Thread.activeCount() &gt; 1)
+            Thread.yield();
+
+        System.out.println(race.get());
+    }
+}
+</code></pre>
+<p>回到<code>volatile关键字</code>的第二层语义：禁止指令重排。
+普通的变量仅仅会保证在该方法的执行过程中所有依赖赋值结果的地方都能获取到正确的结果，而不能保证变量赋值操作的顺序与程序代码中的执行顺序一致。</p>
+<p>我们用一段伪代码来帮助下理解：</p>
+<pre><code class="language-java">Map configOptions;
+char[] configText;
+//此变量必须定义为volatile
+volatile boolean initialized = false;
+
+//假设一下代码在线程A中执行
+//模拟读取配置信息，当读取完成后将initialized设置为true以通知其他线程配置可用
+configOptions = new HashMap();
+configText = readConfigFile(fileName);
+processCongigOptions(configText,configOptions);
+initialized = true
+
+//假设一下代码在线程B中执行
+//等待initialized为true，代表线程A已经吧配置信息初始化完成
+while(!initialized) {
+    sleep();
+}
+//使用线程A中初始化好的配置信息
+doSomethingWithConfig();
+</code></pre>
+<p>上面这段代码如果定义的initialized没有使用volatile来修饰，就可能会由于指令重排序的优化，导致位于线程A中最后一句代码<code>initialized = true</code>被提前执行（这里虽然使用Java作为伪代码，但所指的重排序优化是机器级的优化操作，提前执行时值这句话对于的汇编代码被提前执行），这样在线程B中使用配置信息的代码就可能出现错误，而volatile能避免此类情况的发生。</p>
+<h3 id="volatile_2">volatile关键字深入解析</h3>
+<p>上面讲到<code>volatile关键字的两层语义</code>，那么volatile保证可见性以及有序性到底是如何做到的呢？它的底层逻辑是什么呢？</p>
+<p>这里我们尝试获得Java程序的汇编代码，通过比较变量加入volatile修饰和未加入volatile修饰的区别。</p>
+<p>这里主要使用的是HSDIS插件，HSDIS是一个Sun官方推荐的HotSpot虚拟机JIT编译代码的反汇编插件，网上有关于这个插件的下载，不过有的链接已经失效，我这里是从这里获取的，<a href="https://github.com/liuzhengyang/hsdis">hsdis</a>，再把这个clone下来之后，编译成功之后，使用下面这个命令拷贝到jre的server目录,具体可以查看这个repo中README文件，里面写的很详细。</p>
+<pre><code class="language-java">sudo cp build/macosx-amd64/hsdis-amd64.dylib /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/server/
+</code></pre>
+<p>接下来就可以尝试反汇编了。</p>
+<pre><code class="language-java">public class Singleton {
+    private static Singleton instance;
+
+    public static Singleton getInstance() {
+        if(instance ==null) {
+            synchronized(Singleton.class) {
+                if(instance == null) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static void main(String[] args) {
+        Singleton.getInstance();
+    }
+}
+</code></pre>
+<p>上面这个是我们尝试反汇编的程序代码，如果是命令行，我们可以使用下面这个指令。</p>
+<pre><code class="language-java">java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly Singleton
+</code></pre>
+<p>如果是eclipse，在下图的VM arguments中添加<code>XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly</code>,然后运行程序，这样在控制台就会输出汇编代码。
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/eclipse_jit.png" />
+程序运行后，在控制台会输出很多内容,由于输出太大，所以截取了前面一段输出。</p>
+<pre><code class="language-java">Java HotSpot(TM) 64-Bit Server VM warning: PrintAssembly is enabled; turning on DebugNonSafepoints to gain additional output
+Loaded disassembler from /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/server/hsdis-amd64.dylib
+Decoding compiled method 0x0000000112e9ad50:
+Code:
+[Disassembling for mach='i386:x86-64']
+[Entry Point]
+[Constants]
+  # {method} {0x000000010ce1f000} 'hashCode' '()I' in 'java/lang/String'
+  #           [sp+0x40]  (sp of caller)
+  0x0000000112e9aec0: mov    0x8(%rsi),%r10d
+  0x0000000112e9aec4: shl    $0x3,%r10
+  0x0000000112e9aec8: cmp    %rax,%r10
+  0x0000000112e9aecb: jne    0x0000000112de0e60  ;   {runtime_call}
+  0x0000000112e9aed1: data16 data16 nopw 0x0(%rax,%rax,1)
+  0x0000000112e9aedc: data16 data16 xchg %ax,%ax
+[Verified Entry Point]
+  0x0000000112e9aee0: mov    %eax,-0x14000(%rsp)
+  .....
+</code></pre>
+<p>得到这个输出之后，我使用<code>Singleton</code>全局搜索了下，发现还无结果。
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/XmXvXX.png" />
+反编译的却没有得到相应的内容，这是什么问题呢？
+带着这个问题Google了好久，终于搞明白原因了。</p>
+<p>于是我们又要来补充些虚拟机编译的知识了。
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/NiZjK5.png" />
+我们在使用<code>java -version</code>查看JDK版本的时候，可以看到最后有个<code>mixed mode</code>，这里其实表明的是Java 虚拟机的编译方式，在HotSpot虚拟机中，提供了两种编译模式：解释执行 和 即时编译（JIT，Just-In-Time），即时编译也可以称为编译执行，解释执行即逐条翻译字节码为可运行的机器码，而即时编译则以方法为单位将字节码翻译成机器码。</p>
+<p>我们在反编译Singleton这个类的时候，因为虚拟机使用的是解释执行，这样我们是得不到汇编代码的。在深入理解Java虚拟机一书中介绍可以加上<code>-Xcomp</code>来触发JIT编译，但是我用的是JDK1.8，这个 -Xcomp`已经被移除了，具体哪个版本被移除了，目前我也没仔细研究过了。</p>
+<p>那要怎样才能触发JIT编译呢？答案是循环。通过足够多次数的循环来触发JIT编译。我们需要确保写的Java方法被调用的次数足够多，以触发C1（客户端）编译，并大约10000次触发C2（服务器）编译器并打开高级优化。换句话说，要想查看汇编代码，我们所写的Java源代码文件不能太过于简单，要足够复杂。</p>
+<blockquote>
+<p>注意：C1，C2都是HotSpot虚拟机内置的即时编译器。C1：即Client编译器，面向对启动性能有要求的客户端GUI程序，采用的优化手段比较简单，因此编译的时间较短。C2：即Server编译器，面向对性能峰值有要求的服务端程序，采用的优化手段复杂，因此编译时间长，但是在运行过程中性能更好。</p>
+</blockquote>
+<pre><code class="language-java">public class Singleton {
+    private static Singleton instance;
+
+    public static Singleton getInstance() {
+        if(instance ==null) {
+            synchronized(Singleton.class) {
+                if(instance == null) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static void main(String[] args) {
+        for(int i=0;i&lt;100;i++) {
+            print();
+        }
+    }
+    private static void print() {
+        for(int i =0;i&lt;=1000;i++) {
+            Singleton.getInstance();
+        }
+    }
+}
+</code></pre>
+<p>于是我在代码里加上了两层循环，然后在尝试获取一些汇编代码。</p>
+<p>这次发现终于能得到Singleton相关的汇编代码了。</p>
+<p>于是我们分别编译了两次，第一个是没有使用volatile关键字修饰instance，第二个是使用volatile关键字，然后我们分别取出<code>Singleton::getInstance</code>这一段来进行比较。</p>
+<pre><code class="language-java"> // 未使用volatile修饰
+  0x000000010d29e931: movabs $0x7955f12a8,%rsi  ;   {oop(a 'java/lang/Class' = 'main/Singleton')}
+  0x000000010d29e93b: mov    %rax,%r10
+  0x000000010d29e93e: shr    $0x3,%r10
+  0x000000010d29e942: mov    %r10d,0x68(%rsi)
+  0x000000010d29e946: shr    $0x9,%rsi
+  0x000000010d29e94a: movabs $0xfe403000,%rax
+  0x000000010d29e954: movb   $0x0,(%rsi,%rax,1)  ;*putstatic instance
+                                                ; - main.Singleton::getInstance@24 (line 10)
+</code></pre>
+<pre><code class="language-java">// 使用volatile修饰
+ 0x000000011435394f: movabs $0x7955f12a8,%rsi  ;   {oop(a 'java/lang/Class' = 'main/Singleton')}
+  0x0000000114353959: mov    %rax,%r10
+  0x000000011435395c: shr    $0x3,%r10
+  0x0000000114353960: mov    %r10d,0x68(%rsi)
+  0x0000000114353964: shr    $0x9,%rsi
+  0x0000000114353968: movabs $0x10db6e000,%rax
+  0x0000000114353972: movb   $0x0,(%rsi,%rax,1)
+  0x0000000114353976: lock addl $0x0,(%rsp)     ;*putstatic instance
+                                                ; - main.Singleton::getInstance@24 (line 10)
+</code></pre>
+<p>虽然对于汇编指令了解不多，但还是能从两个对比中看出差异所在。
+很明显，在<code>movb   $0x0,(%rsi,%rax,1)</code> 之后，加了volatile修饰的汇编代码后面多了一条汇编指令<code>lock addl $0x0,(%rsp)</code>，这个操作相当于一个内存屏障，指令重排时不能把后面的指令重排序到内存屏障之前的位置，当只有一个CPU访问内存时，并不需要内存屏障，当如果有两个或多个CPU访问同一块内存，且其中有一个在观测另一个，就需要内存屏障来保证一致性了。<code>lock addl $0x0,(%rsp)</code> 表示把rsp的寄存器的值加0，这显然是一个空操作，关键在于lock前缀。
+<img alt="image" src="https://raw.githubusercontent.com/JasonGaoH/Images/master/L6wWZt.png" />
+查询IA32手册，lock前缀会强制执行原子操作，它的作用是是的本CPU的Cache写入了内存，该写入动作会引起别的CPU无效化其Cache。所有通过这样一个空操作，可让前面volatile变量的便是对其他CPU可见。</p>
+<p>那为什么说它能禁止指令重排呢？从硬件架构上讲，指令重排序是指CPU采用了运行将多条指令不按程序规定的顺序分开发送给各相应的点了单元处理，但并不是指令任意重排，CPU需要能正确处理指令依赖情况以保障程序能得出正确的执行结果。<code>lock addl $0x0,(%rsp)</code> 指令把修改同步到内存时，意味着所有之前的操作都已经执行完成，这样便形成了" 指令重排序无法越过内存屏障"的效果。</p>
+<blockquote>
+<p>总结来说，内存屏障有两个作用：
+先于这个内存屏障的指令必须先执行， 后于这个内存屏障的指令必须后执行。
+如果你的字段是volatile，在读指令前插入读屏障，可以让高速缓存中的数据失效，重新从主内存加载数据。在写指令之后插入写屏障，能让写入缓存的最新数据写回到主内存。</p>
+</blockquote>
+<p>关于volatile关键字的介绍就到这里了，感谢，如果觉得还可以请帮忙点个赞，有问题欢迎留言讨论。</p>
+<p><a href="https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/MultiThread/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90volatile%E5%85%B3%E9%94%AE%E5%AD%97.md">原文链接</a></p>
+<h3 id="_1">参考</h3>
+<p>[深入理解Java虚拟机]
+[Java高并发编程详解]</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>
