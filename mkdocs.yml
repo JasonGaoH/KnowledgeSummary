@@ -1,0 +1,129 @@
+site_name: My Docs
+
+theme: material
+
+nav:
+- Home: index.md
+- Algorighm:
+   - Algorithm/为什么说二分查找的时间复杂度是O(log n).md
+- Android:
+    - Android/Android系统工作机制分析.md
+    - Android/Handler.md
+    - Android/SharedPreference和ContentProvider.md
+    - Android/android启动流程分析.md
+    - Android/为什么RxJava的observeOn不能随便用.md
+    - Android/从源码角度剖析Handler机制.md
+    - Android/深入分析AsyncTask.md
+- Android/Activity:
+    - Android/Activity/Activity泄露发现与诊断.md
+    - Android/Activity/Activity的生命周期和启动模式.md
+- Android/IPC:
+    - Android/IPC/Android中的IPC机制.md
+    - Android/IPC/使用进程完成后台任务.md
+    - Android/IPC/如何判断自己的进程是被Android_low_memory_killer杀死的.md
+- Android/UI:
+    - Android/UI/RecyclerView中出现item重复的问题分析.md
+    - Android/UI/RecyclerView和DiffUtils使用问题.md
+    - Android/UI/RecyclerView缓存.md
+    - Android/UI/仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果.md
+    - Android/UI/解决CoordinatorLayout的动画抖动以及回弹问题.md
+- Android/其他:
+    - Android/其他/APK打包及安装过程.md
+    - Android/其他/Android7.0上的混合编译.md
+    - Android/其他/Android中的事件传递.md
+    - Android/其他/BroadcastReceiver和LocalBroadcastReceiver的区别.md
+    - Android/其他/IntentFilter匹配规则.md
+    - Android/其他/怎么做牛逼的动画.md
+    - Android/其他/插件化-VirtualAPK.md
+    - Android/其他/插件化.md
+    - Android/其他/热修复.md
+    - Android/其他/组件化.md
+    - Android/其他/详解APT.md
+    - Android/其他/通过事务支持加快sqlite数据库批量操作的效率.md
+- Android/图片相关:
+    - Android/图片相关/Best_Practices_for_Using_Alpha.md
+    - Android/图片相关/Bitmap相关文章.md
+    - Android/图片相关/DiskLruCache.md
+    - Android/图片相关/LruCache.md
+    - Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md
+    - Android/图片相关/图像显示原理.md
+- Android/开源库:
+    - Android/开源库/ARouter.md
+    - Android/开源库/ActivityRouter.md
+    - Android/开源库/BlockCanary.md
+    - Android/开源库/EventBus.md
+    - Android/开源库/Fresco.md
+    - Android/开源库/LeakCanary.md
+    - Android/开源库/OKHTTP.md
+    - Android/开源库/Retrofit.md
+    - Android/开源库/RxJava.md
+    - Android/开源库/RxJava相关文章.md
+    - Android/开源库/tinker.md
+Android/面试题收集:
+    - Android/开源库/开源库源码分析系列文章.md
+    - Android/面试题收集/Android中面试题总结.md
+    - Android/面试题收集/Android面试题系列.md
+    - Android/面试题收集/InterView_Backup.md
+    - Android/面试题收集/InterView_Enhance.md
+    - Android/面试题收集/Interview_1.md
+    - Android/面试题收集/Interview_2.md
+DesignPattern:
+    - DesignPattern/尽量不要用实现、继承，请用组合、聚合.md
+    - DesignPattern/设计模式中6大设计原则.md
+JVM:
+    - JVM/1_Java的内存区域.md
+    - JVM/2_JVM的GC和内存分配.md
+    - JVM/3_JVM类加载机制.md
+    - JVM/4_Java内存模型与线程.md
+    - JVM/5_Java线程安全与锁优化.md
+    - JVM/6_JVM程序编译与代码优化.md
+    - JVM/7_JVM类加载器.md
+    - JVM/8_JVM类文件结构.md
+    - JVM/9_JVM字节码执行引擎.md
+    - JVM/深入理解JVM虚拟机读书笔记.md
+Java:
+    - Java/ConcurrentHashMap是如何保证线程安全的.md
+    - Java/Java中一些比较难理解的知识点.md
+    - Java/Java中的泛型.md
+    - Java/Java中的注解.md
+    - Java/Java基础知识总结.md
+    - Java/Java系列集合源码分析.md
+    - Java/从源码角度分析ArrayList和Vector的区别.md
+    - Java/从源码角度解析ArrayList和LinkedList的区别.md
+    - Java/关于HashMap你需要知道的一些细节.md
+    - Java/我画了近百张图来理解红黑树.md
+    - Java/深入解析Sting#intern.md
+Kotlin:
+    - Kotlin/Kotlin中的泛型.md
+MultiThread:
+    - MultiThread/Java中多线程理解系列.md
+    - MultiThread/ReentrantLock.md
+    - MultiThread/ThreadLocal.md
+    - MultiThread/synchronized关键字的原理.md
+    - MultiThread/一次搞懂sleep、wait、yield、join和interrupted线程相关方法.md
+    - MultiThread/从AtomicInteger来看CAS机制.md
+    - MultiThread/使用单一线程维持对象状态的一致性.md
+    - MultiThread/多线程间通信.md
+    - MultiThread/深入解析volatile关键字.md
+    - MultiThread/线程池.md
+    - MultiThread/线程的生命周期详解.md
+Network:
+  - Network/HTTP与HTTPS有什么区别.md
+  - Network/Https.md
+  - Network/TCP.md
+PerformanceOptimization:
+  - PerformanceOptimization/ANR分析.md
+  - PerformanceOptimization/App的性能优化系列文章.md
+  - PerformanceOptimization/Feed流上的优化实践.md
+  - PerformanceOptimization/一种Activity预加载的方法.md
+  - PerformanceOptimization/一种Fragment懒加载的优化策略.md
+  - PerformanceOptimization/内存优化.md
+  - PerformanceOptimization/启动优化.md
+  - PerformanceOptimization/图片优化.md
+  - PerformanceOptimization/在provider初始化的时候如何处理耗时操作.md
+  - PerformanceOptimization/如何优化Activity启动速度.md
+  - PerformanceOptimization/安装包优化.md
+  - PerformanceOptimization/性能分析相关命令和工具介绍.md
+  - PerformanceOptimization/稳定性优化.md
+  - PerformanceOptimization/绘制优化.md
+  - PerformanceOptimization/耗电优化.md
