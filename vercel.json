@@ -1,12 +1,13 @@
 {
-    "build": {
-      "env": {
-        "PIP_CACHE_DIR": ".vercel/cache/pip"
-      },
-      "commands": {
-        "installCommand": "pip install --cache-dir=$PIP_CACHE_DIR -r requirements.txt",
-        "buildCommand": "mkdocs build"
+    "builds": [
+      {
+        "src": "vercel-build.sh",
+        "use": "@vercel/python",
+        "config": {
+          "installCommand": "pip install --cache-dir=$PIP_CACHE_DIR -r requirements.txt",
+          "buildCommand": "mkdocs build"
+        }
       }
-    }
+    ]
   }
   
