@@ -1,6 +1,6 @@
 1. 什么是AsyncTask
 
-==AsyncTask 即 asynchronous task，异步任务==。
+*AsyncTask 即 asynchronous task，异步任务*。
 
 AsyncTask实际上是围绕Thread和Handler设计的一个辅助类，在内部是对Thread和Handler的一种封装。AsyncTask的异步体现在由后台线程进行运算（访问网络等比较耗时的操作），然后将结果发布到用户界面上来更新UI，使用AsyncTask使得我不用操作Thread和Handler。
 

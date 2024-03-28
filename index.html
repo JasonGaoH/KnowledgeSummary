@@ -38,7 +38,7 @@
         noData: '😞 没有结果!'
       },
       count: { // 字数统计插件配置
-        countable: true,
+        countable: false,
         fontsize: '0.9em',
         color: 'rgb(90,90,90)',
         language: 'chinese'
@@ -48,19 +48,7 @@
         nextText: '下一章节',
         crossChapter: true,
       },
-      plugins: [
-        EditOnGithubPlugin.create(
-          'https://github.com/JasonGaoH/KnowledgeSummary/blob/master/',
-          null,
-          function ( file ) {
-            if ( file.indexOf( 'en' ) === -1 ) {
-              return '在 GitHub 上编辑'
-            } else {
-              return 'Edit on Github'
-            }
-          }
-        )
-      ],
+ 
       themeColor: "#42b983", // 暗黑模式主题色
       darklightTheme: {
         siteFont: "PT Sans",

@@ -6,12 +6,12 @@
     - [为什么说二分查找的时间复杂度是O(logn)](/docs/Algorithm/为什么说二分查找的时间复杂度是O(logn).md)
 - Android:
     - [Android系统工作机制分析](/docs/Android/Android系统工作机制分析.md)
-    - [从源码角度剖析Handler机制](Android/从源码角度剖析Handler机制.md)
-    - [深入分析AsyncTask](Android/深入分析AsyncTask.md)
+    - [从源码角度剖析Handler机制](/docs/Android/从源码角度剖析Handler机制.md)
+    - [深入分析AsyncTask](/docs/Android/深入分析AsyncTask.md)
     - [Handler为什么会泄露](/docs/Android/Handler.md)
     - [SharedPreference和ContentProvider](/docs/Android/SharedPreference和ContentProvider.md)
     - [android启动流程分析](/docs/Android/android启动流程分析.md)
-    - [为什么RxJava的observeOn不能随便用](Android/为什么RxJava的observeOn不能随便用.md)
+    - [为什么RxJava的observeOn不能随便用](/docs/Android/为什么RxJava的observeOn不能随便用.md)
 - Activity:
     - [Activity泄露发现与诊断](/docs/Android/Activity/Activity泄露发现与诊断.md)
     - [Activity的生命周期和启动模式](/docs/Android/Activity/Activity的生命周期和启动模式.md)
@@ -90,7 +90,7 @@
     - [从源码角度解析ArrayList和LinkedList的区别](/docs/Java/从源码角度解析ArrayList和LinkedList的区别.md)
     - [关于HashMap你需要知道的一些细节](/docs/Java/关于HashMap你需要知道的一些细节.md)
     - [我画了近百张图来理解红黑树](/docs/Java/我画了近百张图来理解红黑树.md)
-    - [深入解析Sting#intern](/docs/Java/深入解析Sting#intern.md)
+    - [深入解析Sting#intern](/docs/Java/深入解析Sting_intern.md)
 - Kotlin:
     - [Kotlin中的泛型](/docs/Kotlin/Kotlin中的泛型.md)
 - MultiThread:
@@ -118,8 +118,6 @@
     - [启动优化](/docs/PerformanceOptimization/启动优化.md)
     - [图片优化](/docs/PerformanceOptimization/图片优化.md)
     - [在provider初始化的时候如何处理耗时操作](/docs/PerformanceOptimization/在provider初始化的时候如何处理耗时操作.md)
-    - [如何优化Activity启动速度](/docs/PerformanceOptimization/如何优化Activity启动速度.md)
-    - [如何优化Activity启动速度](/docs/PerformanceOptimization/如何优化Activity启动速度.md)
     - [如何优化Activity启动速度](/docs/PerformanceOptimization/如何优化Activity启动速度.md)
     - [稳定性优化](/docs/PerformanceOptimization/稳定性优化.md)
     - [绘制优化](/docs/PerformanceOptimization/绘制优化.md)
