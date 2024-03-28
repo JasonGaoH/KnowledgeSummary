@@ -6,123 +6,121 @@
     - [为什么说二分查找的时间复杂度是O(logn)](/docs/Algorithm/为什么说二分查找的时间复杂度是O(logn).md)
 - Android:
     - [Android系统工作机制分析](/docs/Android/Android系统工作机制分析.md)
-    - Android/Handler.md
-    - Android/SharedPreference和ContentProvider.md
-    - Android/android启动流程分析.md
-    - Android/为什么RxJava的observeOn不能随便用.md
-    - Android/从源码角度剖析Handler机制.md
-    - Android/深入分析AsyncTask.md
-- Android/Activity:
-    - Android/Activity/Activity泄露发现与诊断.md
-    - Android/Activity/Activity的生命周期和启动模式.md
-- Android/IPC:
-    - Android/IPC/Android中的IPC机制.md
-    - Android/IPC/使用进程完成后台任务.md
-    - Android/IPC/如何判断自己的进程是被Android_low_memory_killer杀死的.md
-- Android/UI:
-    - Android/UI/RecyclerView中出现item重复的问题分析.md
-    - Android/UI/RecyclerView和DiffUtils使用问题.md
-    - Android/UI/RecyclerView缓存.md
-    - Android/UI/仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果.md
-    - Android/UI/解决CoordinatorLayout的动画抖动以及回弹问题.md
-- Android/其他:
-    - Android/其他/APK打包及安装过程.md
-    - Android/其他/Android7.0上的混合编译.md
-    - Android/其他/Android中的事件传递.md
-    - Android/其他/BroadcastReceiver和LocalBroadcastReceiver的区别.md
-    - Android/其他/IntentFilter匹配规则.md
-    - Android/其他/怎么做牛逼的动画.md
-    - Android/其他/插件化-VirtualAPK.md
-    - Android/其他/插件化.md
-    - Android/其他/热修复.md
-    - Android/其他/组件化.md
-    - Android/其他/详解APT.md
-    - Android/其他/通过事务支持加快sqlite数据库批量操作的效率.md
-- Android/图片相关:
-    - Android/图片相关/Best_Practices_for_Using_Alpha.md
-    - Android/图片相关/Bitmap相关文章.md
-    - Android/图片相关/DiskLruCache.md
-    - Android/图片相关/LruCache.md
-    - Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md
-    - Android/图片相关/图像显示原理.md
-- Android/开源库:
-    - Android/开源库/ARouter.md
-    - Android/开源库/ActivityRouter.md
-    - Android/开源库/BlockCanary.md
-    - Android/开源库/EventBus.md
-    - Android/开源库/Fresco.md
-    - Android/开源库/LeakCanary.md
-    - Android/开源库/OKHTTP.md
-    - Android/开源库/Retrofit.md
-    - Android/开源库/RxJava.md
-    - Android/开源库/RxJava相关文章.md
-    - Android/开源库/tinker.md
-Android/面试题收集:
-    - Android/开源库/开源库源码分析系列文章.md
-    - Android/面试题收集/Android中面试题总结.md
-    - Android/面试题收集/Android面试题系列.md
-    - Android/面试题收集/InterView_Backup.md
-    - Android/面试题收集/InterView_Enhance.md
-    - Android/面试题收集/Interview_1.md
-    - Android/面试题收集/Interview_2.md
-DesignPattern:
-    - DesignPattern/尽量不要用实现、继承，请用组合、聚合.md
-    - DesignPattern/设计模式中6大设计原则.md
-JVM:
-    - JVM/1_Java的内存区域.md
-    - JVM/2_JVM的GC和内存分配.md
-    - JVM/3_JVM类加载机制.md
-    - JVM/4_Java内存模型与线程.md
-    - JVM/5_Java线程安全与锁优化.md
-    - JVM/6_JVM程序编译与代码优化.md
-    - JVM/7_JVM类加载器.md
-    - JVM/8_JVM类文件结构.md
-    - JVM/9_JVM字节码执行引擎.md
-    - JVM/深入理解JVM虚拟机读书笔记.md
-Java:
-    - Java/ConcurrentHashMap是如何保证线程安全的.md
-    - Java/Java中一些比较难理解的知识点.md
-    - Java/Java中的泛型.md
-    - Java/Java中的注解.md
-    - Java/Java基础知识总结.md
-    - Java/Java系列集合源码分析.md
-    - Java/从源码角度分析ArrayList和Vector的区别.md
-    - Java/从源码角度解析ArrayList和LinkedList的区别.md
-    - Java/关于HashMap你需要知道的一些细节.md
-    - Java/我画了近百张图来理解红黑树.md
-    - Java/深入解析Sting#intern.md
-Kotlin:
-    - Kotlin/Kotlin中的泛型.md
-MultiThread:
-    - MultiThread/Java中多线程理解系列.md
-    - MultiThread/ReentrantLock.md
-    - MultiThread/ThreadLocal.md
-    - MultiThread/synchronized关键字的原理.md
-    - MultiThread/一次搞懂sleep、wait、yield、join和interrupted线程相关方法.md
-    - MultiThread/从AtomicInteger来看CAS机制.md
-    - MultiThread/使用单一线程维持对象状态的一致性.md
-    - MultiThread/多线程间通信.md
-    - MultiThread/深入解析volatile关键字.md
-    - MultiThread/线程池.md
-    - MultiThread/线程的生命周期详解.md
-Network:
-  - Network/HTTP与HTTPS有什么区别.md
-  - Network/Https.md
-  - Network/TCP.md
-PerformanceOptimization:
-  - PerformanceOptimization/ANR分析.md
-  - PerformanceOptimization/App的性能优化系列文章.md
-  - PerformanceOptimization/Feed流上的优化实践.md
-  - PerformanceOptimization/一种Activity预加载的方法.md
-  - PerformanceOptimization/一种Fragment懒加载的优化策略.md
-  - PerformanceOptimization/内存优化.md
-  - PerformanceOptimization/启动优化.md
-  - PerformanceOptimization/图片优化.md
-  - PerformanceOptimization/在provider初始化的时候如何处理耗时操作.md
-  - PerformanceOptimization/如何优化Activity启动速度.md
-  - PerformanceOptimization/安装包优化.md
-  - PerformanceOptimization/性能分析相关命令和工具介绍.md
-  - PerformanceOptimization/稳定性优化.md
-  - PerformanceOptimization/绘制优化.md
-  
-  - PerformanceOptimization/耗电优化.md
+    - [从源码角度剖析Handler机制](Android/从源码角度剖析Handler机制.md)
+    - [深入分析AsyncTask](Android/深入分析AsyncTask.md)
+    - [Handler为什么会泄露](/docs/Android/Handler.md)
+    - [SharedPreference和ContentProvider](/docs/Android/SharedPreference和ContentProvider.md)
+    - [android启动流程分析](/docs/Android/android启动流程分析.md)
+    - [为什么RxJava的observeOn不能随便用](Android/为什么RxJava的observeOn不能随便用.md)
+- Activity:
+    - [Activity泄露发现与诊断](/docs/Android/Activity/Activity泄露发现与诊断.md)
+    - [Activity的生命周期和启动模式](/docs/Android/Activity/Activity的生命周期和启动模式.md)
+- IPC:
+    - [Android中的IPC机制](/docs/Android/IPC/Android中的IPC机制.md)
+    - [使用进程完成后台任务](/docs/Android/IPC/使用进程完成后台任务.md)
+    - [如何判断自己的进程是被Android_low_memory_killer杀死的](/docs/Android/IPC/如何判断自己的进程是被Android_low_memory_killer杀死的.md)
+- UI:
+    - [RecyclerView中出现item重复的问题分析](/docs/Android/UI/RecyclerView中出现item重复的问题分析.md)
+    - [RecyclerView和DiffUtils使用问题](/docs/Android/UI/RecyclerView和DiffUtils使用问题.md)
+    - [RecyclerView缓存](/docs/Android/UI/RecyclerView缓存.md)
+    - [仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果](/docs/Android/UI/仿京东、淘宝首页，通过两层嵌套的RecyclerView实现tab的吸顶效果.md)
+    - [解决CoordinatorLayout的动画抖动以及回弹问题](/docs/Android/UI/解决CoordinatorLayout的动画抖动以及回弹问题.md)
+- 其他:
+    - [APK打包及安装过程](/docs/Android/其他/APK打包及安装过程.md)
+    - [Android7.0上的混合编译](/docs/Android/其他/Android7.0上的混合编译.md)
+    - [Android中的事件传递](/docs/Android/其他/Android中的事件传递.md)
+    - [BroadcastReceiver和LocalBroadcastReceiver的区别](/docs/Android/其他/BroadcastReceiver和LocalBroadcastReceiver的区别.md)
+    - [IntentFilter匹配规则](/docs/Android/其他/IntentFilter匹配规则.md)
+    - [怎么做牛逼的动画](/docs/Android/其他/怎么做牛逼的动画.md)
+    - [插件化-VirtualAPK](/docs/Android/其他/插件化-VirtualAPK.md)
+    - [插件化](/docs/Android/其他/插件化.md)
+    - [热修复](/docs/Android/其他/热修复.md)
+    - [组件化](/docs/Android/其他/组件化.md)
+    - [详解APT](/docs/Android/其他/详解APT.md)
+    - [通过事务支持加快sqlite数据库批量操作的效率](/docs/Android/其他/通过事务支持加快sqlite数据库批量操作的效率.md)
+- 图片相关:
+    - [Best_Practices_for_Using_Alpha](/docs/Android/图片相关/Best_Practices_for_Using_Alpha.md)
+    - [Bitmap相关文章](/docs/Android/图片相关/Bitmap相关文章.md)
+    - [DiskLruCache](/docs/Android/图片相关/DiskLruCache.md)
+    - [LruCache](/docs/Android/图片相关/LruCache.md)
+    - [从assets目录和drawable加载的Bitmap的区别](/docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)
+    - [图像显示原理](/docs/Android/图片相关/图像显示原理.md)
+- 开源库:
+    - [ARouter](/docs/Android/开源库/ARouter.md)
+    - [ActivityRouter](/docs/Android/开源库/ActivityRouter.md)
+    - [ActivityRouter](/docs/Android/开源库/ActivityRouter.md)
+    - [EventBus](/docs/Android/开源库/EventBus.md)
+    - [Fresco](/docs/Android/开源库/Fresco.md)
+    - [LeakCanary](/docs/Android/开源库/LeakCanary.md)
+    - [OKHTTP](/docs/Android/开源库/OKHTTP.md)
+    - [Retrofit](/docs/Android/开源库/Retrofit.md)
+    - [RxJava](/docs/Android/开源库/RxJava.md)
+    - [RxJava相关文章](/docs/Android/开源库/RxJava相关文章.md)
+    - [tinker](/docs/Android/开源库/tinker.md)
+- Android/面试题收集:
+    - [开源库源码分析系列文章](/docs/Android/开源库/开源库源码分析系列文章.md)
+    - [Android中面试题总结](/docs/Android/面试题收集/Android中面试题总结.md)
+    - [Android面试题系列](/docs/Android/面试题收集/Android面试题系列.md)
+    - [InterView_Backup](/docs/Android/面试题收集/InterView_Backup.md)
+    - [InterView_Enhance](/docs/Android/面试题收集/InterView_Enhance.md)
+    - [Interview_1](/docs/Android/面试题收集/Interview_1.md)
+    - [Interview_2](/docs/Android/面试题收集/Interview_2.md)
+- DesignPattern:
+    - [尽量不要用实现、继承，请用组合、聚合](/docs/DesignPattern/尽量不要用实现、继承，请用组合、聚合.md)
+    - [设计模式中6大设计原则](/docs/DesignPattern/设计模式中6大设计原则.md)
+- JVM:
+    - [1_Java的内存区域](/docs/JVM/1_Java的内存区域.md)
+    - [2_JVM的GC和内存分配](/docs/JVM/2_JVM的GC和内存分配.md)
+    - [3_JVM类加载机制](/docs/JVM/3_JVM类加载机制.md)
+    - [4_Java内存模型与线程](/docs/JVM/4_Java内存模型与线程.md)
+    - [5_Java线程安全与锁优化](/docs/JVM/5_Java线程安全与锁优化.md)
+    - [6_JVM程序编译与代码优化](/docs/JVM/6_JVM程序编译与代码优化.md)
+    - [7_JVM类加载器](/docs/JVM/7_JVM类加载器.md)
+    - [8_JVM类文件结构](/docs/JVM/8_JVM类文件结构.md)
+    - [9_JVM字节码执行引擎](/docs/JVM/9_JVM字节码执行引擎.md)
+    - [深入理解JVM虚拟机读书笔记](/docs/JVM/深入理解JVM虚拟机读书笔记.md)
+- Java:
+    - [ConcurrentHashMap是如何保证线程安全的](/docs/Java/ConcurrentHashMap是如何保证线程安全的.md)
+    - [Java中一些比较难理解的知识点](/docs/Java/Java中一些比较难理解的知识点.md)
+    - [Java中的泛型](/docs/Java/Java中的泛型.md)
+    - [Java中的注解](/docs/Java/Java中的注解.md)
+    - [Java基础知识总结](/docs/Java/Java基础知识总结.md)
+    - [Java系列集合源码分析](/docs/Java/Java系列集合源码分析.md)
+    - [从源码角度分析ArrayList和Vector的区别](/docs/Java/从源码角度分析ArrayList和Vector的区别.md)
+    - [从源码角度解析ArrayList和LinkedList的区别](/docs/Java/从源码角度解析ArrayList和LinkedList的区别.md)
+    - [关于HashMap你需要知道的一些细节](/docs/Java/关于HashMap你需要知道的一些细节.md)
+    - [我画了近百张图来理解红黑树](/docs/Java/我画了近百张图来理解红黑树.md)
+    - [深入解析Sting#intern](/docs/Java/深入解析Sting#intern.md)
+- Kotlin:
+    - [Kotlin中的泛型](/docs/Kotlin/Kotlin中的泛型.md)
+- MultiThread:
+    - [Java中多线程理解系列](/docs/MultiThread/Java中多线程理解系列.md)
+    - [Java中多线程理解系列](/docs/MultiThread/Java中多线程理解系列.md)
+    - [Java中多线程理解系列](/docs/MultiThread/Java中多线程理解系列.md)
+    - [一次搞懂sleep、wait、yield、join和interrupted线程相关方法](/docs/MultiThread/一次搞懂sleep、wait、yield、join和interrupted线程相关方法.md)
+    - [从AtomicInteger来看CAS机制](/docs/MultiThread/从AtomicInteger来看CAS机制.md)
+    - [使用单一线程维持对象状态的一致性](/docs/MultiThread/使用单一线程维持对象状态的一致性.md)
+    - [多线程间通信](/docs/MultiThread/多线程间通信.md)
+    - [深入解析volatile关键字](/docs/MultiThread/深入解析volatile关键字.md)
+    - [线程池](/docs/MultiThread/线程池.md)
+    - [线程的生命周期详解](/docs/MultiThread/线程的生命周期详解.md)
+- Network:
+    - [HTTP与HTTPS有什么区别](/docs/Network/HTTP与HTTPS有什么区别.md)
+    - [Https](/docs/Network/Https.md)
+    - [TCP](/docs/Network/TCP.md)
+- PerformanceOptimization:
+    - [ANR分析](/docs/PerformanceOptimization/ANR分析.md)
+    - [App的性能优化系列文章](/docs/PerformanceOptimization/App的性能优化系列文章.md)
+    - [Feed流上的优化实践](/docs/PerformanceOptimization/Feed流上的优化实践.md)
+    - [一种Activity预加载的方法](/docs/PerformanceOptimization/一种Activity预加载的方法.md)
+    - [一种Fragment懒加载的优化策略](/docs/PerformanceOptimization/一种Fragment懒加载的优化策略.md)
+    - [内存优化](/docs/PerformanceOptimization/内存优化.md)
+    - [启动优化](/docs/PerformanceOptimization/启动优化.md)
+    - [图片优化](/docs/PerformanceOptimization/图片优化.md)
+    - [在provider初始化的时候如何处理耗时操作](/docs/PerformanceOptimization/在provider初始化的时候如何处理耗时操作.md)
+    - [如何优化Activity启动速度](/docs/PerformanceOptimization/如何优化Activity启动速度.md)
+    - [如何优化Activity启动速度](/docs/PerformanceOptimization/如何优化Activity启动速度.md)
+    - [如何优化Activity启动速度](/docs/PerformanceOptimization/如何优化Activity启动速度.md)
+    - [稳定性优化](/docs/PerformanceOptimization/稳定性优化.md)
+    - [绘制优化](/docs/PerformanceOptimization/绘制优化.md)
+    - [耗电优化](/docs/PerformanceOptimization/耗电优化.md)

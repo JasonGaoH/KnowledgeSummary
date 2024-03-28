@@ -48,7 +48,7 @@ Android中为什么主线程不会因为Looper.loop()里的死循环卡死？
 
   这个主线程的休眠以及唤醒操作是基于Linux的epoll机制来实现的。
 
-  在MessageQueue.java的next方法中：
+  在MessageQueue.java的next方法中：
 
 ```java
 Message next() 

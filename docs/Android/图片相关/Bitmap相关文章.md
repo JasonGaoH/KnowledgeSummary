@@ -1,1 +1,1 @@
-> [从assets目录和drawable加载的Bitmap的区别](./从assets目录和drawable加载的Bitmap的区别.md)
+> [从assets目录和drawable加载的Bitmap的区别](/docs/Android/图片相关/从assets目录和drawable加载的Bitmap的区别.md)
