@@ -16,59 +16,59 @@
 
 ### Java
 * Java基础
-  * [Java基础知识总结](./Docs/Java/Java基础知识总结.md)
-  * [Java中的集合框架](./Docs/Java/Java中的集合框架.md)
-  * [从源码角度分析ArrayList和Vector的区别](./Docs/Java/从源码角度分析ArrayList和Vector的区别.md)
-  * [从源码角度分析ArrayList和LinkedList的区别](./Docs/Java/从源码角度分析ArrayList和LinkedList的区别.md)
-  * [从源码角度分析HashMap的原理与实现](./Docs/Java/从源码角度分析HashMap的原理与实现.md)
-  * [ConcurrentHashMap](./Docs/Java/ConcurrentHashMap.md) （待整理）
-  * [LinkedHashMap](./Docs/Java/LinkedHashMap.md) （待整理）
-  * [TreeMap](./Docs/Java/TreeMap.md) （待整理）
+  * Java基础知识总结
+  * Java中的集合框架
+  * 从源码角度分析ArrayList和Vector的区别
+  * 从源码角度分析ArrayList和LinkedList的区别
+  * 从源码角度分析HashMap的原理与实现
+  * ConcurrentHashMap
+  * LinkedHashMap
+  * TreeMap
 
 * Java进阶
-  * [Java中的注解](./Docs/Java/Java中的注解.md)
-  * [Java中的ClassLoader机制](./Docs/Java/Java中的ClassLoader机制.md)
+  * Java中的注解
+  * Java中的ClassLoader机制
   * JVM 
   * GC回收策略
   * GC算法
   * 类加载过程
   * 垃圾收集机制 对象创建，新生代与老年代
-  * [可否用try-catch捕获OOM以避免其发生](./Docs/Java/可否用try-catch捕获OOM以避免其发生.md)
+  * 可否用try-catch捕获OOM以避免其发生
   * 内存泄漏场景,如何定位及修复内存泄漏
   * 垃圾回收机制与调用System.gc()区别
   * NIO
-  * [Java四种引用](./Docs/Java//Java四种引用.md)
-  * [JavaPoet的使用指南](./Docs/Java//JavaPoet的使用指南.md)
+  * Java四种引用
+  * JavaPoet的使用指南
 
 
 
 
 ### Android
 * UI
-    * [SurfaceView VS TextureView](./Docs/Android/UI/SurfaceView和TextureView的区别.md)
+    * SurfaceView VS TextureView
     * ConstraintLayout
     * 常用Drawable
     * Drawable VS Bitmap
-    * [CoordinateLayout的原理分析](./Docs/Android/UI/CoordinateLayout的原理分析.md)
+    * CoordinateLayout的原理分析
 
 * Activity和Fragment
-  * [Activity的生命周期和启动模式](./Docs/Android/Activity/Activity的生命周期和启动模式.md)
+  * Activity的生命周期和启动模式
   * 简述Activity启动全部过程
-  * [launchMode](./Docs/Android/其他/launchMode.md)
-  * [Activity调用方式](./Docs/Android/其他/Activity调用方式.md)
-  * [AlertDialog，Toast对Activity生命周期的影响](./Docs/Android/其他/AlertDialog，Toast对Activity生命周期的影响.md)
+  * launchMode
+  * Activity调用方式
+  * AlertDialog，Toast对Activity生命周期的影响
   * Dialog,PopupWindow,Activity区别
   * Activity与Fragment之间生命周期比较
   * 多层Fragment嵌套的时候setUserHint  
   * 下拉状态栏是不是影响activity的生命周期，如果在onStop的时候做了网络请求，onResume的时候怎么恢复  
-  * [Activity之间的通信方式](/Docs/Android/其他/Activity之间的通信方式.md)
-  * [Android里面为什么要设计出Bundle而不是直接用Map结构](https://github.com/android-cn/android-discuss/issues/142)
+  * Activity之间的通信方式
+  * Android里面为什么要设计出Bundle而不是直接用Map结构
   * fragment 各种情况下的生命周期
   * ViewPager使用细节，如何设置成每次只初始化当前的Fragment，其他的不初始化
   * fragment之间传递数据的方式
 
 * Service
-  * [Service的生命周期](./Docs/Android/Service/Service的生命周期.md)
+  * Service的生命周期
   * 怎么启动service，service和activity怎么进行数据交互
   * [如何在后台下载任务, 并在通知栏显示进度](https://juejin.im/post/586072c861ff4b005820901d)
 
@@ -82,9 +82,9 @@
 
 * View
   * WebView优化（包括加载加速）
-  * [View事件传递](./Docs/Android/其他/Android中的事件传递.md)
+  * View事件传递
   * 封装view的时候怎么知道view的大小
-  * [如何计算一个View的层级](./Docs/Android/UI/如何计算一个View的层级.md)
+  * 如何计算一个View的层级
   * RecycleView的使用，原理，RecycleView优化 
   * ListView的优化 
   * LinearLayout、RelativeLayout、FrameLayout的特性、使用场景
@@ -98,23 +98,23 @@
 
 ### 开源库
 
-* [Fresco](./Docs/Android/开源库/Fresco.md)						
-* [Tinker](./Docs/Android/开源库/tinker.md)						
-* [ActivityRouter](./Docs/Android/开源库/ActivityRouter.md)				
-* [ARouter](./Docs/Android/开源库/ARouter.md)					
+* [Fresco]						
+* [Tinker]					
+* [ActivityRouter]
+* [ARouter]				
 * ButterKnife
-* [EventBus](./Docs/Android/开源库/EventBus.md)						
-* [RxJava](./Docs/Android/开源库/RxJava.md)						
+* [EventBus]					
+* [RxJava]					
   * RxJava
   * RxJava的功能与原理实现
   * RxJava简介及其源码解读？
   * RxJava的作用，优缺点
   * RxJava变换操作符map,flatMap,concatMap,buffer
-* [Retrofit](./Docs/Android/开源库/Retrofit.md)						
-* [OKHTTP](./Docs/Android/开源库/OKHTTP.md)						
-* [LeakCanary](./Docs/Android/开源库/LeakCanary.md)					
-* [Atlas](./Docs/Android/开源库/atlast.md)							
-* [BlockCanary](./Docs/Android/开源库/BlockCanary.md)
+* Retrofit
+* [OKHTTP]	
+* [LeakCanary]
+* [Atlas]					
+* [BlockCanary]
 * Glide		
 	* glide 使用什么缓存
 	* Glide 内存缓存如何控制大小
@@ -122,13 +122,13 @@
 
 ### 性能优化
 
-* [绘制优化](./Docs/PerformanceOptimization/绘制优化.md)
-* [启动优化](./Docs/PerformanceOptimization/启动优化.md)	
-* [内存优化](./Docs/PerformanceOptimization/内存优化.md)
-* [稳定性优化](./Docs/PerformanceOptimization/稳定性优化.md)
-* [ANR分析](./Docs/PerformanceOptimization/ANR分析.md)
-* [耗电优化](./Docs/PerformanceOptimization/耗电优化.md)
-* [安装包优化](./Docs/PerformanceOptimization/安装包优化.md)
+* [绘制优化]
+* [启动优化]
+* [内存优化]
+* [稳定性优化]
+* [ANR分析]
+* [耗电优化]
+* [安装包优化]
 
 (待整理)
 * OOM定位及解决方案
@@ -139,30 +139,30 @@
 
 ### 图片相关
 
-* [LruCache](./Docs/Android/图片相关/LruCache.md)
-* [DiskLruCache](./Docs/Android/图片相关/DiskLruCache.md)
+* [LruCache]
+* [DiskLruCache]
 * 图片加载原理
 * 图片裁剪、压缩、旋转、滤镜
 * 如何做图片缓存
 * 如何防止加载大图OOM
-* [图像显示原理](./Docs/Android/图片相关/图像显示原理.md)
-* [Bitmap和Drawable	](./Docs/Android/图片相关/bitmap_vs_drawable.md)
-* [图片加载优化](./Docs/Android/图片相关/图片加载优化.md)
+* [图像显示原理]
+* [Bitmap和Drawable	]
+* [图片加载优化]
 * Bitmap 使用时候注意什么
 * bitmap recycler 相关
 * 图片加载库相关，bitmap如何处理大图，如一张30M的大图，如何预防OOM
 
 ### Android其他
 
-* [Art和Dalvik区别](./Docs/Android/其他/Art和Dalvik区别.md)
-* [详解注解处理器APT技术](./Docs/Android/其他/详解APT.md)
+* [Art和Dalvik区别]
+* [详解注解处理器APT技术]
 * gradle
-* [APK打包及安装过程](./Docs/Android/其他/APK打包及安装过程.md)
+* [APK打包及安装过程]
 * ActicityThread相关
-* [IntentFilter匹配规则](./Docs/Android/其他/IntentFilter匹配规则.md)
-* [插件化](./Docs/Android/其他/插件化.md)
-* [组件化](./Docs/Android/其他/组件化.md)
-* [热修复方案对比](./Docs/Android/其他/热修复.md)
+* [IntentFilter匹配规则]
+* [插件化]
+* [组件化]
+* [热修复方案对比]
 * 埋点框架
 * 画出Android的大体架构图
 * 描述清点击AndroidStudio的build按钮后发生了什么
@@ -175,7 +175,7 @@
 * App启动流程，从点击桌面开始 [link](http://www.androidos.net.cn/doc/day/2018-02-18/15384.md)
 * 为什么不能在子线程更新UI
 * App启动崩溃异常捕捉
-* [数据库如何进行升级,SQLite增删改查的基础sql语句](./Docs/Android/其他/数据库如何进行升级,SQLite增删改查的基础sql语句.md)
+* [数据库如何进行升级,SQLite增删改查的基础sql语句]
 * App中唤醒其他进程的实现方式
 * AndroidManifest的作用与理解
 * Android中开启摄像头的主要步骤
@@ -193,16 +193,16 @@
 
 ### 多线程相关
 
-* [死锁](./Docs/MultiThread/死锁.md)
-* [Android多进程](./Docs/MultiThread/Android多进程.md)
-* [Android进程间通信--Binder	](./Docs/MultiThread/Android进程间通信--Binder.md)
-* [多线程间通信](./Docs/MultiThread/多线程间通信.md)
-* [线程安全](./Docs/MultiThread/线程安全.md)
+* 死锁
+* Android多进程
+* Android进程间通信--Binder
+* 多线程间通信
+* 线程安全
 * Java线程池
 * 多线程池的优化（OKHTTP里面有）
-* [ThreadLocal](./Docs/MultiThread/ThreadLocal.md)
-* [ReentrantLock](./Docs/MultiThread/ReentrantLock.md)
-* [同步相关知识](./Docs/MultiThread/同步相关知识.md)
+* ThreadLocal
+* ReentrantLock
+* 同步相关知识
 * 线程间 操作 List（多线程）
 * synchronized与Lock的区别
 * volatile
@@ -227,7 +227,7 @@
 ### 网络
 * TCP/UDP的区别
 * 数字证书包含的内容
-* [HTTPS](./Docs/Network/HTTPS.md)
+* HTTPS
 * Https请求慢的解决办法，DNS，携带数据，直接访问IP
 * 网络请求缓存处理，okhttp如何处理网络缓存的
 * https相关，如何验证证书的合法性，https中哪里用了对称加密，哪里用了非对称加密，对加密算法（如RSA）等是否有了解
@@ -237,7 +237,7 @@
 
 
 ### 设计模式
-* [代理](./Docs/DesignPattern/代理.md)
+* 代理
 * 责任链（OKHTTP、Android事件分发）
 * 观察者（RxJava）
 * 装饰者（Java I/O Stream）
@@ -257,7 +257,6 @@
 * 判断环（猜测应该是链表环）
 * 链表反转
 * 两个栈组成一个队列
-* [二叉树相关](./Docs/Algorithm/二叉树相关.md)
 * 一个无序，不重复数组，输出N个元素，使得N个元素的和相加为M，给出时间复杂度、空间复杂度。手写算法
 * 合并多个单有序链表（假设都是递增的）
 * 上一问扩展，海量数据，内存中放不下，怎么求出。

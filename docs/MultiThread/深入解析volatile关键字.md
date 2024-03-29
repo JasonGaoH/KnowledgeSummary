@@ -86,9 +86,9 @@ this init_value is updated to 5
 在计算机中，所有的运算操作都是由CPU的寄存器来完成的，CPU指令的执行过程需要涉及数据的读取和写入操作，CPU所能访问的所有数据只能是计算机的主存（通常是指RAM），虽然CPU的发展频率不断得到提升，但受制于制造工艺以及成本的限制，计算机的内存反倒在访问速度上没有多大的突破，因此CPU的处理速度和内存的访问速度之间的差距越拉越大，通常这种差距可以达到上千倍，极端情况下甚至会在上万倍以上。
 
 由于两边速度严重的不对等，通过传统FSB直连内存的访问方式会导致CPU资源受到极大的限制，降低CPU整体的吞吐量，于是就有了CPU和主内存直接增加缓存的设计，现在缓存数量都可以增加到3级了，最靠近CPU的缓存为L1,然后依次是L2,L3和主内存，CPU缓存模型图如下所示：
-![CPU缓存模型图](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/cpu_cache.png)
+![CPU缓存模型图](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/docs/img/cpu_cache.png)
 Cache的出现是为了解决CPU直接访问内存效率低下的问题，程序在运行的过程中，会将运算所需要的数据从主内存复制一份到CPU Cache中，这样CPU计算时就可以直接对CPU Cache中的数据进行读取和写入，当运算结束之后，再将CPU Cache中最新的数据刷新到主内存当中，CPU通过直接访问Cache的方式提到直接访问主内存的方式极大地提高了CPU的吞吐能力，有个CPU Cache之后，整体的CPU和主内存之间的交互的架构大致如下图所示：
-![CPU与主内存交互图](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/cpu_cache_framework.png)
+![CPU与主内存交互图](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/docs/img/cpu_cache_framework.png)
 ### Java内存模型
 由于缓存的出现，极大地提高了CPU的吞吐能力，但是同时也引入了缓存不一致的问题。在多处理器系统中，每个处理器都有自己的的高速缓存，而它们又共享同一主内存，当多个处理器的运算任务都设计到同一块内存区域时，将可能导致各自的缓存数据不一致，这个时候就需要通过`缓存一致性协议`来保证数据的正确性，不同的操作系统使用缓存一致性协议都各不相同。
 
@@ -100,11 +100,11 @@ Java内存模型定义了线程和主内存之间的抽象关系，具体如下�
 - 工作内存值存储该线程对共享变量的副本。
 - 线程不能直接操作主内存，只有先操作了工作内存之后才能写入主内存。
 - 工作内存和Java内存模型一样也是一个抽象的概念，它其实并不存在，它涵盖了缓存、寄存器、编译优化以及硬件等。
-![image](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/java_memory_model.png)
+![image](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/docs/img/java_memory_model.png)
 `Java内存模型`定义了一套主内存和工作内存的交互协议，即一个变量如何从主内存拷贝到工作内存、如何从工作内存同步到主内存之类的实现细节。具体有8种操作来完成，分别为lock、unlock、read、load、use、assign、store和write。除此之外，`Java内存模型`还规定在执行这8种操作的时候必须满足8种规则，由于篇幅问题，这里就不一一列举了，具体可参看深入理解Java虚拟机第12章的Java内存模型与线程。
 
 `Java内存模型`是一个抽象的概念，其与计算机硬件的结构并不完全一样，比如计算机物理内存不会存在栈内存和堆内存的划分，无论是堆内存还是虚拟机栈内存都会对应到物理的主内存，当然也有一部分堆栈内存数据可能会存入CPU Cache寄存器中。具体可参考下图：
-![image](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/Docs/img/cpu_hardware.png)
+![image](https://raw.githubusercontent.com/JasonGaoH/KnowledgeSummary/master/docs/img/cpu_hardware.png)
 ### 对于volatile变量的特殊规则
 介绍了`CPU缓存模型`以及`Java内存模型`之后，我们再来说`volatile关键字`，这样更能加深我们对于`volatile关键字`的理解。
 `volatile关键字`是Java虚拟机提供的最轻量级的同步机制，很多人由于对它理解不够，往往更愿意使用synchronized来做同步。
@@ -385,7 +385,7 @@ public class Singleton {
 
 关于volatile关键字的介绍就到这里了，感谢，如果觉得还可以请帮忙点个赞，有问题欢迎留言讨论。
 
-[原文链接](https://github.com/JasonGaoH/KnowledgeSummary/blob/master/Docs/MultiThread/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90volatile%E5%85%B3%E9%94%AE%E5%AD%97.md)
+[原文链接](https://github.com/JasonGaoH/KnowledgeSummary/blob/master/docs/MultiThread/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90volatile%E5%85%B3%E9%94%AE%E5%AD%97.md)
 ### 参考
 [深入理解Java虚拟机]
 [Java高并发编程详解]
